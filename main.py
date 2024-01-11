@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from youtube_transcript_api import YouTubeTranscriptApi
 
 # Put your personal API key here
-apiKey = '###'
+apiKey = '#####'
 
 # Youtube API object
 youtube = build('youtube', 'v3', developerKey=apiKey)
