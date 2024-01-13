@@ -9,7 +9,7 @@ from googleapiclient.discovery import build
 from youtube_transcript_api import YouTubeTranscriptApi
 
 # Put your personal API key here
-apiKey = '#####'
+apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
 
 # Youtube API object
 youtube = build('youtube', 'v3', developerKey=apiKey)
@@ -43,15 +43,42 @@ if __name__ == '__main__':
     print("--------------")
     print("")
 
-    for i in range(0, 3):
+    for i in range(0, 1):
         video = searchResults[i]
         metadata = video.get("snippet")
 
         print("[" + str(i + 1) + "]")
         print("Video ID: " + str(video.get("id").get("videoId")))
         print("Title: " + str(metadata.get("title")))
-        print("Channel: " + str(metadata.get("channelTitle")))
-        print("Transcript: " + str(YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"))))
-        print("")
+        print("Channel: " + str(metadata.get("channelTitle") + " (" + metadata.get("channelId") + ")"))
+        # print("Description: " + str(metadata.get("description")))
+
+        request = youtube.videos().list(
+            part="snippet",
+            id=video.get("id").get("videoId"),
+            maxResults=1
+        )
+
+        vid_specs = request.execute()
+
+        '''
+        Video Specifics Keys:
+        dict_keys(['kind', 'etag', 'items', 'pageInfo'])
+        '''
+
+        # TODO: Display video description as raw string
+        print("Description" + vid_specs.get("items")[0].get("snippet").get("description"))
+
+        print("Data of Publication: " + metadata.get("publishedAt"))
+
+        '''
+        try:
+            print("Transcript: " + str(YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"))))
+        except:
+            print("Transcript unavailable")
+        finally:
+            print("")
+        # '''
+
 
 
