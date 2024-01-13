@@ -47,29 +47,38 @@ if __name__ == '__main__':
         video = searchResults[i]
         metadata = video.get("snippet")
 
+        print("------------------------------------------------------------------------------")
         print("[" + str(i + 1) + "]")
-        print("Video ID: " + str(video.get("id").get("videoId")))
+        print("Video ID: " + video.get("id").get("videoId"))
         print("Title: " + str(metadata.get("title")))
         print("Channel: " + str(metadata.get("channelTitle") + " (" + metadata.get("channelId") + ")"))
         # print("Description: " + str(metadata.get("description")))
 
         request = youtube.videos().list(
-            part="snippet",
+            part=['snippet, statistics'],
             id=video.get("id").get("videoId"),
             maxResults=1
         )
 
         vid_specs = request.execute()
-
+        print("----------------------------------------\n", vid_specs)
         '''
         Video Specifics Keys:
         dict_keys(['kind', 'etag', 'items', 'pageInfo'])
         '''
 
-        # TODO: Display video description as raw string
-        print("Description" + vid_specs.get("items")[0].get("snippet").get("description"))
+        # TODO: Display video date of publication
+        print("Video Date of Publication: " + metadata.get("publishedAt")[:10])
+        
+        # TODO: Display Total Views, Likes, and Comments count of Video
+        print("Video View Count: " + vid_specs.get("items")[0].get("statistics").get("viewCount"))
+        print("Video Like Count:" + vid_specs.get("items")[0].get("statistics").get("likeCount"))
+        print("Video Comment Count: " + vid_specs.get("items")[0].get("statistics").get("commentCount"))
 
-        print("Data of Publication: " + metadata.get("publishedAt"))
+        # TODO: Display video description as raw string
+        print("------------------Start of Description------------------")
+        print("Description:\n" + vid_specs.get("items")[0].get("snippet").get("description"))
+        print("------------------End of Description------------------")
 
         '''
         try:
@@ -80,5 +89,19 @@ if __name__ == '__main__':
             print("")
         # '''
 
+        #TODO get channel information
+        request = youtube.channels().list(
+            part=['snippet','statistics'],
+            id= metadata.get("channelId"),
+            maxResults=1
+        )
 
+        channel_specs =request.execute()
+
+        # TODO: Display Subscriber count of channel
+        print("Channel Subscriber count: " + channel_specs.get("items")[0].get("statistics").get("subscriberCount"))
+        # TODO: Display total video uploaded of channel
+        print("Channel Total video uploaded: " + channel_specs.get("items")[0].get("statistics").get("videoCount"))
+        # TODO: Display published date of channel
+        print("Channel Date of Publication: " + channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10])
 
