@@ -188,56 +188,30 @@ def scrape():
             channel_specs = request.execute()
 
             # This list will contain data for one record
-            temp_list = []
-
-            # video_id
-            temp_list.append(video.get("id").get("videoId"))
-
-            # video_title
-            temp_list.append(metadata.get("title"))
-
-            # description
-            temp_list.append(repr(vid_specs.get("items")[0].get("snippet").get("description")))
-
-            # video_dop
-            temp_list.append(metadata.get("publishedAt")[:10])
-
-            # view_count
-            temp_list.append(vid_specs.get("items")[0].get("statistics").get("viewCount"))
-
-            # like_count
-            temp_list.append(vid_specs.get("items")[0].get("statistics").get("likeCount"))
-
-            # comment_count
             try:
-                temp_list.append(vid_specs.get("items")[0].get("statistics").get("commentCount"))
+                comment_count = vid_specs.get("items")[0].get("statistics").get("commentCount")
             except:
-                temp_list.append("N/A")
+                comment_count = "N/A"
 
-            '''
-                        columns = ["video_id", "video_title", "description", "video_dop",
-                           "view_count", "like_count", "comment_count",
-                           "channel_id", "channel_title", "channel_dop", "sub_count",
-                           "total_videos"]
-                        '''
+            record = [
+                video.get("id").get("videoId"),  # video_id
+                metadata.get("title"),  # video_title
+                repr(vid_specs.get("items")[0].get("snippet").get("description")),  # description
+                metadata.get("publishedAt")[:10],  # video_dop
+                vid_specs.get("items")[0].get("statistics").get("viewCount"),  # view_count
+                vid_specs.get("items")[0].get("statistics").get("likeCount"),  # like_count
+                comment_count,  # comment_count
+                metadata.get("channelId"),  # channel_id
+                metadata.get("channelTitle"),  # channel_title
+                channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10],  # channel_dop
+                channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
+                channel_specs.get("items")[0].get("statistics").get("videoCount")  # total_videos
+            ]
 
-            # channel_id
-            temp_list.append(metadata.get("channelId"))
+            # Append record to list
+            temp_video_list.append(record)
 
-            # channel_title
-            temp_list.append(metadata.get("channelTitle"))
-
-            # channel_dop
-            temp_list.append(channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10])
-
-            # sub_count
-            temp_list.append(channel_specs.get("items")[0].get("statistics").get("subscriberCount"))
-
-            # total_videos
-            temp_list.append(channel_specs.get("items")[0].get("statistics").get("videoCount"))
-
-            temp_video_list.append(temp_list)
-
+            # Update progress bar
             pbar.update(1)
 
         # Next page, if needed
@@ -249,6 +223,7 @@ def scrape():
             search_response = next_page_request.execute()
             search_results = search_response.get("items")
     pbar.close()
+
     temp_nparray = np.array(temp_video_list)
     # ------------- SCRAPING ------------- #
 
