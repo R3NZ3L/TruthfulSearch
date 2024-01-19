@@ -10,14 +10,22 @@ from youtube_transcript_api import YouTubeTranscriptApi
 
 import pandas as pd
 import numpy as np
+from pprint import pprint
 from math import ceil
 from tqdm import tqdm
 
 # Put your personal API key here
 apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
 
+# Search engine ID
+cseKey = "23c1c70a203ac4852"
+
 # YouTube API object
 youtube = build('youtube', 'v3', developerKey=apiKey)
+
+# Google Custom Search API
+google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
+
 
 
 def search_test():
@@ -125,13 +133,9 @@ def search_test():
             print("")
 
 
-def scrape():
+def scrape(search_query, num_videos, filename):
     # Storing data in a numpy array of lists
     # ------------- SCRAPING ------------- #
-    search_query = input("Search Query: ")
-    num_videos = int(input("Number of Videos: "))
-    filename = input("Filename (.csv): ")
-
     print("")
 
     if num_videos < 50:
@@ -144,7 +148,6 @@ def scrape():
         q=search_query,
         type="video",
         maxResults=50,
-        order="relevance",
         regionCode="PH"
     )
 
@@ -236,9 +239,37 @@ def scrape():
     print("Complete.")
 
 
+def google_search():
+    query = input("Search query: ")
+
+    response = google_resource.list(
+        q=query,
+        cx=cseKey
+    ).execute()
+
+    pprint(response)
+
+
 if __name__ == '__main__':
-    # Search test (uncomment line below to test search)
-    # search_test()
+    # '''
+    search_query = input("Search Query: ")
+    num_videos = int(input("Number of Videos: "))
+    filename = input("Filename (.csv): ")
 
     # Making a dataset
-    scrape()
+    scrape(search_query, num_videos, filename)
+    # '''
+
+    '''
+    NOTE:
+        Each record in a video dataset needs to query for these things:
+        - LinkedIn
+        - Wiki/Wikipedia
+        - Other profiles (query <channel name> profile, view top 5 results)
+        - Website (maybe find websites with ".org" or ".com" ONLY?)
+        - Social Media Presence (either view top 5 results or look for a
+            specific domain like twitter.com or facebook.com)
+        
+        In searching for specific domains like LinkedIn and
+        Wikipedia, we may need to use RegEx across the Google search results
+    '''
