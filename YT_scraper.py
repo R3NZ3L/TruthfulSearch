@@ -192,9 +192,9 @@ def scrape(search_query, num_videos, filename):
 
             # This list will contain data for one record
             try:
-                comment_count = vid_specs.get("items")[0].get("statistics").get("commentCount")
+                comment_count = int(vid_specs.get("items")[0].get("statistics").get("commentCount"))
             except:
-                comment_count = "N/A"
+                comment_count = 0
 
             record = [
                 video.get("id").get("videoId"),  # video_id
@@ -235,6 +235,7 @@ def scrape(search_query, num_videos, filename):
     df = pd.DataFrame(temp_nparray, columns=columns)
 
     # Saving to a .csv file
+    print("Saving as " + filename + ".csv...")
     df.to_csv("datasets/" + filename + ".csv")
     print("Complete.")
 
