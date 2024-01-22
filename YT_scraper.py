@@ -10,7 +10,6 @@ from youtube_transcript_api import YouTubeTranscriptApi
 
 import pandas as pd
 import numpy as np
-from pprint import pprint
 from math import ceil
 from tqdm import tqdm
 
@@ -133,7 +132,7 @@ def search_test():
             print("")
 
 
-def scrape(search_query, num_videos, filename):
+def yt_scrape(search_query, num_videos, filename):
     # Storing data in a numpy array of lists
     # ------------- SCRAPING ------------- #
     print("")
@@ -240,25 +239,61 @@ def scrape(search_query, num_videos, filename):
     print("Complete.")
 
 
-def google_search():
+def get_ranking(filename):
+    # ------------- LOADING -------------- #
+    path = "datasets/" + filename + ".csv"
+    df = pd.read_csv(path)
+    channel_list = df["channel_title"].unique()
+    query_tail = [
+        " LinkedIn",
+        " Wiki",
+        " Official Website",
+        " Profiles",
+        " Social Media"
+    ]
+    # -------------- LOADING -------------- #
+
+    # ------------- SEARCHING ------------- #
+    '''
     query = input("Search query: ")
 
+    # Note: Max number of results for each response is 10
+    # - This is ok, since the most relevant searches are most often the
+    #   first 10 results in Google
     response = google_resource.list(
         q=query,
         cx=cseKey
     ).execute()
+    '''
+    temp_list = []
+    columns = ["video_id", "video_title", "channel_id", "channel_title",
+               "profiles", "websites", "social_media_presence",
+               "view_count", "like_count", "comment_count"]
 
-    pprint(response)
+    # pbar = tqdm(total=channel_list.size)
+    # pbar.set_description("Verifying channels...")
+
+    # Per channel name
+    # for i in range(0, channel_list.size):
+    for i in range(0, 1):
+
+        # Per query type
+        for j in range(0, len(query_tail)):
+            query = channel_list[i] + query_tail[j]
+            print(query)
+
+    # pbar.close
+    # ------------- SEARCHING ------------- #
 
 
 if __name__ == '__main__':
-    # '''
+    '''
     search_query = input("Search Query: ")
     num_videos = int(input("Number of Videos: "))
     filename = input("Filename (.csv): ")
 
     # Making a dataset
-    scrape(search_query, num_videos, filename)
+    yt_scrape(search_query, num_videos, filename)
     # '''
 
     '''
@@ -274,3 +309,8 @@ if __name__ == '__main__':
         In searching for specific domains like LinkedIn and
         Wikipedia, we may need to use RegEx across the Google search results
     '''
+    filename = "covid_philippines"
+
+    get_ranking(filename)
+
+
