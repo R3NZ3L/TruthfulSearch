@@ -142,6 +142,7 @@ def yt_scrape(search_query, num_videos, filename):
     else:
         num_pages = ceil(num_videos / 50)
 
+    # Order by RELEVANCE or DATE can be done; check documentation for search().list()
     search_request = youtube.search().list(
         part="snippet",
         q=search_query,
@@ -162,6 +163,7 @@ def yt_scrape(search_query, num_videos, filename):
     pbar = tqdm(total=num_videos)
     pbar.set_description("Scraping...")
     for n in range(0, num_pages):
+        j = 0
         if num_videos > 50:
             num_videos -= 50
             j = 50
@@ -287,7 +289,7 @@ def get_ranking(filename):
 
 
 if __name__ == '__main__':
-    '''
+    # '''
     search_query = input("Search Query: ")
     num_videos = int(input("Number of Videos: "))
     filename = input("Filename (.csv): ")
@@ -309,8 +311,11 @@ if __name__ == '__main__':
         In searching for specific domains like LinkedIn and
         Wikipedia, we may need to use RegEx across the Google search results
     '''
-    filename = "covid_philippines"
 
+    '''
+    filename = "covid_philippines"
     get_ranking(filename)
+    '''
+
 
 
