@@ -12,6 +12,8 @@ import pandas as pd
 import numpy as np
 from math import ceil
 from tqdm import tqdm
+import os
+from time import sleep
 
 # Put your personal API key here
 apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
@@ -237,85 +239,81 @@ def yt_scrape(search_query, num_videos, filename):
 
     # Saving to a .csv file
     print("Saving as " + filename + ".csv...")
-    df.to_csv("datasets/" + filename + ".csv")
-    print("Complete.")
+    path = os.getcwd() + "/datasets/" + filename
+
+    try:
+        os.makedirs(path)
+    except FileExistsError:
+        pass
+    finally:
+        os.chdir(path)
+
+    df.to_csv(filename + ".csv")
+    print("Saved @ " + os.getcwd())
+    os.chdir("..")
+    os.chdir("..")
 
 
-def get_ranking(filename):
-    # ------------- LOADING -------------- #
-    path = "datasets/" + filename + ".csv"
-    df = pd.read_csv(path)
-    channel_list = df["channel_title"].unique()
-    query_tail = [
-        " LinkedIn",
-        " Wiki",
-        " Official Website",
-        " Profiles",
-        " Social Media"
-    ]
-    # -------------- LOADING -------------- #
+def find_sources(df):
+    pass
 
+
+def get_vs(df):
+    pass
+
+
+def get_ranking(df):
     # ------------- SEARCHING ------------- #
-    '''
-    query = input("Search query: ")
-
-    # Note: Max number of results for each response is 10
-    # - This is ok, since the most relevant searches are most often the
-    #   first 10 results in Google
-    response = google_resource.list(
-        q=query,
-        cx=cseKey
-    ).execute()
-    '''
-    temp_list = []
-    columns = ["video_id", "video_title", "channel_id", "channel_title",
-               "profiles", "websites", "social_media_presence",
-               "view_count", "like_count", "comment_count"]
-
-    # pbar = tqdm(total=channel_list.size)
-    # pbar.set_description("Verifying channels...")
-
-    # Per channel name
-    # for i in range(0, channel_list.size):
-    for i in range(0, 1):
-
-        # Per query type
-        for j in range(0, len(query_tail)):
-            query = channel_list[i] + query_tail[j]
-            print(query)
-
-    # pbar.close
+    pass
     # ------------- SEARCHING ------------- #
+
 
 
 if __name__ == '__main__':
-    # '''
-    search_query = input("Search Query: ")
-    num_videos = int(input("Number of Videos: "))
-    filename = input("Filename (.csv): ")
+    cont = True
 
-    # Making a dataset
-    yt_scrape(search_query, num_videos, filename)
-    # '''
+    while cont:
+        print("Working @ " + os.getcwd())
+        print("     [1] Scrape videos from YouTube")
+        print("     [2] Compute rankings and scores")
+        print("     [3] End program")
+        choice = int(input("Input: "))
+        print("----")
 
-    '''
-    NOTE:
-        Each record in a video dataset needs to query for these things:
-        - LinkedIn
-        - Wiki/Wikipedia
-        - Other profiles (query <channel name> profile, view top 5 results)
-        - Website (maybe find websites with ".org" or ".com" ONLY?)
-        - Social Media Presence (either view top 5 results or look for a
-            specific domain like twitter.com or facebook.com)
-        
-        In searching for specific domains like LinkedIn and
-        Wikipedia, we may need to use RegEx across the Google search results
-    '''
+        if choice == 1:
+            search_query = input("Search Query: ")
+            num_videos = int(input("Number of Videos: "))
+            filename = input("Filename (w/o .csv): ")
 
-    '''
-    filename = "covid_philippines"
-    get_ranking(filename)
-    '''
+            # Making a dataset
+            yt_scrape(search_query, num_videos, filename)
+
+        elif choice == 2:
+            filename = input("Enter dataset filename (w/o .csv): ")
+
+            try:
+                # Change directory to specific folder
+                os.chdir(os.getcwd() + "/datasets/" + filename)
+
+                print("Working @ " + os.getcwd())
+
+                # Return to main folder
+                os.chdir("..")
+                os.chdir("..")
+
+            except FileNotFoundError:
+                print("Directory does not exist")
+
+        elif choice == 3:
+            cont = False
+            print("")
+            print("Ending program...")
+
+        print("---")
+        print("")
+        sleep(1)
+
+
 
 
 
