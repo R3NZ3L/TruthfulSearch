@@ -14,6 +14,8 @@ from math import ceil
 from tqdm import tqdm
 import os
 from time import sleep
+from jellyfish import jaro_similarity
+import regex as re
 
 # Put your personal API key here
 apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
@@ -254,7 +256,229 @@ def yt_scrape(search_query, num_videos, filename):
     os.chdir("..")
 
 
-def find_sources(df):
+# Functions
+def find_linkedIn(channel_name, query):
+    li_response = google_resource.list(
+        q=query,
+        cx=cseKey
+    ).execute()
+
+    found = False
+    pattern = r'https:\/\/www\.linkedin\.com\/(company|in)\/.+'  # Used to find specific profile links
+
+    for i in range(0, 10):
+        link = li_response.get("items")[i].get("formattedUrl")
+        if re.search(pattern, link) is not None:
+            # Get profile name from search result
+            match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("htmlTitle"))
+            if match is not None:
+                profile_name = match.group()
+
+                # Get similarity between found profile name and channel name
+                # This is to prevent false positives in finding a LinkedIn profile
+                similarity = round(jaro_similarity(channel_name.lower(), profile_name.lower()), 2)
+
+                # If n% similar, consider LinkedIn profile as found
+                if similarity >= 0.80:
+                    found = True
+                    break
+
+    if not found:
+        return found, None
+    else:
+        return found, link
+
+
+def find_wiki(channel_name, query):
+    wiki_response = google_resource.list(
+        q=query,
+        cx=cseKey
+    ).execute()
+
+    found = False
+    pattern = r'https:\/\/\w{2}.wikipedia\.org\/wiki\/.+'
+
+    for i in range(0, 10):
+        link = wiki_response.get("items")[i].get("formattedUrl")
+        if re.search(pattern, link) is not None:
+            # Get Wiki page name from search result
+            title = wiki_response.get("items")[i].get("title")
+            match = re.search(r'.+(?=\s-\sWikipedia)', title)
+            if match is not None:
+                page_name = match.group()
+
+                # Get similarity between found Wiki page name and channel name
+                # This is to prevent false positives in finding a Wiki page
+                similarity = round(jaro_similarity(channel_name.lower(), page_name.lower()), 2)
+
+                # If n% similar, consider Wiki page as found
+                if similarity >= 0.80:
+                    found = True
+                    break
+
+    if not found:
+        return found, None
+    else:
+        return found, link
+
+
+def find_website(channel_name, query):
+    website_response = google_resource.list(
+        q=query,
+        cx=cseKey
+    ).execute()
+
+    found = False
+    # RegEx to exclude YouTube, LinkedIn, and Wikipedia pages
+    pattern = r'https\:\/\/(\w{2}.wikipedia\.org\/wiki\/.+|www\.(youtube\.com.+|linkedin\.com.+))'
+
+    for i in range(0, 10):
+        title = website_response.get("items")[i].get("title")
+        link = website_response.get("items")[i].get("link")
+        if channel_name.lower() in title.lower():
+            if re.search(pattern, link) is None:
+                # The first result among the filtered at this point is MOST LIKELY the official website
+                found = True
+                break
+
+    if not found:
+        return found, None
+    else:
+        return found, link
+
+
+def find_fb(channel_name, query):
+    fb_response = google_resource.list(
+        q=query,
+        cx=cseKey
+    ).execute()
+
+    found = False
+    pattern = r'^https\:\/\/www\.facebook\.com\/.+\/'
+
+    for i in range(0, 10):
+        link = fb_response.get("items")[i].get("formattedUrl")
+        if re.search(pattern, link) is not None:
+            title = fb_response.get("items")[i].get("title")
+            similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+
+            if similarity >= 0.80:
+                found = True
+                break
+
+    if not found:
+        return found, None
+    else:
+        return found, link
+
+
+def find_twitter(channel_name, query):
+    twitter_response = google_resource.list(
+        q=query,
+        cx=cseKey
+    ).execute()
+
+    found = False
+    pattern = r'https\:\/\/(twitter|x)\.com\/.+'
+
+    for i in range(0, 10):
+        link = twitter_response.get("items")[i].get("formattedUrl")
+        if re.search(pattern, link) is not None:
+            title = twitter_response.get("items")[i].get("title")
+            similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+
+            if similarity >= 0.80:
+                found = True
+                break
+
+    if not found:
+        return found, None
+    else:
+        return found, link
+
+
+def find_sources(channel_names, channel_IDs):
+    pbar = tqdm(total=len(channel_names))
+    pbar.set_description("Finding sources...")
+
+    temp_list = []
+    columns = [
+        "channel_id", "channel_title",
+        "profiles", "website", "social_media_presence",
+        "vs"
+    ]
+
+    query_tail = [
+        " LinkedIn",
+        " Wiki",
+        " Official Website",
+        " Facebook",
+        " Twitter"
+    ]
+
+    for channel_name in channel_names:
+
+        linkedIn_found = find_linkedIn(channel_name, channel_name + query_tail[0])
+        wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
+        site_found = find_website(channel_name, channel_name + query_tail[2])
+        fb_found = find_fb(channel_name, channel_name + query_tail[3])
+        twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
+
+        profiles = 0
+        website = 0
+        social_media_presence = 0
+
+        if linkedIn_found[0] and wiki_found[0]:
+            profile = 3
+        elif linkedIn_found[0] and not wiki_found[0]:
+            profile = 2
+        elif not linkedIn_found[0] and wiki_found[0]:
+            profile = 1
+
+        if site_found[0]:
+            website = 2
+
+        if fb_found[0] or twitter_found[0]:
+            social_media_presence = 1
+
+        # '''
+        record = [
+            channel_name,  # channel_id
+            channel_IDs.get(channel_name),  # channel_title
+            profiles,  # profiles
+            website,  # website
+            social_media_presence,  # social_media_presence
+            np.nan  # vs
+        ]
+
+        temp_list.append(record)
+
+        # '''
+
+        ''' For testing
+        print(f"--- {channel_name} ---")
+        print("PROFILES")
+        print(f"LinkedIn: {linkedIn_found[1]}")
+        print(f"Wiki: {wiki_found[1]}")
+        print("")
+
+        print("WEBSITE")
+        print(f"Official Website: {site_found[1]}")
+        print("")
+
+        print("SOCIAL MEDIA PRESENCE")
+        if fb_found[0]:
+            print(f"Facebook: {fb_found[1]}")
+
+        if twitter_found[0]:
+            print(f"Twitter: {twitter_found[1]}")
+        print("")
+        # '''
+
+        pbar.update(1)
+    pbar.close()
+
+    # TODO: Convert temp_list into DataFrame after loop
     pass
 
 
@@ -275,8 +499,9 @@ if __name__ == '__main__':
     while cont:
         print("Working @ " + os.getcwd())
         print("     [1] Scrape videos from YouTube")
-        print("     [2] Compute rankings and scores")
-        print("     [3] End program")
+        print("     [2] Find external sources")
+        print("     [3] Compute rankings and scores")
+        print("     [4] End program")
         choice = int(input("Input: "))
         print("----")
 
@@ -289,6 +514,30 @@ if __name__ == '__main__':
             yt_scrape(search_query, num_videos, filename)
 
         elif choice == 2:
+            filename = input("Filename (w/o .csv): ")
+
+            try:
+                # Change directory to specific folder
+                os.chdir(os.getcwd() + "/datasets/" + filename)
+
+                print("Working @ " + os.getcwd())
+
+                df = pd.read_csv(filename + ".csv")
+                print(f"File {filename} found.")
+
+                channel_names = df["channel_title"].unique()
+                channel_IDs = df[["channel_id", "channel_title"]].groupby("channel_title").first().to_dict().get("channel_id")
+
+                find_sources(channel_names[0:5], channel_IDs)
+
+                # Return to main folder
+                os.chdir("..")
+                os.chdir("..")
+
+            except FileNotFoundError:
+                print("File does not exist")
+
+        elif choice == 3:
             filename = input("Enter dataset filename (w/o .csv): ")
 
             try:
@@ -302,9 +551,9 @@ if __name__ == '__main__':
                 os.chdir("..")
 
             except FileNotFoundError:
-                print("Directory does not exist")
+                print("File does not exist")
 
-        elif choice == 3:
+        elif choice == 4:
             cont = False
             print("")
             print("Ending program...")
