@@ -18,6 +18,11 @@ function Card() {
                 <p className="title">Title</p>
                 <p className="view_count">View count<span className="upload_date">Upload Date</span></p>
                 <div className="channel_info">
+                    <div className='channel_image_wrapper'>
+                        <div className='channel_image'>
+                            <img src={random_thumbnail} />
+                        </div>
+                    </div>
                     Channel name 
                     <span className="score" onMouseOver={() => setVisibleModal(true)} onMouseLeave={() => setVisibleModal(false)}>
                         59%
@@ -27,6 +32,7 @@ function Card() {
                                 <p>&#x2022; Has a LinkedIn page</p>
                                 <p>&#x2022; Has a Wikipedia page</p>
                                 <p>&#x2022; Has a Facebook page</p>
+                                <button className="more_info">&#9432; <span className='more_info_text'>Learn More</span></button>
                             </span>
                         }
                     </span>
@@ -34,8 +40,6 @@ function Card() {
                 <p className="description">Trimmed Description</p>
             </div>
         </div>
-
-        
         </>
     )
 }

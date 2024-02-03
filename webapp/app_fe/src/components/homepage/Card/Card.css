@@ -1,9 +1,17 @@
 .card {
+    /*
     display: grid;
     grid-template-columns: 20% 80%;
     grid-column-gap: 1em;
     grid-row-gap: 1em;
+    */
     margin: 1.5em 0 1.5em 0;
+
+    /*new*/
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
 }
 
 .card img {
@@ -11,6 +19,24 @@
     height: 100%;
     object-fit: cover;
     border-radius: 5%;
+
+    /*new*/
+    margin-right: 16px;
+    max-width: 360px;
+    min-width: 240px;
+    border-radius: 12px;
+    /*
+    flex: 1;
+    flex-basis: 0.000000001px;
+    */
+}
+
+.card .metadata {
+    max-width: 600px;
+    min-width: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .card .title {
@@ -26,6 +52,25 @@
     line-height: 1.8rem;
     font-weight: 400;
     color: gray;
+
+    /*new*/
+    padding: 12px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/*new*/
+.card .channel_image_wrapper {
+    padding-right: 8px;
+}
+
+/*new*/
+.card .channel_image_wrapper .channel_image {
+    border-radius: 50%;
+    overflow: hidden;
+    height: 32px;
+    width: 32px;
 }
 
 .card .description {
@@ -35,6 +80,9 @@
 .card .score {
     background-color: red;
     color: white;
+    margin-left: 10px;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .card .channel_info_modal {
@@ -43,6 +91,23 @@
     transition: 750ms all;
     color: white;
     background: gray;
+
+    /*new*/
+    padding: 10px;
+}
+
+/*new*/
+.card .more_info {
+    background-color: #ADD8E6;
+    border-radius: 100px;
+    border: none;
+    color: #FFFFFF;
+    float: right;
+    font-weight: bold;
+}
+
+.card .more_info_text {
+    text-decoration: underline;
 }
 
 .card p {
@@ -64,3 +129,7 @@
     }
 }
 
+.renderer {
+    position: relative;
+    display: block;
+}
