@@ -1,0 +1,66 @@
+.card {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-column-gap: 1em;
+    grid-row-gap: 1em;
+    margin: 1.5em 0 1.5em 0;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5%;
+}
+
+.card .title {
+    font-family: "Roboto","Arial",sans-serif;
+    font-size: 1.8rem;
+    line-height: 2.6rem;
+    font-weight: 400;
+}
+
+.card .view_count,.channel_info, .description {
+    font-family: "Roboto","Arial",sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8rem;
+    font-weight: 400;
+    color: gray;
+}
+
+.card .description {
+    overflow: hidden;
+}
+
+.card .score {
+    background-color: red;
+    color: white;
+}
+
+.card .channel_info_modal {
+    position: absolute;
+    z-index: 999;
+    transition: 750ms all;
+    color: white;
+    background: gray;
+}
+
+.card p {
+    margin: 0;
+}
+
+.card .upload_date::before {
+    content: "•";
+    margin: 0 4px;
+}
+
+@media (max-width: 575.98px) {
+    .card {
+        grid-template-columns: 1fr;
+    }
+
+    .card .description {
+        display: none;
+    }
+}
+
