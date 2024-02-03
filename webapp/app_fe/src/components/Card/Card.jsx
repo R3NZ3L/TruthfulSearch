@@ -1,5 +1,4 @@
-import random_thumbnail from '../../../assets/random_thumbnail.jpg'
-// import profilepicture from '../../../assets/profilepicture.png'
+import random_thumbnail from '../../assets/random_thumbnail.jpg'
 import {useState} from 'react';
 import './Card.css'
 

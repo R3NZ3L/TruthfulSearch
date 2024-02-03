@@ -1,13 +1,11 @@
 import './App.css'
-import Card from './components/homepage/Card/Card.jsx'
+
+import HomePage from './components/HomePage/HomePage.jsx'
 
 function App() {
   return (  
     <>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <HomePage />
     </>
   )
 }
