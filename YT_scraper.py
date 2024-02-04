@@ -270,7 +270,7 @@ def find_linkedIn(channel_name, query):
         link = li_response.get("items")[i].get("formattedUrl")
         if re.search(pattern, link) is not None:
             # Get profile name from search result
-            match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("htmlTitle"))
+            match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("title"))
             if match is not None:
                 profile_name = match.group()
 
@@ -401,11 +401,18 @@ def find_sources(channel_names, channel_IDs):
     pbar = tqdm(total=len(channel_names))
     pbar.set_description("Finding sources...")
 
-    temp_list = []
-    columns = [
+    source_scores = []
+    ss_cols = [
         "channel_id", "channel_title",
         "profiles", "website", "social_media_presence",
         "vs"
+    ]
+
+    source_links = []
+    sl_cols = [
+        "channel_id", "channel_title",
+        "LinkedIn", "Wiki", "Website",
+        "Twitter", "Facebook"
     ]
 
     query_tail = [
@@ -429,11 +436,11 @@ def find_sources(channel_names, channel_IDs):
         social_media_presence = 0
 
         if linkedIn_found[0] and wiki_found[0]:
-            profile = 3
+            profiles = 3
         elif linkedIn_found[0] and not wiki_found[0]:
-            profile = 2
+            profiles = 2
         elif not linkedIn_found[0] and wiki_found[0]:
-            profile = 1
+            profiles = 1
 
         if site_found[0]:
             website = 2
@@ -441,45 +448,51 @@ def find_sources(channel_names, channel_IDs):
         if fb_found[0] or twitter_found[0]:
             social_media_presence = 1
 
-        # '''
-        record = [
-            channel_name,  # channel_id
-            channel_IDs.get(channel_name),  # channel_title
+        # Source scores ---
+        ss_record = [
+            channel_IDs.get(channel_name),  # channel_id
+            channel_name,  # channel_title
             profiles,  # profiles
             website,  # website
             social_media_presence,  # social_media_presence
             np.nan  # vs
         ]
+        source_scores.append(ss_record)
+        # -----------------
 
-        temp_list.append(record)
+        # Source links ---
+        fb_link = None
+        twitter_link = None
 
-        # '''
-
-        ''' For testing
-        print(f"--- {channel_name} ---")
-        print("PROFILES")
-        print(f"LinkedIn: {linkedIn_found[1]}")
-        print(f"Wiki: {wiki_found[1]}")
-        print("")
-
-        print("WEBSITE")
-        print(f"Official Website: {site_found[1]}")
-        print("")
-
-        print("SOCIAL MEDIA PRESENCE")
         if fb_found[0]:
-            print(f"Facebook: {fb_found[1]}")
+            fb_link = fb_found[1]
 
         if twitter_found[0]:
-            print(f"Twitter: {twitter_found[1]}")
-        print("")
-        # '''
+            twitter_link = twitter_found[1]
 
+        sl_record = [
+            channel_IDs.get(channel_name),
+            channel_name,
+            linkedIn_found[1],
+            wiki_found[1],
+            site_found[1],
+            twitter_link,
+            fb_link
+        ]
+        source_links.append(sl_record)
+        # -----------------
         pbar.update(1)
     pbar.close()
 
-    # TODO: Convert temp_list into DataFrame after loop
-    pass
+
+    ss_nparray = np.array(source_scores)
+    sl_nparray = np.array(source_links)
+
+    ss_df = pd.DataFrame(ss_nparray, columns=ss_cols)
+    sl_df = pd.DataFrame(sl_nparray, columns=sl_cols)
+
+    ss_df.to_csv("source_scores.csv")
+    sl_df.to_csv("source_links.csv")
 
 
 def get_vs(df):
@@ -528,7 +541,7 @@ if __name__ == '__main__':
                 channel_names = df["channel_title"].unique()
                 channel_IDs = df[["channel_id", "channel_title"]].groupby("channel_title").first().to_dict().get("channel_id")
 
-                find_sources(channel_names[0:5], channel_IDs)
+                find_sources(channel_names[0:12], channel_IDs)
 
                 # Return to main folder
                 os.chdir("..")
