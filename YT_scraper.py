@@ -495,6 +495,8 @@ def find_sources(channel_names, channel_IDs):
     ss_df.to_csv("source_scores.csv")
     sl_df.to_csv("source_links.csv")
 
+    print("Complete.")
+
 
 def topsis(scores, weights):
     wndm = {}
@@ -539,13 +541,13 @@ def topsis(scores, weights):
             temp_num += (wndm_df.iloc[i][column] - ideal_worst[column]) ** 2
         dist_from_worst.append(sqrt(temp_num))
 
-    vs = []
+    performance_rank = []
     for i in range(0, wndm_df.shape[0]):
-        vs.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
+        performance_rank.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
 
-    vs = pd.Series(np.array(vs))
+    performance_rank = pd.Series(np.array(performance_rank))
 
-    return vs
+    return performance_rank
 
 
 
@@ -615,6 +617,8 @@ if __name__ == '__main__':
                 ss_df["vs"] = topsis(ss_df, weights)
                 ss_df.to_csv("source_scores.csv")
 
+                print("Complete.")
+
                 # Return to main folder
                 os.chdir("..")
                 os.chdir("..")
@@ -624,7 +628,6 @@ if __name__ == '__main__':
 
         elif choice == 4:
             cont = False
-            print("")
             print("Ending program...")
 
         print("---")
