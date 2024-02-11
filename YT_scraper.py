@@ -11,6 +11,7 @@ from youtube_transcript_api import YouTubeTranscriptApi
 import pandas as pd
 import numpy as np
 from math import ceil
+from math import sqrt
 from tqdm import tqdm
 import os
 from time import sleep
@@ -270,7 +271,7 @@ def find_linkedIn(channel_name, query):
         link = li_response.get("items")[i].get("formattedUrl")
         if re.search(pattern, link) is not None:
             # Get profile name from search result
-            match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("htmlTitle"))
+            match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("title"))
             if match is not None:
                 profile_name = match.group()
 
@@ -401,11 +402,18 @@ def find_sources(channel_names, channel_IDs):
     pbar = tqdm(total=len(channel_names))
     pbar.set_description("Finding sources...")
 
-    temp_list = []
-    columns = [
+    source_scores = []
+    ss_cols = [
         "channel_id", "channel_title",
         "profiles", "website", "social_media_presence",
         "vs"
+    ]
+
+    source_links = []
+    sl_cols = [
+        "channel_id", "channel_title",
+        "LinkedIn", "Wiki", "Website",
+        "Twitter", "Facebook"
     ]
 
     query_tail = [
@@ -429,11 +437,11 @@ def find_sources(channel_names, channel_IDs):
         social_media_presence = 0
 
         if linkedIn_found[0] and wiki_found[0]:
-            profile = 3
+            profiles = 3
         elif linkedIn_found[0] and not wiki_found[0]:
-            profile = 2
+            profiles = 2
         elif not linkedIn_found[0] and wiki_found[0]:
-            profile = 1
+            profiles = 1
 
         if site_found[0]:
             website = 2
@@ -441,55 +449,105 @@ def find_sources(channel_names, channel_IDs):
         if fb_found[0] or twitter_found[0]:
             social_media_presence = 1
 
-        # '''
-        record = [
-            channel_name,  # channel_id
-            channel_IDs.get(channel_name),  # channel_title
+        # Source scores ---
+        ss_record = [
+            channel_IDs.get(channel_name),  # channel_id
+            channel_name,  # channel_title
             profiles,  # profiles
             website,  # website
             social_media_presence,  # social_media_presence
             np.nan  # vs
         ]
+        source_scores.append(ss_record)
+        # -----------------
 
-        temp_list.append(record)
+        # Source links ---
+        fb_link = None
+        twitter_link = None
 
-        # '''
-
-        ''' For testing
-        print(f"--- {channel_name} ---")
-        print("PROFILES")
-        print(f"LinkedIn: {linkedIn_found[1]}")
-        print(f"Wiki: {wiki_found[1]}")
-        print("")
-
-        print("WEBSITE")
-        print(f"Official Website: {site_found[1]}")
-        print("")
-
-        print("SOCIAL MEDIA PRESENCE")
         if fb_found[0]:
-            print(f"Facebook: {fb_found[1]}")
+            fb_link = fb_found[1]
 
         if twitter_found[0]:
-            print(f"Twitter: {twitter_found[1]}")
-        print("")
-        # '''
+            twitter_link = twitter_found[1]
 
+        sl_record = [
+            channel_IDs.get(channel_name),
+            channel_name,
+            linkedIn_found[1],
+            wiki_found[1],
+            site_found[1],
+            twitter_link,
+            fb_link
+        ]
+        source_links.append(sl_record)
+        # -----------------
         pbar.update(1)
     pbar.close()
 
-    # TODO: Convert temp_list into DataFrame after loop
-    pass
+
+    ss_nparray = np.array(source_scores)
+    sl_nparray = np.array(source_links)
+
+    ss_df = pd.DataFrame(ss_nparray, columns=ss_cols)
+    sl_df = pd.DataFrame(sl_nparray, columns=sl_cols)
+
+    ss_df.to_csv("source_scores.csv")
+    sl_df.to_csv("source_links.csv")
+
+    print("Complete.")
 
 
-def get_vs(df):
-    pass
+def topsis(scores, weights):
+    wndm = {}
 
+    for column in weights.keys():
+        temp_list = []
+        x = 0
+        for i in range(0, scores.shape[0]):
+            num = scores.iloc[i][column] ** 2
+            x += num
+        denominator = sqrt(x)
 
-def get_ranking(df):
-    # ------------- SEARCHING ------------- #
-    pass
-    # ------------- SEARCHING ------------- #
+        # Normalize scores
+        for i in range(0, scores.shape[0]):
+            norm_score = scores.iloc[i][column] / denominator
+            temp_list.append(norm_score)
+
+        # Apply weight
+        for i in range(0, len(temp_list)):
+            temp_list[i] *= weights.get(column)
+
+        wndm.update({column: temp_list})
+
+    wndm_df = pd.DataFrame.from_dict(wndm)
+    ideal_best = wndm_df.max()
+    ideal_worst = wndm_df.min()
+
+    dist_from_best = []
+    dist_from_worst = []
+
+    # Euclidean distance from ideal best
+    for i in range(0, wndm_df.shape[0]):
+        temp_num = 0
+        for column in wndm_df.columns:
+            temp_num += (wndm_df.iloc[i][column] - ideal_best[column]) ** 2
+        dist_from_best.append(sqrt(temp_num))
+
+    # Euclidean distance from ideal worst
+    for i in range(0, wndm_df.shape[0]):
+        temp_num = 0
+        for column in wndm_df.columns:
+            temp_num += (wndm_df.iloc[i][column] - ideal_worst[column]) ** 2
+        dist_from_worst.append(sqrt(temp_num))
+
+    performance_rank = []
+    for i in range(0, wndm_df.shape[0]):
+        performance_rank.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
+
+    performance_rank = pd.Series(np.array(performance_rank))
+
+    return performance_rank
 
 
 
@@ -528,7 +586,7 @@ if __name__ == '__main__':
                 channel_names = df["channel_title"].unique()
                 channel_IDs = df[["channel_id", "channel_title"]].groupby("channel_title").first().to_dict().get("channel_id")
 
-                find_sources(channel_names[0:5], channel_IDs)
+                find_sources(channel_names[0:12], channel_IDs)
 
                 # Return to main folder
                 os.chdir("..")
@@ -546,6 +604,21 @@ if __name__ == '__main__':
 
                 print("Working @ " + os.getcwd())
 
+                ss_df = pd.read_csv("source_scores.csv")
+                ss_df.drop("Unnamed: 0", axis=1, inplace=True)
+                print(f"File {filename} found.")
+
+                weights = {
+                    "profiles": 0.50,
+                    "website": 0.35,
+                    "social_media_presence": 0.15
+                }
+
+                ss_df["vs"] = topsis(ss_df, weights)
+                ss_df.to_csv("source_scores.csv")
+
+                print("Complete.")
+
                 # Return to main folder
                 os.chdir("..")
                 os.chdir("..")
@@ -555,7 +628,6 @@ if __name__ == '__main__':
 
         elif choice == 4:
             cont = False
-            print("")
             print("Ending program...")
 
         print("---")
