@@ -166,10 +166,20 @@ def yt_scrape(search_query, num_videos, filename):
     search_results = search_response.get("items")
 
     temp_video_list = []
+    """
     columns = ["video_id", "video_title", "description", "video_dop",
                "view_count", "like_count", "comment_count",
                "channel_id", "channel_name", "channel_dop", "sub_count",
                "total_videos", "video_transcript"]
+    """
+
+    columns = ["video_id", "video_title", "description", "video_dop",
+               "view_count", "like_count", "comment_count", 
+               "channel_id", "video_transcript"]
+    
+    temp_channel_list = []
+    channel_info_columns = ["channel_id", "channel_name", "channel_dop", 
+                            "sub_count", "total_videos"]
     
     temp_comment_list = []
     comment_columns = ['video_id', 'comment', 'metric']
@@ -223,6 +233,7 @@ def yt_scrape(search_query, num_videos, filename):
             except:
                 comment_count = 0
 
+            """
             record = [
                 video.get("id").get("videoId"),  # video_id
                 metadata.get("title"),  # video_title
@@ -237,6 +248,27 @@ def yt_scrape(search_query, num_videos, filename):
                 channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
                 channel_specs.get("items")[0].get("statistics").get("videoCount"),  # total_videos
                 video_transcript # video_transcript
+            ]
+            """
+
+            record = [
+                video.get("id").get("videoId"),  # video_id
+                metadata.get("title"),  # video_title
+                vid_specs.get("items")[0].get("snippet").get("description"),  # description
+                metadata.get("publishedAt")[:10],  # video_dop
+                vid_specs.get("items")[0].get("statistics").get("viewCount"),  # view_count
+                vid_specs.get("items")[0].get("statistics").get("likeCount"),  # like_count
+                comment_count,  # comment_count
+                metadata.get("channelId"),  # channel_id
+                video_transcript # video_transcript
+            ]
+
+            channel = [
+                metadata.get("channelId"),  # channel_id
+                metadata.get("channelTitle"),  # channel_name
+                channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10],  # channel_dop
+                channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
+                channel_specs.get("items")[0].get("statistics").get("videoCount"),  # total_videos
             ]
             
             comment_request = youtube.commentThreads().list(
@@ -260,6 +292,17 @@ def yt_scrape(search_query, num_videos, filename):
             # Append record to list
             temp_video_list.append(record)
 
+            # Append channel record to list
+            unique = True
+            for unique_channel in temp_channel_list:
+                if unique_channel[0] == channel[0]:
+                    unique_channel == channel
+                    unique = False
+                    break
+
+            if unique:
+                temp_channel_list.append(channel)
+
             # Update progress bar
             pbar.update(1)
 
@@ -281,12 +324,19 @@ def yt_scrape(search_query, num_videos, filename):
     print("Converting to DataFrame...")
     df = pd.DataFrame(temp_nparray, columns=columns)
 
+    print("Converting channels to DataFrame...")
+    channel_df = pd.DataFrame(temp_comment_nparray, columns=channel_info_columns)
+
     print("Converting comments to DataFrame...")
     comment_df = pd.DataFrame(temp_comment_nparray, columns=comment_columns)
 
     # Saving to a .csv file
     print("Saving as " + filename + ".csv...")
     path = os.getcwd() + "/datasets/" + filename
+
+    # Saving to a .csv file
+    print("Saving as " + filename + ".csv...")
+    path = os.getcwd() + "/datasets/" + filename + "_channels"
 
     # Saving to a .csv file
     print("Saving as " + filename + ".csv...")
@@ -300,6 +350,8 @@ def yt_scrape(search_query, num_videos, filename):
         os.chdir(path)
 
     df.to_csv(filename + ".csv")
+    print("Saved @ " + os.getcwd())
+    channel_df.to_scv(filename + "_channels.csv")
     print("Saved @ " + os.getcwd())
     comment_df.to_csv(filename + "_comments.csv")
     print("Saved @ " + os.getcwd())
