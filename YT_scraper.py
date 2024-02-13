@@ -2,6 +2,7 @@
 # https://github.com/googleapis/google-api-python-client
 # To install, run the following: pip install google-api-python-client
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 # YouTube Transcript API by Jonas Depoix (2018)
 # https://github.com/jdepoix/youtube-transcript-api
@@ -19,7 +20,10 @@ from jellyfish import jaro_similarity
 import regex as re
 
 # Put your personal API key here
+# DLSU account key
 apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
+# Personal email account key
+# apiKey = 'AIzaSyDrA3VG9qxJOSxgcQKpcuQgjQVA1XjtpbQ'
 
 # Search engine ID
 cseKey = "23c1c70a203ac4852"
@@ -30,6 +34,8 @@ youtube = build('youtube', 'v3', developerKey=apiKey)
 # Google Custom Search API
 google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
 
+quota_reached = False
+stopped_at = None
 
 
 def search_test():
@@ -100,7 +106,7 @@ def search_test():
                 "Channel Date of Publication: " + channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10])
 
             print("------------------Start of Description------------------")
-            print("Description:\n" + repr(vid_specs.get("items")[0].get("snippet").get("description")))
+            print("Description:\n" + vid_specs.get("items")[0].get("snippet").get("description"))
             print("------------------End of Description------------------")
 
             print("Video Date of Publication: " + metadata.get("publishedAt")[:10])
@@ -162,7 +168,7 @@ def yt_scrape(search_query, num_videos, filename):
     temp_video_list = []
     columns = ["video_id", "video_title", "description", "video_dop",
                "view_count", "like_count", "comment_count",
-               "channel_id", "channel_title", "channel_dop", "sub_count",
+               "channel_id", "channel_name", "channel_dop", "sub_count",
                "total_videos"]
 
     pbar = tqdm(total=num_videos)
@@ -205,13 +211,13 @@ def yt_scrape(search_query, num_videos, filename):
             record = [
                 video.get("id").get("videoId"),  # video_id
                 metadata.get("title"),  # video_title
-                repr(vid_specs.get("items")[0].get("snippet").get("description")),  # description
+                vid_specs.get("items")[0].get("snippet").get("description"),  # description
                 metadata.get("publishedAt")[:10],  # video_dop
                 vid_specs.get("items")[0].get("statistics").get("viewCount"),  # view_count
                 vid_specs.get("items")[0].get("statistics").get("likeCount"),  # like_count
                 comment_count,  # comment_count
                 metadata.get("channelId"),  # channel_id
-                metadata.get("channelTitle"),  # channel_title
+                metadata.get("channelTitle"),  # channel_name
                 channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10],  # channel_dop
                 channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
                 channel_specs.get("items")[0].get("statistics").get("videoCount")  # total_videos
@@ -259,30 +265,37 @@ def yt_scrape(search_query, num_videos, filename):
 
 # Functions
 def find_linkedIn(channel_name, query):
-    li_response = google_resource.list(
-        q=query,
-        cx=cseKey
-    ).execute()
-
     found = False
     pattern = r'https:\/\/www\.linkedin\.com\/(company|in)\/.+'  # Used to find specific profile links
 
-    for i in range(0, 10):
-        link = li_response.get("items")[i].get("formattedUrl")
-        if re.search(pattern, link) is not None:
-            # Get profile name from search result
-            match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("title"))
-            if match is not None:
-                profile_name = match.group()
+    try:
+        li_response = google_resource.list(
+            q=query,
+            cx=cseKey
+        ).execute()
 
-                # Get similarity between found profile name and channel name
-                # This is to prevent false positives in finding a LinkedIn profile
-                similarity = round(jaro_similarity(channel_name.lower(), profile_name.lower()), 2)
+        for i in range(0, 10):
+            link = li_response.get("items")[i].get("formattedUrl")
+            if re.search(pattern, link) is not None:
+                # Get profile name from search result
+                match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("title"))
+                if match is not None:
+                    profile_name = match.group()
 
-                # If n% similar, consider LinkedIn profile as found
-                if similarity >= 0.80:
-                    found = True
-                    break
+                    # Get similarity between found profile name and channel name
+                    # This is to prevent false positives in finding a LinkedIn profile
+                    similarity = round(jaro_similarity(channel_name.lower(), profile_name.lower()), 2)
+
+                    # If n% similar, consider LinkedIn profile as found
+                    if similarity >= 0.80:
+                        found = True
+                        break
+    except HttpError:
+        global quota_reached
+        global stopped_at
+        if not quota_reached:
+            quota_reached = True
+            stopped_at = (channel_name, query)
 
     if not found:
         return found, None
@@ -291,31 +304,38 @@ def find_linkedIn(channel_name, query):
 
 
 def find_wiki(channel_name, query):
-    wiki_response = google_resource.list(
-        q=query,
-        cx=cseKey
-    ).execute()
-
     found = False
     pattern = r'https:\/\/\w{2}.wikipedia\.org\/wiki\/.+'
 
-    for i in range(0, 10):
-        link = wiki_response.get("items")[i].get("formattedUrl")
-        if re.search(pattern, link) is not None:
-            # Get Wiki page name from search result
-            title = wiki_response.get("items")[i].get("title")
-            match = re.search(r'.+(?=\s-\sWikipedia)', title)
-            if match is not None:
-                page_name = match.group()
+    try:
+        wiki_response = google_resource.list(
+            q=query,
+            cx=cseKey
+        ).execute()
 
-                # Get similarity between found Wiki page name and channel name
-                # This is to prevent false positives in finding a Wiki page
-                similarity = round(jaro_similarity(channel_name.lower(), page_name.lower()), 2)
+        for i in range(0, 10):
+            link = wiki_response.get("items")[i].get("formattedUrl")
+            if re.search(pattern, link) is not None:
+                # Get Wiki page name from search result
+                title = wiki_response.get("items")[i].get("title")
+                match = re.search(r'.+(?=\s-\sWikipedia)', title)
+                if match is not None:
+                    page_name = match.group()
 
-                # If n% similar, consider Wiki page as found
-                if similarity >= 0.80:
-                    found = True
-                    break
+                    # Get similarity between found Wiki page name and channel name
+                    # This is to prevent false positives in finding a Wiki page
+                    similarity = round(jaro_similarity(channel_name.lower(), page_name.lower()), 2)
+
+                    # If n% similar, consider Wiki page as found
+                    if similarity >= 0.80:
+                        found = True
+                        break
+    except HttpError:
+        global quota_reached
+        global stopped_at
+        if not quota_reached:
+            quota_reached = True
+            stopped_at = (channel_name, query)
 
     if not found:
         return found, None
@@ -324,23 +344,30 @@ def find_wiki(channel_name, query):
 
 
 def find_website(channel_name, query):
-    website_response = google_resource.list(
-        q=query,
-        cx=cseKey
-    ).execute()
-
     found = False
     # RegEx to exclude YouTube, LinkedIn, and Wikipedia pages
     pattern = r'https\:\/\/(\w{2}.wikipedia\.org\/wiki\/.+|www\.(youtube\.com.+|linkedin\.com.+))'
 
-    for i in range(0, 10):
-        title = website_response.get("items")[i].get("title")
-        link = website_response.get("items")[i].get("link")
-        if channel_name.lower() in title.lower():
-            if re.search(pattern, link) is None:
-                # The first result among the filtered at this point is MOST LIKELY the official website
-                found = True
-                break
+    try:
+        website_response = google_resource.list(
+            q=query,
+            cx=cseKey
+        ).execute()
+
+        for i in range(0, 10):
+            title = website_response.get("items")[i].get("title")
+            link = website_response.get("items")[i].get("link")
+            if channel_name.lower() in title.lower():
+                if re.search(pattern, link) is None:
+                    # The first result among the filtered at this point is MOST LIKELY the official website
+                    found = True
+                    break
+    except HttpError:
+        global quota_reached
+        global stopped_at
+        if not quota_reached:
+            quota_reached = True
+            stopped_at = (channel_name, query)
 
     if not found:
         return found, None
@@ -349,23 +376,30 @@ def find_website(channel_name, query):
 
 
 def find_fb(channel_name, query):
-    fb_response = google_resource.list(
-        q=query,
-        cx=cseKey
-    ).execute()
-
     found = False
     pattern = r'^https\:\/\/www\.facebook\.com\/.+\/'
 
-    for i in range(0, 10):
-        link = fb_response.get("items")[i].get("formattedUrl")
-        if re.search(pattern, link) is not None:
-            title = fb_response.get("items")[i].get("title")
-            similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+    try:
+        fb_response = google_resource.list(
+            q=query,
+            cx=cseKey
+        ).execute()
 
-            if similarity >= 0.80:
-                found = True
-                break
+        for i in range(0, 10):
+            link = fb_response.get("items")[i].get("formattedUrl")
+            if re.search(pattern, link) is not None:
+                title = fb_response.get("items")[i].get("title")
+                similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+
+                if similarity >= 0.80:
+                    found = True
+                    break
+    except HttpError:
+        global quota_reached
+        global stopped_at
+        if not quota_reached:
+            quota_reached = True
+            stopped_at = (channel_name, query)
 
     if not found:
         return found, None
@@ -374,23 +408,30 @@ def find_fb(channel_name, query):
 
 
 def find_twitter(channel_name, query):
-    twitter_response = google_resource.list(
-        q=query,
-        cx=cseKey
-    ).execute()
-
     found = False
     pattern = r'https\:\/\/(twitter|x)\.com\/.+'
 
-    for i in range(0, 10):
-        link = twitter_response.get("items")[i].get("formattedUrl")
-        if re.search(pattern, link) is not None:
-            title = twitter_response.get("items")[i].get("title")
-            similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+    try:
+        twitter_response = google_resource.list(
+            q=query,
+            cx=cseKey
+        ).execute()
 
-            if similarity >= 0.80:
-                found = True
-                break
+        for i in range(0, 10):
+            link = twitter_response.get("items")[i].get("formattedUrl")
+            if re.search(pattern, link) is not None:
+                title = twitter_response.get("items")[i].get("title")
+                similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+
+                if similarity >= 0.80:
+                    found = True
+                    break
+    except HttpError:
+        global quota_reached
+        global stopped_at
+        if not quota_reached:
+            quota_reached = True
+            stopped_at = (channel_name, query)
 
     if not found:
         return found, None
@@ -398,20 +439,39 @@ def find_twitter(channel_name, query):
         return found, link
 
 
-def find_sources(channel_names, channel_IDs):
+def check_desc(channel_name, videos_df, pattern):
+    # Get first 5 videos of channel from videos_df
+    videos_df = videos_df.loc[videos_df["channel_name"] == channel_name].reset_index().drop("index", axis=1).head()
+    found = (False, None)
+
+    # For each video
+    for i in range(0, videos_df.shape[0]):
+        # Get description
+        desc = repr(videos_df.iloc[i]["description"]).replace("\\n", " ").replace("  ", " ")
+
+        # Using RegEx, find links using given pattern
+        match = re.search(pattern, desc)
+        if match is not None:
+            found = (True, match.group())
+            break
+
+    return found
+
+
+def find_sources(channel_names, channel_IDs, main_df):
     pbar = tqdm(total=len(channel_names))
     pbar.set_description("Finding sources...")
 
     source_scores = []
     ss_cols = [
-        "channel_id", "channel_title",
+        "channel_id", "channel_name",
         "profiles", "website", "social_media_presence",
         "vs"
     ]
 
     source_links = []
     sl_cols = [
-        "channel_id", "channel_title",
+        "channel_id", "channel_name",
         "LinkedIn", "Wiki", "Website",
         "Twitter", "Facebook"
     ]
@@ -424,13 +484,36 @@ def find_sources(channel_names, channel_IDs):
         " Twitter"
     ]
 
-    for channel_name in channel_names:
+    # --- Patterns to search for links within video descriptions
+    linkedIn_pattern = r"(?<=(Linked(in|In)\:\s))https:\/\/(www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_])+\/"
+    website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))https:\/\/\w+(\.(\w|\w[-_])+)?\.\w{3}(\.\w{2})?(\/(\w|\w[-_])+)?"
+    fb_pattern = r"(?<=((F|f)acebook\:\s))https:\/\/(www\.)?facebook\.com\/(\w|\w[-_])+"
+    twitter_pattern = r"(?<=((T|t)witter\:\s))https:\/\/(www\.)?(twitter|x)\.com\/(\w|\w[-_])+"
+    # ---
 
-        linkedIn_found = find_linkedIn(channel_name, channel_name + query_tail[0])
+    for channel_name in channel_names:
+        # --- Checking descriptions from channel's videos
+        linkedIn_found = check_desc(channel_name, main_df, linkedIn_pattern)
+        site_found = check_desc(channel_name, main_df, website_pattern)
+        fb_found = check_desc(channel_name, main_df, fb_pattern)
+        twitter_found = check_desc(channel_name, main_df, twitter_pattern)
+        # ---
+
+        # --- If link not found in descriptions, search via Google
+        if not linkedIn_found[0]:
+            linkedIn_found = find_linkedIn(channel_name, channel_name + query_tail[0])
+
+        if not site_found[0]:
+            site_found = find_website(channel_name, channel_name + query_tail[2])
+
+        if not fb_found[0]:
+            fb_found = find_fb(channel_name, channel_name + query_tail[3])
+
+        if not twitter_found[0]:
+            twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
+
         wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
-        site_found = find_website(channel_name, channel_name + query_tail[2])
-        fb_found = find_fb(channel_name, channel_name + query_tail[3])
-        twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
+        # ---
 
         profiles = 0
         website = 0
@@ -452,14 +535,14 @@ def find_sources(channel_names, channel_IDs):
         # Source scores ---
         ss_record = [
             channel_IDs.get(channel_name),  # channel_id
-            channel_name,  # channel_title
+            channel_name,  # channel_name
             profiles,  # profiles
             website,  # website
             social_media_presence,  # social_media_presence
             np.nan  # vs
         ]
         source_scores.append(ss_record)
-        # -----------------
+        # ---
 
         # Source links ---
         fb_link = None
@@ -481,10 +564,16 @@ def find_sources(channel_names, channel_IDs):
             fb_link
         ]
         source_links.append(sl_record)
-        # -----------------
+        # ---
+
         pbar.update(1)
     pbar.close()
 
+    global quota_reached
+    global stopped_at
+    if quota_reached:
+        print("Custom Search API daily quota reached.")
+        print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
 
     ss_nparray = np.array(source_scores)
     sl_nparray = np.array(source_links)
@@ -558,7 +647,7 @@ if __name__ == '__main__':
         print("Working @ " + os.getcwd())
         print("     [1] Scrape videos from YouTube")
         print("     [2] Find external sources")
-        print("     [3] Compute rankings and scores")
+        print("     [3] Compute rankings and verifiability scores")
         print("     [4] End program")
         choice = int(input("Input: "))
         print("----")
@@ -581,12 +670,13 @@ if __name__ == '__main__':
                 print("Working @ " + os.getcwd())
 
                 df = pd.read_csv(filename + ".csv")
+                df.drop("Unnamed: 0", axis=1, inplace=True)
                 print(f"File {filename} found.")
 
-                channel_names = df["channel_title"].unique()
-                channel_IDs = df[["channel_id", "channel_title"]].groupby("channel_title").first().to_dict().get("channel_id")
+                channel_names = df["channel_name"].unique()
+                channel_IDs = df[["channel_id", "channel_name"]].groupby("channel_name").first().to_dict().get("channel_id")
 
-                find_sources(channel_names[0:12], channel_IDs)
+                find_sources(channel_names, channel_IDs, df)
 
                 # Return to main folder
                 os.chdir("..")
@@ -616,6 +706,8 @@ if __name__ == '__main__':
 
                 ss_df["vs"] = topsis(ss_df, weights)
                 ss_df.to_csv("source_scores.csv")
+
+                # TODO: Compute for video rank and save to .csv
 
                 print("Complete.")
 

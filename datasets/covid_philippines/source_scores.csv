@@ -1,13 +1,53 @@
-,channel_id,channel_title,profiles,website,social_media_presence,vs
-0,UCj6spMO3ybZPobE0T5perHA,CNN Philippines,1,2,1,0.45669583855852847
-1,UCvi6hEzLM-Z_unKPSuuzKvg,ANC 24/7,0,2,1,0.31057150198137284
-2,UC4SUWizzKc1tptprBkWjX2Q,South China Morning Post,1,2,1,0.45669583855852847
-3,UCdnZdQxYXnbN4uWJg96oGxw,Rappler,3,2,1,1.0
-4,UCvRAX-ujvZ0eTMLGG2vki9w,INQUIRER.net,1,2,1,0.45669583855852847
-5,UC_Lnb8ZHqqgLbp-7hltuT9w,CNA Insider,0,2,1,0.31057150198137284
-6,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,3,2,1,1.0
-7,UC83jt4dlz1Gjl58fzQrrKZg,CNA,3,2,1,1.0
-8,UCE2606prvXQc_noEqKxVJXA,ABS-CBN News,1,2,1,0.45669583855852847
-9,UC5664f6TkaeHgwBly50DWZQ,Manila Bulletin Online,3,0,1,0.6894284980186272
-10,UC3XaG-7UVi2vD8ZZEMNnnpw,UNTV News and Rescue,0,2,1,0.31057150198137284
-11,UC16niRr50-MSBwiO3YDb3RA,BBC News,1,2,1,0.45669583855852847
+,channel_id,channel_name,profiles,website,social_media_presence,vs
+0,UCvi6hEzLM-Z_unKPSuuzKvg,ANC 24/7,0,2,1,nan
+1,UC4SUWizzKc1tptprBkWjX2Q,South China Morning Post,3,2,1,nan
+2,UCdnZdQxYXnbN4uWJg96oGxw,Rappler,3,2,1,nan
+3,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,3,2,1,nan
+4,UC5664f6TkaeHgwBly50DWZQ,Manila Bulletin Online,3,0,1,nan
+5,UCvRAX-ujvZ0eTMLGG2vki9w,INQUIRER.net,1,2,1,nan
+6,UC_Lnb8ZHqqgLbp-7hltuT9w,CNA Insider,0,2,1,nan
+7,UCE2606prvXQc_noEqKxVJXA,ABS-CBN News,1,2,1,nan
+8,UChqUTb7kYRX8-EiaN3XFrSQ,Reuters,3,2,1,nan
+9,UC16niRr50-MSBwiO3YDb3RA,BBC News,1,2,1,nan
+10,UC83jt4dlz1Gjl58fzQrrKZg,CNA,3,2,1,nan
+11,UC_gUM8rL-Lrg6O3adPW9K1g,WION,1,2,1,nan
+12,UCPgLNge0xqQHWM5B5EFH9Cg,The Telegraph,3,2,1,nan
+13,UChLtXXpo4Ge1ReTEboVvTDg,Global News,3,2,1,nan
+14,UC3XaG-7UVi2vD8ZZEMNnnpw,UNTV News and Rescue,0,2,1,nan
+15,UChDKyKQ59fYz3JO2fl0Z6sg,TODAY,1,2,1,nan
+16,UCSwwFP8hhA0Spah0ZUKZQVQ,UNICEF USA,3,2,1,nan
+17,UCvCZ0jX-J3Z-7jXtWzmv79w,UNICEF Philippines,3,2,1,nan
+18,UCqYw-CTd1dU2yGI71sEyqNw,GMA Integrated News,1,2,1,nan
+19,UCQfwfsi5VrQ8yKZ-UWmAEFg,FRANCE 24 English,3,2,1,nan
+20,UCgHMBsUeTBqZyG8dkGbbVKQ,TVUP,0,2,0,nan
+21,UCVSNOxehfALut52NbkfRBaA,Voice of America,3,2,1,nan
+22,UChirEOpgFCupRAk5etXqPaA,Bloomberg Quicktake,0,2,1,nan
+23,UCJq1YV3cJbJNs_xxp5_P7vQ,Doctor Wessam Atif,0,0,0,nan
+24,UCknLrEdhRCp1aegoMqRaCZg,DW News,1,2,1,nan
+25,UCoTrrnpqNOqR_yhrv6KIHiA,FEATR,1,0,1,nan
+26,UC4p_I9eiRewn2KoU-nawrDg,The Straits Times,0,2,1,nan
+27,UCpWvshQVx1d7BqCsPnVuNIw,The Star,0,0,0,nan
+28,UC2-_WWPT_124iN6jiym4fOw,Asian Boss,0,0,0,nan
+29,UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,0,0,0,nan
+30,UCOsve8EeUntXzOyeGRUc3OA,Jumping Places,0,2,0,nan
+31,UCXTuTQZarVcFR_fgQXvsLpw,Gulf News,0,0,0,nan
+32,UC4pMugpCikfWueXEV7sr3Mw,Diseases Simplified,0,0,0,nan
+33,UCPdKjHVKCF-YFvqHyh9uzvA,Esco Lifesciences Group,0,2,1,nan
+34,UCHeFV2atoLtgdKH4iu29orA,Delightful Travellers,0,2,1,nan
+35,UCsAueyuPjaPGcSfR3bIBPUg,Philstar News,0,0,0,nan
+36,UCk-jQBBb6VOKjpOPOP-wsKg,VFam TV,0,0,0,nan
+37,UCmv5DbNpxH8X2eQxJBqEjKQ,CCTV Video News Agency,0,0,1,nan
+38,UCyXSgGAZ1eBSri9-0lLnLLg,Adventures in America,0,0,0,nan
+39,UCpx8fh6GoIfNxQDrOS1Ihgg,BusinessWorldTV,2,2,1,nan
+40,UCXV-Jt3UPJPstvLVx6A1Z7Q,Kristypata,0,0,1,nan
+41,UCM31OXY_a1lrR2dSTOpeVkA,HeyoLeah,0,0,0,nan
+42,UCtjV1_XU6gvPYyreaFScxBQ,Huawei,0,0,0,nan
+43,UC9KElzmkDhnBWqCdeo4hp1Q,Doc Fate Cunanan,0,0,0,nan
+44,UCSkB4nUB0vtXcLdcnUVAN5Q,ABS-CBN Balitang America,0,0,1,nan
+45,UCyXuLyJy9NwQkwjnDx-G1eQ,Ateneo de Manila University,0,0,0,nan
+46,UCYmc5WUzNEvw_WfvZj5JrrQ,Cold Chain Innovation Hub Philippines,0,0,0,nan
+47,UCT2Jsa1ous2nZhoNr0bROhQ,Dating Coach Ella,0,0,0,nan
+48,UC5XiGlFSFO1TrI1weEpoxXw,Janina Vela,0,0,0,nan
+49,UCGFwGipBAxSdFQc43aCgr4g,Yahoo Southeast Asia,0,0,0,nan
+50,UCXkB1B_hWzVFCxpMHEpfePg,Counting Countries,0,2,0,nan
+51,UC2ASYi96ZSgabnkzzMonBfA,Asian Development Bank,0,0,0,nan

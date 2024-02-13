@@ -1,13 +1,53 @@
-,channel_id,channel_title,LinkedIn,Wiki,Website,Twitter,Facebook
-0,UCj6spMO3ybZPobE0T5perHA,CNN Philippines,,https://en.wikipedia.org/wiki/CNN_Philippines,https://cnnphilippines.com/news,,https://www.facebook.com/CNNPhilippines/
-1,UCvi6hEzLM-Z_unKPSuuzKvg,ANC 24/7,,,https://www.facebook.com/ANCalerts/,,https://www.facebook.com/ANCalerts/
-2,UC4SUWizzKc1tptprBkWjX2Q,South China Morning Post,,https://en.wikipedia.org/wiki/South_China_Morning_Post,https://www.scmp.com/,https://twitter.com/SCMPNews,https://www.facebook.com/scmp/
-3,UCdnZdQxYXnbN4uWJg96oGxw,Rappler,https://www.linkedin.com/company/rappler,https://en.wikipedia.org/wiki/Rappler,https://www.rappler.com/,,https://www.facebook.com/rapplerdotcom/
-4,UCvRAX-ujvZ0eTMLGG2vki9w,INQUIRER.net,,https://en.wikipedia.org/wiki/Inquirer,https://www.inquirer.net/,,https://www.facebook.com/inquirerdotnet/
-5,UC_Lnb8ZHqqgLbp-7hltuT9w,CNA Insider,,,https://www.channelnewsasia.com/cna-insider,,https://www.facebook.com/cnainsider/
-6,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,https://www.linkedin.com/company/aljazeera,https://en.wikipedia.org/wiki/Al_Jazeera_English,https://www.instagram.com/aljazeeraenglish/?hl=en,https://twitter.com/ajenglish?lang=en,https://www.facebook.com/aljazeera/
-7,UC83jt4dlz1Gjl58fzQrrKZg,CNA,https://www.linkedin.com/company/cna_3,https://en.wikipedia.org/wiki/CNA,https://www.cna.com/,,https://www.facebook.com/ChannelNewsAsia/
-8,UCE2606prvXQc_noEqKxVJXA,ABS-CBN News,,https://en.wikipedia.org/wiki/ABS-CBN,https://news.abs-cbn.com/,https://twitter.com/abscbnnews?lang=en,https://www.facebook.com/abscbnNEWS/
-9,UC5664f6TkaeHgwBly50DWZQ,Manila Bulletin Online,https://www.linkedin.com/company/manilabulletinpublishing,https://en.wikipedia.org/wiki/Manila_Bulletin,,,https://www.facebook.com/manilabulletin/
-10,UC3XaG-7UVi2vD8ZZEMNnnpw,UNTV News and Rescue,,,https://m.facebook.com/UNTVNewsRescue/photos/a.272191939472893/8749723245053011/,https://twitter.com/untvnewsrescue?lang=en,https://www.facebook.com/UNTVNewsRescue/
-11,UC16niRr50-MSBwiO3YDb3RA,BBC News,,https://en.wikipedia.org/wiki/BBC_News,https://www.bbc.com/news,,https://www.facebook.com/bbcnews/
+,channel_id,channel_name,LinkedIn,Wiki,Website,Twitter,Facebook
+0,UCvi6hEzLM-Z_unKPSuuzKvg,ANC 24/7,,,https://news.abs-cbn.com/anc,https://twitter.com/ancalerts,https://www.facebook.com/ancalerts
+1,UC4SUWizzKc1tptprBkWjX2Q,South China Morning Post,https://www.linkedin.com/company/south-china-morning-post/,https://en.wikipedia.org/wiki/South_China_Morning_Post,https://scmp.com,https://twitter.com/scmpnews,https://facebook.com/scmp
+2,UCdnZdQxYXnbN4uWJg96oGxw,Rappler,https://www.linkedin.com/company/rappler,https://en.wikipedia.org/wiki/Rappler,https://www.rappler.com/,,https://www.facebook.com/rapplerdotcom/
+3,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,https://www.linkedin.com/company/aljazeera,https://en.wikipedia.org/wiki/Al_Jazeera_English,https://www.aljazeera.com,https://twitter.com/AJEnglish,https://www.facebook.com/aljazeera
+4,UC5664f6TkaeHgwBly50DWZQ,Manila Bulletin Online,https://www.linkedin.com/company/manilabulletinpublishing,https://en.wikipedia.org/wiki/Manila_Bulletin,,,https://www.facebook.com/manilabulletin/
+5,UCvRAX-ujvZ0eTMLGG2vki9w,INQUIRER.net,,https://en.wikipedia.org/wiki/Inquirer,https://www.inquirer.net/,https://twitter.com/inquirerdotnet,https://facebook.com/inquirerdotnet
+6,UC_Lnb8ZHqqgLbp-7hltuT9w,CNA Insider,,,https://cna.asi,,https://www.facebook.com/cnainsider
+7,UCE2606prvXQc_noEqKxVJXA,ABS-CBN News,,https://en.wikipedia.org/wiki/ABS-CBN,https://news.abs-cbn.com/,https://twitter.com/abscbnnews,https://www.facebook.com/abscbnNEWS
+8,UChqUTb7kYRX8-EiaN3XFrSQ,Reuters,https://www.linkedin.com/company/reuters2,https://en.wikipedia.org/wiki/Reuters,https://www.reuters.com/,https://twitter.com/Reuters,https://www.facebook.com/Reuters
+9,UC16niRr50-MSBwiO3YDb3RA,BBC News,,https://en.wikipedia.org/wiki/BBC_News,https://www.bbc.com/news,,https://www.facebook.com/bbcnews/
+10,UC83jt4dlz1Gjl58fzQrrKZg,CNA,https://www.linkedin.com/company/cna_3,https://en.wikipedia.org/wiki/CNA,https://www.cna.com/,https://www.twitter.com/channelnewsasia,https://www.facebook.com/channelnewsasia
+11,UC_gUM8rL-Lrg6O3adPW9K1g,WION,,https://en.wikipedia.org/wiki/WION,https://www.wionews.com/,https://twitter.com/WIONews,https://www.facebook.com/WIONews
+12,UCPgLNge0xqQHWM5B5EFH9Cg,The Telegraph,https://www.linkedin.com/company/telegraphio,https://en.wikipedia.org/wiki/The_Daily_Telegraph,https://www.telegraph.co.uk/,https://twitter.com/telegraph?lang=en,https://www.facebook.com/TELEGRAPH.CO.UK/
+13,UChLtXXpo4Ge1ReTEboVvTDg,Global News,https://www.linkedin.com/company/global-television,https://en.wikipedia.org/wiki/Global_News,https://globalnews.ca/,,https://www.facebook.com/GlobalNews/
+14,UC3XaG-7UVi2vD8ZZEMNnnpw,UNTV News and Rescue,,,https://m.facebook.com/UNTVNewsRescue/photos/a.272191939472893/8749723245053011/,https://twitter.com/UNTVNewsRescue,https://www.facebook.com/UNTVNewsRescue/
+15,UChDKyKQ59fYz3JO2fl0Z6sg,TODAY,,https://en.wikipedia.org/wiki/Today,https://www.today.com/,,https://www.facebook.com/iwakeupwithtoday/
+16,UCSwwFP8hhA0Spah0ZUKZQVQ,UNICEF USA,https://www.linkedin.com/company/unicefusa,https://en.wikipedia.org/wiki/UNICEF,https://www.unicefusa.org/,,https://www.facebook.com/UNICEF-USA/
+17,UCvCZ0jX-J3Z-7jXtWzmv79w,UNICEF Philippines,https://www.linkedin.com/company/unicef-philippines/,https://en.wikipedia.org/wiki/UNICEF_Philippines,https://www.unicef.org/philippines/,https://twitter.com/unicefphils?lang=en,https://www.facebook.com/unicefphilippines/
+18,UCqYw-CTd1dU2yGI71sEyqNw,GMA Integrated News,,https://en.wikipedia.org/wiki/GMA_Integrated_News,https://twitter.com/gmanews?lang=en,https://twitter.com/gmanews?lang=en,
+19,UCQfwfsi5VrQ8yKZ-UWmAEFg,FRANCE 24 English,https://www.linkedin.com/company/france-24,https://en.wikipedia.org/wiki/France_24,https://www.france24.com/en/live,https://twitter.com/France24_en,https://www.facebook.com/FRANCE24
+20,UCgHMBsUeTBqZyG8dkGbbVKQ,TVUP,,,https://www.facebook.com/TVUP.ph/,,
+21,UCVSNOxehfALut52NbkfRBaA,Voice of America,https://www.linkedin.com/company/voice-of-america,https://en.wikipedia.org/wiki/Voice_of_America,https://www.voanews.com/,https://twitter.com/VOANews,https://www.facebook.com/VOANews/
+22,UChirEOpgFCupRAk5etXqPaA,Bloomberg Quicktake,,,https://www.bloombergmedia.com/press/bloomberg-quicktake-streaming-news-network/,https://twitter.com/quicktake,https://www.facebook.com/quicktake
+23,UCJq1YV3cJbJNs_xxp5_P7vQ,Doctor Wessam Atif,,,,,
+24,UCknLrEdhRCp1aegoMqRaCZg,DW News,,https://en.wikipedia.org/wiki/DW_News,https://www.dw.com/en/dw-news/program-262267,https://twitter.com/dwnews,https://www.facebook.com/deutschewellenews
+25,UCoTrrnpqNOqR_yhrv6KIHiA,FEATR,,https://en.wikipedia.org/wiki/Feature,,,https://www.facebook.com/featrmedia/
+26,UC4p_I9eiRewn2KoU-nawrDg,The Straits Times,,,https://www.straitstimes.com/,https://twitter.com/straits_times?lang=en,https://www.facebook.com/TheStraitsTimes/
+27,UCpWvshQVx1d7BqCsPnVuNIw,The Star,,,,,
+28,UC2-_WWPT_124iN6jiym4fOw,Asian Boss,,,,,
+29,UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,,,,,
+30,UCOsve8EeUntXzOyeGRUc3OA,Jumping Places,,,https://www.jumpingplaces.com,,
+31,UCXTuTQZarVcFR_fgQXvsLpw,Gulf News,,,,,
+32,UC4pMugpCikfWueXEV7sr3Mw,Diseases Simplified,,,,,
+33,UCPdKjHVKCF-YFvqHyh9uzvA,Esco Lifesciences Group,,,https://www.escolifesciences.com,https://twitter.com/EscoLifesci,https://www.facebook.com/escolifesciences
+34,UCHeFV2atoLtgdKH4iu29orA,Delightful Travellers,,,https://www.delightfultravellers.com,https://www.twitter.com/deltravellers,https://www.facebook.com/delightfultravellers
+35,UCsAueyuPjaPGcSfR3bIBPUg,Philstar News,,,,,
+36,UCk-jQBBb6VOKjpOPOP-wsKg,VFam TV,,,,,
+37,UCmv5DbNpxH8X2eQxJBqEjKQ,CCTV Video News Agency,,,,https://twitter.com/CCTV_Plus,https://www.facebook.com/NewsContent
+38,UCyXSgGAZ1eBSri9-0lLnLLg,Adventures in America,,,,,
+39,UCpx8fh6GoIfNxQDrOS1Ihgg,BusinessWorldTV,https://www.linkedin.com/company/businessworldph/,,https://www.bworldonline.com,,https://www.facebook.com/BWorldPH
+40,UCXV-Jt3UPJPstvLVx6A1Z7Q,Kristypata,,,,https://twitter.com/kristypataa,
+41,UCM31OXY_a1lrR2dSTOpeVkA,HeyoLeah,,,,,
+42,UCtjV1_XU6gvPYyreaFScxBQ,Huawei,,,,,
+43,UC9KElzmkDhnBWqCdeo4hp1Q,Doc Fate Cunanan,,,,,
+44,UCSkB4nUB0vtXcLdcnUVAN5Q,ABS-CBN Balitang America,,,,https://twitter.com/balitangamerica,https://www.facebook.com/balitangamerica
+45,UCyXuLyJy9NwQkwjnDx-G1eQ,Ateneo de Manila University,,,,,
+46,UCYmc5WUzNEvw_WfvZj5JrrQ,Cold Chain Innovation Hub Philippines,,,,,
+47,UCT2Jsa1ous2nZhoNr0bROhQ,Dating Coach Ella,,,,,
+48,UC5XiGlFSFO1TrI1weEpoxXw,Janina Vela,,,,,
+49,UCGFwGipBAxSdFQc43aCgr4g,Yahoo Southeast Asia,,,,,
+50,UCXkB1B_hWzVFCxpMHEpfePg,Counting Countries,,,https://www.countingcountries.net,,
+51,UC2ASYi96ZSgabnkzzMonBfA,Asian Development Bank,,,,,
