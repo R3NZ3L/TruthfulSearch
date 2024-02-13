@@ -169,7 +169,10 @@ def yt_scrape(search_query, num_videos, filename):
     columns = ["video_id", "video_title", "description", "video_dop",
                "view_count", "like_count", "comment_count",
                "channel_id", "channel_name", "channel_dop", "sub_count",
-               "total_videos"]
+               "total_videos", "video_transcript"]
+    
+    temp_comment_list = []
+    comment_columns = ['video_id', 'comment', 'metric']
 
     pbar = tqdm(total=num_videos)
     pbar.set_description("Scraping...")
@@ -201,8 +204,20 @@ def yt_scrape(search_query, num_videos, filename):
                 maxResults=1
             )
             channel_specs = request.execute()
+            
+            video_transcript = ""
 
-            # This list will contain data for one record
+            try:
+                transcript_dict = YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"), languages=['en'])
+            except:
+                video_transcript = None
+                print("No English Caption for this video")
+            else:
+                for item in transcript_dict:
+                    video_transcript += " " + item['text']
+                print(video_transcript)
+                
+            # This list will contain data for one record 
             try:
                 comment_count = int(vid_specs.get("items")[0].get("statistics").get("commentCount"))
             except:
@@ -220,9 +235,28 @@ def yt_scrape(search_query, num_videos, filename):
                 metadata.get("channelTitle"),  # channel_name
                 channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10],  # channel_dop
                 channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
-                channel_specs.get("items")[0].get("statistics").get("videoCount")  # total_videos
+                channel_specs.get("items")[0].get("statistics").get("videoCount"),  # total_videos
+                video_transcript # video_transcript
             ]
+            
+            comment_request = youtube.commentThreads().list(
+                part=['snippet'],
+                videoId=video.get("id").get("videoId"),
+                maxResults=10,
+                order='relevance',
+                textFormat="plainText"
+            )
 
+            try:
+                video_comments = comment_request.execute()
+            except:
+                print("No comment for this video")
+            else:   
+                for comment in video_comments.get("items"):
+                    temp_comment_list.append([  video.get("id").get("videoId"),
+                                                comment.get("snippet").get("topLevelComment").get("snippet").get("textDisplay"),
+                                                None])
+                    
             # Append record to list
             temp_video_list.append(record)
 
@@ -240,15 +274,23 @@ def yt_scrape(search_query, num_videos, filename):
     pbar.close()
 
     temp_nparray = np.array(temp_video_list)
+    temp_comment_nparray = np.array(temp_comment_list)
     # ------------- SCRAPING ------------- #
 
     # Converting numpy array to DataFrame
     print("Converting to DataFrame...")
     df = pd.DataFrame(temp_nparray, columns=columns)
 
+    print("Converting comments to DataFrame...")
+    comment_df = pd.DataFrame(temp_comment_nparray, columns=comment_columns)
+
     # Saving to a .csv file
     print("Saving as " + filename + ".csv...")
     path = os.getcwd() + "/datasets/" + filename
+
+    # Saving to a .csv file
+    print("Saving as " + filename + ".csv...")
+    path = os.getcwd() + "/datasets/" + filename + "_comments"
 
     try:
         os.makedirs(path)
@@ -258,6 +300,8 @@ def yt_scrape(search_query, num_videos, filename):
         os.chdir(path)
 
     df.to_csv(filename + ".csv")
+    print("Saved @ " + os.getcwd())
+    comment_df.to_csv(filename + "_comments.csv")
     print("Saved @ " + os.getcwd())
     os.chdir("..")
     os.chdir("..")
@@ -725,8 +769,3 @@ if __name__ == '__main__':
         print("---")
         print("")
         sleep(1)
-
-
-
-
-
