@@ -34,13 +34,12 @@ def getLinksFromAbout(channel_id, channel_name):
                 print("No links provided for:", {channel_name})
             else:
                 print("Available links provided for:", {channel_name})
-                for link in link_information: #print all available links from the about modal
-                    print ("---------------------------------------")
-                    print ("website name:", link['channelExternalLinkViewModel']['title']['content'])
-                    print ("link:", link['channelExternalLinkViewModel']['link']['content'])
+                for link in link_information:   #print all available links from the about modal
+                    print(f"{link['channelExternalLinkViewModel']['title']['content']}: {link['channelExternalLinkViewModel']['link']['content']}")
+            print("---------------------------------------")
 
 
-channels =  {
+channels = {
                 'UCvi6hEzLM-Z_unKPSuuzKvg' : 'ANC 24/7', 
                 'UCvRAX-ujvZ0eTMLGG2vki9w': 'INQUIRER.net', 
                 'UCdnZdQxYXnbN4uWJg96oGxw': 'Rappler',

@@ -18,6 +18,9 @@ import os
 from time import sleep
 from jellyfish import jaro_similarity
 import regex as re
+import requests
+from bs4 import BeautifulSoup
+import json
 
 # Put your personal API key here
 # DLSU account key
@@ -182,7 +185,7 @@ def yt_scrape(search_query, num_videos, filename):
                             "sub_count", "total_videos"]
     
     temp_comment_list = []
-    comment_columns = ['video_id', 'comment', 'metric']
+    comment_columns = ['video_id', 'comment']
 
     pbar = tqdm(total=num_videos)
     pbar.set_description("Scraping...")
@@ -221,11 +224,11 @@ def yt_scrape(search_query, num_videos, filename):
                 transcript_dict = YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"), languages=['en'])
             except:
                 video_transcript = None
-                print("No English Caption for this video")
+                # print("No English Caption for this video")
             else:
                 for item in transcript_dict:
                     video_transcript += " " + item['text']
-                print(video_transcript)
+                # print(video_transcript)
                 
             # This list will contain data for one record 
             try:
@@ -260,7 +263,7 @@ def yt_scrape(search_query, num_videos, filename):
                 vid_specs.get("items")[0].get("statistics").get("likeCount"),  # like_count
                 comment_count,  # comment_count
                 metadata.get("channelId"),  # channel_id
-                video_transcript # video_transcript
+                video_transcript    # video_transcript
             ]
 
             channel = [
@@ -282,12 +285,12 @@ def yt_scrape(search_query, num_videos, filename):
             try:
                 video_comments = comment_request.execute()
             except:
-                print("No comment for this video")
+                # print("No comment for this video")
+                pass
             else:   
                 for comment in video_comments.get("items"):
-                    temp_comment_list.append([  video.get("id").get("videoId"),
-                                                comment.get("snippet").get("topLevelComment").get("snippet").get("textDisplay"),
-                                                None])
+                    temp_comment_list.append([video.get("id").get("videoId"),
+                                                comment.get("snippet").get("topLevelComment").get("snippet").get("textDisplay")])
                     
             # Append record to list
             temp_video_list.append(record)
@@ -317,17 +320,18 @@ def yt_scrape(search_query, num_videos, filename):
     pbar.close()
 
     temp_nparray = np.array(temp_video_list)
+    temp_channel_nparray = np.array(temp_channel_list)
     temp_comment_nparray = np.array(temp_comment_list)
     # ------------- SCRAPING ------------- #
 
     # Converting numpy array to DataFrame
     print("Converting to DataFrame...")
-    df = pd.DataFrame(temp_nparray, columns=columns)
+    video_df = pd.DataFrame(temp_nparray, columns=columns)
 
-    print("Converting channels to DataFrame...")
-    channel_df = pd.DataFrame(temp_comment_nparray, columns=channel_info_columns)
+    # print("Converting channels to DataFrame...")
+    channel_df = pd.DataFrame(temp_channel_nparray, columns=channel_info_columns)
 
-    print("Converting comments to DataFrame...")
+    # print("Converting comments to DataFrame...")
     comment_df = pd.DataFrame(temp_comment_nparray, columns=comment_columns)
 
     # Saving to a .csv file
@@ -335,12 +339,10 @@ def yt_scrape(search_query, num_videos, filename):
     path = os.getcwd() + "/datasets/" + filename
 
     # Saving to a .csv file
-    print("Saving as " + filename + ".csv...")
-    path = os.getcwd() + "/datasets/" + filename + "_channels"
+    print("Saving as " + filename + "_channels.csv...")
 
     # Saving to a .csv file
-    print("Saving as " + filename + ".csv...")
-    path = os.getcwd() + "/datasets/" + filename + "_comments"
+    print("Saving as " + filename + "_comments.csv...")
 
     try:
         os.makedirs(path)
@@ -349,10 +351,8 @@ def yt_scrape(search_query, num_videos, filename):
     finally:
         os.chdir(path)
 
-    df.to_csv(filename + ".csv")
-    print("Saved @ " + os.getcwd())
-    channel_df.to_scv(filename + "_channels.csv")
-    print("Saved @ " + os.getcwd())
+    video_df.to_csv(filename + ".csv")
+    channel_df.to_csv(filename + "_channels.csv")
     comment_df.to_csv(filename + "_comments.csv")
     print("Saved @ " + os.getcwd())
     os.chdir("..")
@@ -535,9 +535,9 @@ def find_twitter(channel_name, query):
         return found, link
 
 
-def check_desc(channel_name, videos_df, pattern):
+def check_desc(channel_id, videos_df, pattern):
     # Get first 5 videos of channel from videos_df
-    videos_df = videos_df.loc[videos_df["channel_name"] == channel_name].reset_index().drop("index", axis=1).head()
+    videos_df = videos_df.loc[videos_df["channel_id"] == channel_id].reset_index().drop("index", axis=1).head()
     found = (False, None)
 
     # For each video
@@ -554,19 +554,13 @@ def check_desc(channel_name, videos_df, pattern):
     return found
 
 
-def find_sources(channel_names, channel_IDs, main_df):
-    pbar = tqdm(total=len(channel_names))
+def find_sources(channel_df, video_df):
+    pbar = tqdm(total=channel_df.shape[0])
     pbar.set_description("Finding sources...")
 
     source_scores = []
-    ss_cols = [
-        "channel_id", "channel_name",
-        "profiles", "website", "social_media_presence",
-        "vs"
-    ]
-
     source_links = []
-    sl_cols = [
+    cols = [
         "channel_id", "channel_name",
         "LinkedIn", "Wiki", "Website",
         "Twitter", "Facebook"
@@ -587,12 +581,15 @@ def find_sources(channel_names, channel_IDs, main_df):
     twitter_pattern = r"(?<=((T|t)witter\:\s))https:\/\/(www\.)?(twitter|x)\.com\/(\w|\w[-_])+"
     # ---
 
-    for channel_name in channel_names:
+    for i in range(0, channel_df.shape[0]):
+        channel_id = channel_df.iloc[i]["channel_id"]
+        channel_name = channel_df.iloc[i]["channel_name"]
+
         # --- Checking descriptions from channel's videos
-        linkedIn_found = check_desc(channel_name, main_df, linkedIn_pattern)
-        site_found = check_desc(channel_name, main_df, website_pattern)
-        fb_found = check_desc(channel_name, main_df, fb_pattern)
-        twitter_found = check_desc(channel_name, main_df, twitter_pattern)
+        linkedIn_found = check_desc(channel_id, video_df, linkedIn_pattern)
+        site_found = check_desc(channel_id, video_df, website_pattern)
+        fb_found = check_desc(channel_id, video_df, fb_pattern)
+        twitter_found = check_desc(channel_id, video_df, twitter_pattern)
         # ---
 
         # --- If link not found in descriptions, search via Google
@@ -610,7 +607,7 @@ def find_sources(channel_names, channel_IDs, main_df):
 
         wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
         # ---
-
+        '''
         profiles = 0
         website = 0
         social_media_presence = 0
@@ -627,15 +624,16 @@ def find_sources(channel_names, channel_IDs, main_df):
 
         if fb_found[0] or twitter_found[0]:
             social_media_presence = 1
-
+        '''
         # Source scores ---
         ss_record = [
-            channel_IDs.get(channel_name),  # channel_id
+            channel_id,  # channel_id
             channel_name,  # channel_name
-            profiles,  # profiles
-            website,  # website
-            social_media_presence,  # social_media_presence
-            np.nan  # vs
+            linkedIn_found[0],
+            wiki_found[0],
+            site_found[0],
+            twitter_found[0],
+            fb_found[0]
         ]
         source_scores.append(ss_record)
         # ---
@@ -651,7 +649,7 @@ def find_sources(channel_names, channel_IDs, main_df):
             twitter_link = twitter_found[1]
 
         sl_record = [
-            channel_IDs.get(channel_name),
+            channel_id,
             channel_name,
             linkedIn_found[1],
             wiki_found[1],
@@ -674,8 +672,8 @@ def find_sources(channel_names, channel_IDs, main_df):
     ss_nparray = np.array(source_scores)
     sl_nparray = np.array(source_links)
 
-    ss_df = pd.DataFrame(ss_nparray, columns=ss_cols)
-    sl_df = pd.DataFrame(sl_nparray, columns=sl_cols)
+    ss_df = pd.DataFrame(ss_nparray, columns=cols)
+    sl_df = pd.DataFrame(sl_nparray, columns=cols)
 
     ss_df.to_csv("source_scores.csv")
     sl_df.to_csv("source_links.csv")
@@ -735,6 +733,40 @@ def topsis(scores, weights):
     return performance_rank
 
 
+def getLinksFromAbout(channel_id, channel_name):
+    x = requests.get(f'https://www.youtube.com/channel/{channel_id}/about')
+
+    soup = BeautifulSoup(x.content, 'html.parser')
+
+    script_tags = soup.find_all("script")
+
+    for script in script_tags:
+        results = re.search(r"var ytInitialData = {.*}", script.text)
+        if results is not None:
+            object = results.group(0).replace("var ytInitialData = ", "")
+            try:
+                link_information =  (json.loads(object) ['onResponseReceivedEndpoints'][0]
+                                    ['showEngagementPanelEndpoint']
+                                    ['engagementPanel']
+                                    ['engagementPanelSectionListRenderer']
+                                    ['content']
+                                    ['sectionListRenderer']
+                                    ['contents'][0]
+                                    ['itemSectionRenderer']
+                                    ['contents'][0]
+                                    ['aboutChannelRenderer']
+                                    ['metadata']
+                                    ['aboutChannelViewModel']
+                                    ['links']
+                                    )
+            except:
+                print("No links provided for:", {channel_name})
+            else:
+                print("Available links provided for:", {channel_name})
+                for link in link_information:   #print all available links from the about modal
+                    print(f"{link['channelExternalLinkViewModel']['title']['content']}: {link['channelExternalLinkViewModel']['link']['content']}")
+            print("---------------------------------------")
+
 
 if __name__ == '__main__':
     cont = True
@@ -765,14 +797,11 @@ if __name__ == '__main__':
 
                 print("Working @ " + os.getcwd())
 
-                df = pd.read_csv(filename + ".csv")
-                df.drop("Unnamed: 0", axis=1, inplace=True)
+                video_df = pd.read_csv(filename + ".csv").drop("Unnamed: 0", axis=1)
+                channel_df = pd.read_csv(filename + "_channels.csv").drop("Unnamed: 0", axis=1)
                 print(f"File {filename} found.")
 
-                channel_names = df["channel_name"].unique()
-                channel_IDs = df[["channel_id", "channel_name"]].groupby("channel_name").first().to_dict().get("channel_id")
-
-                find_sources(channel_names, channel_IDs, df)
+                find_sources(channel_df, video_df)
 
                 # Return to main folder
                 os.chdir("..")
