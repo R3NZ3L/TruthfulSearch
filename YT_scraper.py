@@ -189,6 +189,10 @@ def yt_scrape(search_query, num_videos, filename):
 
     pbar = tqdm(total=num_videos)
     pbar.set_description("Scraping...")
+
+    # List of IDs, to check if list exceeds 20 channels after next iteration
+    channels = []
+
     for n in range(0, num_pages):
         j = 0
         if num_videos > 50:
@@ -554,11 +558,24 @@ def check_desc(channel_id, videos_df, pattern):
     return found
 
 
+def check_about_links(pattern, links):
+    found = (False, None)
+
+    for i in range(0, len(links)):
+        match = re.search(pattern, links[i][1])
+        if match is not None:
+            found = (True, match.group())
+            links.pop(i)
+            break
+
+    return found, links
+
+
 def find_sources(channel_df, video_df):
     pbar = tqdm(total=channel_df.shape[0])
     pbar.set_description("Finding sources...")
 
-    source_scores = []
+    source_check = []
     source_links = []
     cols = [
         "channel_id", "channel_name",
@@ -574,22 +591,91 @@ def find_sources(channel_df, video_df):
         " Twitter"
     ]
 
+
     # --- Patterns to search for links within video descriptions
-    linkedIn_pattern = r"(?<=(Linked(in|In)\:\s))https:\/\/(www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_])+\/"
-    website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))https:\/\/\w+(\.(\w|\w[-_])+)?\.\w{3}(\.\w{2})?(\/(\w|\w[-_])+)?"
-    fb_pattern = r"(?<=((F|f)acebook\:\s))https:\/\/(www\.)?facebook\.com\/(\w|\w[-_])+"
-    twitter_pattern = r"(?<=((T|t)witter\:\s))https:\/\/(www\.)?(twitter|x)\.com\/(\w|\w[-_])+"
+    desc_linkedIn_pattern = r"(?<=(Linked(in|In)\:\s))https:\/\/(www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_])+\/"
+    desc_website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))https:\/\/\w+(\.(\w|\w[-_])+)?\.\w{3}(\.\w{2})?(\/(\w|\w[-_])+)?"
+    desc_fb_pattern = r"(?<=((F|f)acebook\:\s))https:\/\/(www\.)?facebook\.com\/(\w|\w[-_])+"
+    desc_twitter_pattern = r"(?<=((T|t)witter\:\s))https:\/\/(www\.)?(twitter|x)\.com\/(\w|\w[-_])+"
+    # ---
+
+    # --- Patterns to search for links within About sections in channel pages
+    about_website_pattern = r"(W|w)ebsite"
+    about_fb_pattern = r"facebook\.com\/.+"
+    about_linkedIn_pattern = r"linkedin\.com\/(company|in)\/.+"
+    about_twitter_pattern = r"twitter\.com\/.+"
     # ---
 
     for i in range(0, channel_df.shape[0]):
         channel_id = channel_df.iloc[i]["channel_id"]
         channel_name = channel_df.iloc[i]["channel_name"]
 
+        about_page = requests.get(f'https://www.youtube.com/channel/{channel_id}/about')
+        soup = BeautifulSoup(about_page.content, 'html.parser')
+        script_tags = soup.find_all("script")
+
+        for script in script_tags:
+            results = re.search(r"var ytInitialData = {.*}", script.text)
+            if results is not None:
+                object = results.group(0).replace("var ytInitialData = ", "")
+                try:
+                    link_information = (json.loads(object)['onResponseReceivedEndpoints'][0]
+                    ['showEngagementPanelEndpoint']
+                    ['engagementPanel']
+                    ['engagementPanelSectionListRenderer']
+                    ['content']
+                    ['sectionListRenderer']
+                    ['contents'][0]
+                    ['itemSectionRenderer']
+                    ['contents'][0]
+                    ['aboutChannelRenderer']
+                    ['metadata']
+                    ['aboutChannelViewModel']
+                    ['links']
+                    )
+                except:
+                    pass
+                else:
+                    # print("Available links provided for:", {channel_name})
+                    links = []
+                    for link in link_information:  # print all available links from the about modal
+                        link_title = link['channelExternalLinkViewModel']['title']['content']
+                        url = link['channelExternalLinkViewModel']['link']['content']
+                        links.append([link_title, url])
+
+                    fb_found, links = check_about_links(about_fb_pattern, links)
+                    twitter_found, links = check_about_links(about_twitter_pattern, links)
+                    linkedIn_found, links = check_about_links(about_linkedIn_pattern, links)
+
+                    site_found = (False, None)
+
+                    for i in range(0, len(links)):
+                        match = re.search(about_website_pattern, links[i][0])
+                        if match is not None:
+                            site_found = (True, links[i][1])
+                            break
+
+                    for i in range(0, len(links)):
+                        link_title = links[i][0]
+                        similarity = round(jaro_similarity(channel_name, link_title), 2)
+                        if similarity >= 0.60:
+                            match = re.search("youtube\.com\/.+", links[i][1])
+                            if match is None:
+                                site_found = (True, links[i][1])
+                                break
+
         # --- Checking descriptions from channel's videos
-        linkedIn_found = check_desc(channel_id, video_df, linkedIn_pattern)
-        site_found = check_desc(channel_id, video_df, website_pattern)
-        fb_found = check_desc(channel_id, video_df, fb_pattern)
-        twitter_found = check_desc(channel_id, video_df, twitter_pattern)
+        if not linkedIn_found[0]:
+            linkedIn_found = check_desc(channel_id, video_df, desc_linkedIn_pattern)
+
+        if not site_found[0]:
+            site_found = check_desc(channel_id, video_df, desc_website_pattern)
+
+        if not fb_found[0]:
+            fb_found = check_desc(channel_id, video_df, desc_fb_pattern)
+
+        if not twitter_found[0]:
+            twitter_found = check_desc(channel_id, video_df, desc_twitter_pattern)
         # ---
 
         # --- If link not found in descriptions, search via Google
@@ -626,7 +712,7 @@ def find_sources(channel_df, video_df):
             social_media_presence = 1
         '''
         # Source scores ---
-        ss_record = [
+        sc_record = [
             channel_id,  # channel_id
             channel_name,  # channel_name
             linkedIn_found[0],
@@ -635,7 +721,7 @@ def find_sources(channel_df, video_df):
             twitter_found[0],
             fb_found[0]
         ]
-        source_scores.append(ss_record)
+        source_check.append(sc_record)
         # ---
 
         # Source links ---
@@ -669,13 +755,13 @@ def find_sources(channel_df, video_df):
         print("Custom Search API daily quota reached.")
         print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
 
-    ss_nparray = np.array(source_scores)
+    sc_nparray = np.array(source_check)
     sl_nparray = np.array(source_links)
 
-    ss_df = pd.DataFrame(ss_nparray, columns=cols)
+    ss_df = pd.DataFrame(sc_nparray, columns=cols)
     sl_df = pd.DataFrame(sl_nparray, columns=cols)
 
-    ss_df.to_csv("source_scores.csv")
+    ss_df.to_csv("source_check.csv")
     sl_df.to_csv("source_links.csv")
 
     print("Complete.")
@@ -733,41 +819,6 @@ def topsis(scores, weights):
     return performance_rank
 
 
-def getLinksFromAbout(channel_id, channel_name):
-    x = requests.get(f'https://www.youtube.com/channel/{channel_id}/about')
-
-    soup = BeautifulSoup(x.content, 'html.parser')
-
-    script_tags = soup.find_all("script")
-
-    for script in script_tags:
-        results = re.search(r"var ytInitialData = {.*}", script.text)
-        if results is not None:
-            object = results.group(0).replace("var ytInitialData = ", "")
-            try:
-                link_information =  (json.loads(object) ['onResponseReceivedEndpoints'][0]
-                                    ['showEngagementPanelEndpoint']
-                                    ['engagementPanel']
-                                    ['engagementPanelSectionListRenderer']
-                                    ['content']
-                                    ['sectionListRenderer']
-                                    ['contents'][0]
-                                    ['itemSectionRenderer']
-                                    ['contents'][0]
-                                    ['aboutChannelRenderer']
-                                    ['metadata']
-                                    ['aboutChannelViewModel']
-                                    ['links']
-                                    )
-            except:
-                print("No links provided for:", {channel_name})
-            else:
-                print("Available links provided for:", {channel_name})
-                for link in link_information:   #print all available links from the about modal
-                    print(f"{link['channelExternalLinkViewModel']['title']['content']}: {link['channelExternalLinkViewModel']['link']['content']}")
-            print("---------------------------------------")
-
-
 if __name__ == '__main__':
     cont = True
 
@@ -819,8 +870,7 @@ if __name__ == '__main__':
 
                 print("Working @ " + os.getcwd())
 
-                ss_df = pd.read_csv("source_scores.csv")
-                ss_df.drop("Unnamed: 0", axis=1, inplace=True)
+                sc_df = pd.read_csv("source_scores.csv").drop("Unnamed: 0", axis=1, inplace=True)
                 print(f"File {filename} found.")
 
                 weights = {
@@ -829,8 +879,8 @@ if __name__ == '__main__':
                     "social_media_presence": 0.15
                 }
 
-                ss_df["vs"] = topsis(ss_df, weights)
-                ss_df.to_csv("source_scores.csv")
+                sc_df["vs"] = topsis(sc_df, weights)
+                sc_df.to_csv("source_scores.csv")
 
                 # TODO: Compute for video rank and save to .csv
 
