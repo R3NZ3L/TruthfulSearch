@@ -41,111 +41,6 @@ quota_reached = False
 stopped_at = None
 
 
-def search_test():
-    searchQuery = input("Search query: ")
-    pages = int(input("Number of pages (50 videos per page): "))
-
-    search_request = youtube.search().list(
-        part="snippet",
-        q=searchQuery,
-        type="video",
-        maxResults=50,
-        order="relevance",
-        regionCode="PH"
-    )
-    search_response = search_request.execute()
-
-    '''
-    Response Keys: 
-    dict_keys(['kind', 'etag', 'nextPageToken', 'regionCode', 'pageInfo', 'items'])
-
-    Search Results (items) Keys: 
-    dict_keys(['kind', 'etag', 'id', 'snippet'])
-
-    Metadata (snippet) Keys: 
-    dict_keys(['publishedAt', 'channelId', 'title', 'description', 'thumbnails', 'channelTitle', 'liveBroadcastContent', 'publishTime']) 
-    '''
-    searchResults = search_response.get("items")
-
-    print("--------------")
-
-    # Returns a number of results; to get multiple results, change range max
-    for n in range(0, pages):
-        print("----------------------- SEARCH PAGE " + str(n + 1) + " -----------------------")
-        for i in range(0, 50):
-            video = searchResults[i]
-            metadata = video.get("snippet")
-
-            print("[" + str(i + 1) + "]")
-            print("Video ID: " + video.get("id").get("videoId"))
-            print("Title: " + str(metadata.get("title")))
-            print("Channel: " + str(metadata.get("channelTitle") + " (" + metadata.get("channelId") + ")"))
-            # print("Description: " + str(metadata.get("description")))
-
-            request = youtube.videos().list(
-                part=['snippet, statistics'],
-                id=video.get("id").get("videoId"),
-                maxResults=1
-            )
-
-            vid_specs = request.execute()
-            print("----------------------------------------")
-            '''
-            Video Specifics Keys:
-            dict_keys(['kind', 'etag', 'items', 'pageInfo'])
-            '''
-
-            # Channel information
-            request = youtube.channels().list(
-                part=['snippet', 'statistics'],
-                id=metadata.get("channelId"),
-                maxResults=1
-            )
-            channel_specs = request.execute()
-
-            print("Channel Subscriber count: " + channel_specs.get("items")[0].get("statistics").get("subscriberCount"))
-            print("Channel Total videos uploaded: " + channel_specs.get("items")[0].get("statistics").get("videoCount"))
-            print(
-                "Channel Date of Publication: " + channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10])
-
-            print("------------------Start of Description------------------")
-            print("Description:\n" + vid_specs.get("items")[0].get("snippet").get("description"))
-            print("------------------End of Description------------------")
-
-            print("Video Date of Publication: " + metadata.get("publishedAt")[:10])
-            print("Video View Count: " + vid_specs.get("items")[0].get("statistics").get("viewCount"))
-            print("Video Like Count: " + vid_specs.get("items")[0].get("statistics").get("likeCount"))
-
-            try:
-                print("Video Dislike Count: " + vid_specs.get("items")[0].get("statistics").get("dislikeCount"))
-            except:
-                print("Video Dislike Count: N/A")
-
-            try:
-                print("Video Comment Count: " + vid_specs.get("items")[0].get("statistics").get("commentCount"))
-            except:
-                print("Video Comment Count: N/A")
-            '''
-            try:
-                print("Transcript: " + str(YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"))))
-            except:
-                print("Transcript unavailable")
-            finally:
-                print("")
-            # '''
-            print("")
-
-        # Next page, if needed
-        if n != pages:
-            next_page_request = youtube.search().list_next(
-                previous_request=search_request,
-                previous_response=search_response
-            )
-            search_response = next_page_request.execute()
-            searchResults = search_response.get("items")
-            print("")
-
-
 def yt_scrape(search_query, num_videos, filename):
     # Storing data in a numpy array of lists
     # ------------- SCRAPING ------------- #
@@ -206,6 +101,16 @@ def yt_scrape(search_query, num_videos, filename):
             video = search_results[i]
             metadata = video.get("snippet")
 
+            '''
+            if metadata.get("channelId") in channels:
+                pass
+            elif len(channels) < 20:
+                channels.append(metadata.get("channelId"))
+            else:
+                continue
+            # '''
+
+
             # Video-specific data
             request = youtube.videos().list(
                 part=['snippet, statistics'],
@@ -239,24 +144,6 @@ def yt_scrape(search_query, num_videos, filename):
                 comment_count = int(vid_specs.get("items")[0].get("statistics").get("commentCount"))
             except:
                 comment_count = 0
-
-            """
-            record = [
-                video.get("id").get("videoId"),  # video_id
-                metadata.get("title"),  # video_title
-                vid_specs.get("items")[0].get("snippet").get("description"),  # description
-                metadata.get("publishedAt")[:10],  # video_dop
-                vid_specs.get("items")[0].get("statistics").get("viewCount"),  # view_count
-                vid_specs.get("items")[0].get("statistics").get("likeCount"),  # like_count
-                comment_count,  # comment_count
-                metadata.get("channelId"),  # channel_id
-                metadata.get("channelTitle"),  # channel_name
-                channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10],  # channel_dop
-                channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
-                channel_specs.get("items")[0].get("statistics").get("videoCount"),  # total_videos
-                video_transcript # video_transcript
-            ]
-            """
 
             record = [
                 video.get("id").get("videoId"),  # video_id
