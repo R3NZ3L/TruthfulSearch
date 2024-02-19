@@ -546,7 +546,7 @@ def find_sources(channel_df, video_df):
                         link_title = links[i][0]
                         similarity = round(jaro_similarity(channel_name, link_title), 2)
                         if similarity >= 0.60:
-                            match = re.search("youtube\.com\/.+", links[i][1])
+                            match = re.search(r"youtube\.com\/.+", links[i][1])
                             if match is None:
                                 site_found = (True, links[i][1])
                                 break
@@ -579,26 +579,8 @@ def find_sources(channel_df, video_df):
             twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
 
         wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
-        # ---
-        '''
-        profiles = 0
-        website = 0
-        social_media_presence = 0
 
-        if linkedIn_found[0] and wiki_found[0]:
-            profiles = 3
-        elif linkedIn_found[0] and not wiki_found[0]:
-            profiles = 2
-        elif not linkedIn_found[0] and wiki_found[0]:
-            profiles = 1
-
-        if site_found[0]:
-            website = 2
-
-        if fb_found[0] or twitter_found[0]:
-            social_media_presence = 1
-        '''
-        # Source scores ---
+        # Source checks ---
         sc_record = [
             channel_id,  # channel_id
             channel_name,  # channel_name
@@ -757,19 +739,7 @@ if __name__ == '__main__':
 
                 print("Working @ " + os.getcwd())
 
-                sc_df = pd.read_csv("source_scores.csv").drop("Unnamed: 0", axis=1, inplace=True)
-                print(f"File {filename} found.")
-
-                weights = {
-                    "profiles": 0.50,
-                    "website": 0.35,
-                    "social_media_presence": 0.15
-                }
-
-                sc_df["vs"] = topsis(sc_df, weights)
-                sc_df.to_csv("source_scores.csv")
-
-                # TODO: Compute for video rank and save to .csv
+                ##################################
 
                 print("Complete.")
 
