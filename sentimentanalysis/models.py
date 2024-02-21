@@ -79,7 +79,7 @@ for comments in dasdasd:
 
     comment_procs = " ".join(comment_words)
 
-    encoded = tokenizer(comment_procs, return_tensors='pt')
+    encoded = tokenizer(comment_procs, return_tensors='pt', max_length=512, truncation=True, padding=True)
     print(encoded)
     output = model(**encoded)
 
