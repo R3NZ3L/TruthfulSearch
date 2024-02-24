@@ -85,9 +85,6 @@ def yt_scrape(search_query, num_videos, filename):
     pbar = tqdm(total=num_videos)
     pbar.set_description("Scraping...")
 
-    # List of IDs, to check if list exceeds 20 channels after next iteration
-    channels = []
-
     for n in range(0, num_pages):
         j = 0
         if num_videos > 50:
@@ -132,7 +129,7 @@ def yt_scrape(search_query, num_videos, filename):
             try:
                 transcript_dict = YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"), languages=['en'])
             except:
-                video_transcript = None
+                video_transcript = np.nan
                 # print("No English Caption for this video")
             else:
                 for item in transcript_dict:
@@ -285,7 +282,7 @@ def find_linkedIn(channel_name, query):
             stopped_at = (channel_name, query)
 
     if not found:
-        return found, None
+        return found, np.nan
     else:
         return found, link
 
@@ -325,7 +322,7 @@ def find_wiki(channel_name, query):
             stopped_at = (channel_name, query)
 
     if not found:
-        return found, None
+        return found, np.nan
     else:
         return found, link
 
@@ -357,7 +354,7 @@ def find_website(channel_name, query):
             stopped_at = (channel_name, query)
 
     if not found:
-        return found, None
+        return found, np.nan
     else:
         return found, link
 
@@ -389,7 +386,7 @@ def find_fb(channel_name, query):
             stopped_at = (channel_name, query)
 
     if not found:
-        return found, None
+        return found, np.nan
     else:
         return found, link
 
@@ -421,7 +418,7 @@ def find_twitter(channel_name, query):
             stopped_at = (channel_name, query)
 
     if not found:
-        return found, None
+        return found, np.nan
     else:
         return found, link
 
@@ -429,7 +426,7 @@ def find_twitter(channel_name, query):
 def check_desc(channel_id, videos_df, pattern):
     # Get first 5 videos of channel from videos_df
     videos_df = videos_df.loc[videos_df["channel_id"] == channel_id].reset_index().drop("index", axis=1).head()
-    found = (False, None)
+    found = (False, np.nan)
 
     # For each video
     for i in range(0, videos_df.shape[0]):
@@ -446,7 +443,7 @@ def check_desc(channel_id, videos_df, pattern):
 
 
 def check_about_links(pattern, links):
-    found = (False, None)
+    found = (False, np.nan)
 
     for i in range(0, len(links)):
         match = re.search(pattern, links[i][1])
@@ -477,7 +474,6 @@ def find_sources(channel_df, video_df):
         " Facebook",
         " Twitter"
     ]
-
 
     # --- Patterns to search for links within video descriptions
     desc_linkedIn_pattern = r"(?<=(Linked(in|In)\:\s))https:\/\/(www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_])+\/"
@@ -534,7 +530,7 @@ def find_sources(channel_df, video_df):
                     twitter_found, links = check_about_links(about_twitter_pattern, links)
                     linkedIn_found, links = check_about_links(about_linkedIn_pattern, links)
 
-                    site_found = (False, None)
+                    site_found = (False, np.nan)
 
                     for i in range(0, len(links)):
                         match = re.search(about_website_pattern, links[i][0])
