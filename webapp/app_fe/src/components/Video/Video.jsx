@@ -1,11 +1,11 @@
 import random_thumbnail from '../../assets/random_thumbnail.jpg';
 import {useState} from 'react';
-import './Card.css';
+import './Video.css';
 import PropTypes from 'prop-types';
 
-function Card(props) {
+function Video(props) {
 
-    const [visibleModal, setVisibleModal] = useState(false);
+    const [visibleToolTip, setVisibleToolTip] = useState(false);
 
     function convertScore() {
         return  props.score == 1 ? "0-19%"  : 
@@ -23,9 +23,13 @@ function Card(props) {
                             props.score == 5 ? "lightgreen" : "black"
     } 
 
+    const opacity = {
+        "opacity":  1
+    } 
+
     return (
         <>
-        <div className="card">
+        <div className="video">
             <img src={random_thumbnail} />
             <div className="metadata">
                 <p className="title">Title</p>
@@ -37,16 +41,10 @@ function Card(props) {
                         </div>
                     </div>
                     Channel name 
-                    <span className="score" style={backgroundColor} onMouseOver={() => setVisibleModal(true)} onMouseLeave={() => setVisibleModal(false)}>
+                    <span className="score" style={backgroundColor} onMouseOver={() => setVisibleToolTip(true)} onMouseLeave={() => setVisibleToolTip(false)}>
                         {convertScore(props.score)}
-                        { visibleModal && 
-                            <span className="channel_info_modal">
-                                <p>The channel got a verifiability score of 59% due to these reasons:</p>
-                                <p>&#x2022; Has a LinkedIn page</p>
-                                <p>&#x2022; Has a Wikipedia page</p>
-                                <p>&#x2022; Has a Facebook page</p>
-                                <button className="more_info">&#9432; <span className='more_info_text'>Learn More</span></button>
-                            </span>
+                        { visibleToolTip && 
+                            <span className="channel_info_tooltip" style={opacity}> Click the score to learn more!</span>
                         }
                     </span>
                 </div>
@@ -57,12 +55,12 @@ function Card(props) {
     )
 }
 
-Card.propTypes = {
+Video.propTypes = {
     score: PropTypes.number,
 }
 
-Card.defaultProps = {
+Video.defaultProps = {
     score: "1",
 }
 
-export default Card;
+export default Video;

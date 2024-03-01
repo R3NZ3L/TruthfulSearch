@@ -1,5 +1,6 @@
 import {useState} from 'react'
-import Card from '../Card/Card.jsx'
+import Video from '../Video/Video.jsx'
+import InfoCard from '../InfoCard/InfoCard.jsx'
 import './HomePage.css'
 
 function HomePage() {
@@ -25,18 +26,25 @@ function HomePage() {
 
     return (
         <>
-        <select id="topic_choices" onChange={(e) => changeTopic(e)}>
-            <option className="option" value="covid">Covid-19</option>
-            <option className="option" value="flat-earth">Flat Earth</option>
-            <option className="option" value="alien-life">Alien Life</option>
-        </select>
-
-        <p>Current chosen topic is: {topic}</p>
-        <Card score={1} />
-        <Card score={2} />
-        <Card score={3} />
-        <Card score={4} />
-        <Card score={5} />
+        <span id="brand">VERIFYVID</span>
+        <div id="search_bar">
+            <select id="topic_choices" onChange={(e) => changeTopic(e)}>
+                <option className="option" value="covid">Covid-19</option>
+                <option className="option" value="flat-earth">Flat Earth</option>
+                <option className="option" value="alien-life">Alien Life</option>
+            </select>
+            <button>&#128269;</button>
+        </div>
+        <main> 
+            <div>
+                <Video score={1} />
+                <Video score={2} />
+                <Video score={3} />
+                <Video score={4} />
+                <Video score={5} />
+            </div>
+            <InfoCard />
+        </main>
         </>
     );
 

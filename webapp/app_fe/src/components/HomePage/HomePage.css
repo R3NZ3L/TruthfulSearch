@@ -1,6 +1,44 @@
+#brand {
+    position: absolute;
+    font-size: 2em;
+    font-weight: 900;
+    margin-top: -2px;
+}
+
+#search_bar {
+    margin: auto auto 5em auto;
+    text-align: center;
+}
+
 #topic_choices {
-    font-size: 1.5em;
-    font-family: "Roboto","Arial",sans-serif;
-    border-radius: 5%;
-    padding: 0.5em;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    width: 40rem;
+    border-radius: 20px 0 0 20px;
+}
+
+#search_bar button {
+    margin: auto;
+    font-size: 1.35rem;
+    padding: 0.43rem 1em 0.4rem 1em;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 0 20px 20px 0;
+    cursor: pointer;
+}
+
+select {
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+}
+  
+/* For IE10 */
+select::-ms-expand {
+    display: none;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
 }

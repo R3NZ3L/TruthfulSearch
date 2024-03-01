@@ -1,18 +1,13 @@
-.card {
-    /*
-    display: grid;
-    grid-template-columns: 20% 80%;
-    grid-column-gap: 1em;
-    grid-row-gap: 1em;
-    */
-    margin: 1.5em 0 1.5em 0;
+.video {
+    margin: 0 0 1.5em 0;
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: start;
+    height: 220px;
 }
 
-.card img {
+.video img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -23,7 +18,7 @@
     border-radius: 12px;
 }
 
-.card .metadata {
+.video .metadata {
     max-width: 600px;
     min-width: 0;
     cursor: pointer;
@@ -31,87 +26,97 @@
     flex-direction: column;
 }
 
-.card .title {
-    font-family: "Roboto","Arial",sans-serif;
+.video .title {
     font-size: 1.8rem;
     line-height: 2.6rem;
     font-weight: 400;
 }
 
-.card .view_count,.channel_info, .description {
-    font-family: "Roboto","Arial",sans-serif;
+.video .view_count, .channel_info, .description {
     font-size: 1.2rem;
     line-height: 1.8rem;
     font-weight: 400;
     color: gray;
-    padding: 12px 0;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.card .channel_image_wrapper {
+.video .channel_info {
+    padding: 12px 0;
+}
+
+.video .channel_image_wrapper {
     padding-right: 8px;
 }
 
-.card .channel_image_wrapper .channel_image {
+.video .channel_image_wrapper .channel_image {
     border-radius: 50%;
     overflow: hidden;
     height: 32px;
     width: 32px;
 }
 
-.card .description {
+.video .description {
     overflow: hidden;
 }
 
-.card .score {
+.video .score {
     color: white;
     margin-left: 10px;
-    padding: 5px;
+    padding: 5px 10px;
     border-radius: 5px;
+    font-size: 1.2rem;
 }
 
-.card .channel_info_modal {
+.video .channel_info_tooltip {
     position: absolute;
     z-index: 999;
-    transition: 750ms all;
     color: white;
-    background: gray;
-    padding: 1rem;
-    margin-left: 1rem;
-    margin-top: -5px;
+    background: #555555;
+    margin-left: 1.5rem;
+    padding: 3px;
+    margin-top: -3px;
     border-radius: 5px;
+    font-size: 1rem;
+    animation: fade-in 1s;
 }
 
-.card .more_info {
-    background-color: #ADD8E6;
-    border-radius: 100px;
-    border: none;
-    color: #FFFFFF;
-    float: right;
-    font-weight: bold;
+@keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 100;
+    }
 }
 
-.card .more_info_text {
-    text-decoration: underline;
+.video .channel_info_tooltip::after {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #555555 transparent transparent;
 }
 
-.card p {
+.video p {
     margin: 0;
 }
 
-.card .upload_date::before {
+.video .upload_date::before {
     content: "•";
     margin: 0 4px;
 }
 
 @media (max-width: 575.98px) {
-    .card {
+    .video {
         flex-direction: column;
     }
 
-    .card .description {
+    .video .description {
         display: none; 
     }
 
