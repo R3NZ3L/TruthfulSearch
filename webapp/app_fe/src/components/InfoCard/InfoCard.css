@@ -125,3 +125,7 @@
     text-align: left;
     width: 50%;
   }
+
+  .channel-links ul li {
+    font-style: italic;
+  }

@@ -19,8 +19,8 @@ function Video(props) {
         "backgroundColor":  props.score == 1 ? "red"        : 
                             props.score == 2 ? "orange"     : 
                             props.score == 3 ? "yellow"     :
-                            props.score == 4 ? "lightblue"  :
-                            props.score == 5 ? "lightgreen" : "black"
+                            props.score == 4 ? "cyan"  :
+                            props.score == 5 ? "limegreen" : "black"
     } 
 
     const opacity = {
