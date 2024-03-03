@@ -1,25 +1,17 @@
 # Google API Python Client by Google (n.d.)
 # https://github.com/googleapis/google-api-python-client
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
-# YouTube Transcript API by Jonas Depoix (2018)
-# https://github.com/jdepoix/youtube-transcript-api
-from youtube_transcript_api import YouTubeTranscriptApi
+from jellyfish import jaro_similarity
 
 import pandas as pd
 import numpy as np
-from math import ceil
 from tqdm import tqdm
-import os
-'''
-from math import sqrt
-from time import sleep
-from jellyfish import jaro_similarity
 import regex as re
 import requests
 from bs4 import BeautifulSoup
 import json
-'''
 
 # Put your personal API key here
 # DLSU account key
@@ -28,207 +20,13 @@ apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
 # Search engine ID
 cseKey = "23c1c70a203ac4852"
 
-# YouTube API object
-youtube = build('youtube', 'v3', developerKey=apiKey)
-
 # Google Custom Search API
-# google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
+google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
+
+quota_reached = False
+stopped_at = None
 
 
-def yt_scrape(search_query, num_videos, filename):
-    # Storing data in a numpy array of lists
-    # ------------- SCRAPING ------------- #
-    print("")
-
-    if num_videos < 50:
-        num_pages = 1
-    else:
-        num_pages = ceil(num_videos / 50)
-
-    # Order by RELEVANCE or DATE can be done; check documentation for search().list()
-    search_request = youtube.search().list(
-        part="snippet",
-        q=search_query,
-        type="video",
-        maxResults=50,
-        regionCode="PH"
-    )
-
-    search_response = search_request.execute()
-    search_results = search_response.get("items")
-
-    temp_video_list = []
-
-    columns = ["video_id", "video_title", "description", "video_dop",
-               "view_count", "like_count", "comment_count", 
-               "channel_id", "video_transcript"]
-    
-    temp_channel_list = []
-    channel_info_columns = ["channel_id", "channel_name", "channel_dop", 
-                            "sub_count", "total_videos"]
-    
-    temp_comment_list = []
-    comment_columns = ['video_id', 'comment']
-
-    pbar = tqdm(total=num_videos)
-    pbar.set_description("Scraping...")
-
-    for n in range(0, num_pages):
-        j = 0
-        if num_videos > 50:
-            num_videos -= 50
-            j = 50
-        elif num_videos <= 50:
-            j = num_videos
-
-        for i in range(0, j):
-            # Data from SERP
-            video = search_results[i]
-            metadata = video.get("snippet")
-
-            # Video-specific data
-            request = youtube.videos().list(
-                part=['snippet, statistics'],
-                id=video.get("id").get("videoId"),
-                maxResults=1
-            )
-            vid_specs = request.execute()
-
-            # Channel-specific data
-            request = youtube.channels().list(
-                part=['snippet', 'statistics'],
-                id=metadata.get("channelId"),
-                maxResults=1
-            )
-            channel_specs = request.execute()
-            
-            video_transcript = ""
-
-            try:
-                transcript_dict = YouTubeTranscriptApi.get_transcript(video.get("id").get("videoId"), languages=['en'])
-            except:
-                video_transcript = np.nan
-                # print("No English Caption for this video")
-            else:
-                for item in transcript_dict:
-                    video_transcript += " " + item['text']
-                # print(video_transcript)
-                
-            # This list will contain data for one record 
-            try:
-                comment_count = int(vid_specs.get("items")[0].get("statistics").get("commentCount"))
-            except:
-                comment_count = 0
-
-            record = [
-                video.get("id").get("videoId"),  # video_id
-                metadata.get("title"),  # video_title
-                vid_specs.get("items")[0].get("snippet").get("description"),  # description
-                metadata.get("publishedAt")[:10],  # video_dop
-                vid_specs.get("items")[0].get("statistics").get("viewCount"),  # view_count
-                vid_specs.get("items")[0].get("statistics").get("likeCount"),  # like_count
-                comment_count,  # comment_count
-                metadata.get("channelId"),  # channel_id
-                video_transcript    # video_transcript
-            ]
-
-            channel = [
-                metadata.get("channelId"),  # channel_id
-                metadata.get("channelTitle"),  # channel_name
-                channel_specs.get("items")[0].get("snippet").get("publishedAt")[:10],  # channel_dop
-                channel_specs.get("items")[0].get("statistics").get("subscriberCount"),  # sub_count
-                channel_specs.get("items")[0].get("statistics").get("videoCount"),  # total_videos
-            ]
-            
-            comment_request = youtube.commentThreads().list(
-                part=['snippet'],
-                videoId=video.get("id").get("videoId"),
-                maxResults=10,
-                order='relevance',
-                textFormat="plainText"
-            )
-
-            try:
-                video_comments = comment_request.execute()
-            except:
-                # print("No comment for this video")
-                pass
-            else:   
-                for comment in video_comments.get("items"):
-                    temp_comment_list.append([video.get("id").get("videoId"),
-                                                comment.get("snippet").get("topLevelComment").get("snippet").get("textDisplay")])
-                    
-            # Append record to list
-            temp_video_list.append(record)
-
-            # Append channel record to list
-            unique = True
-            for unique_channel in temp_channel_list:
-                if unique_channel[0] == channel[0]:
-                    unique_channel == channel
-                    unique = False
-                    break
-
-            if unique:
-                temp_channel_list.append(channel)
-
-            # Update progress bar
-            pbar.update(1)
-
-        # Next page, if needed
-        if n != num_pages:
-            next_page_request = youtube.search().list_next(
-                previous_request=search_request,
-                previous_response=search_response
-            )
-            search_response = next_page_request.execute()
-            search_results = search_response.get("items")
-    pbar.close()
-
-    temp_nparray = np.array(temp_video_list)
-    temp_channel_nparray = np.array(temp_channel_list)
-    temp_comment_nparray = np.array(temp_comment_list)
-    # ------------- SCRAPING ------------- #
-
-    # Converting numpy array to DataFrame
-    print("Converting to DataFrame...")
-    video_df = pd.DataFrame(temp_nparray, columns=columns)
-
-    # print("Converting channels to DataFrame...")
-    channel_df = pd.DataFrame(temp_channel_nparray, columns=channel_info_columns)
-
-    # print("Converting comments to DataFrame...")
-    comment_df = pd.DataFrame(temp_comment_nparray, columns=comment_columns)
-
-    path = os.getcwd() + "/datasets/" + filename
-
-    # Saving to a .csv file
-    print("Saving as videos as videos.csv...")
-    print("Saving as channels as channels.csv...")
-    print("Saving as comments as comments.csv...")
-
-    try:
-        os.makedirs(path)
-    except FileExistsError:
-        pass
-    finally:
-        os.chdir(path)
-    '''
-    video_df.to_csv(filename + ".csv")
-    channel_df.to_csv(filename + "_channels.csv")
-    comment_df.to_csv(filename + "_comments.csv")
-    '''
-
-    video_df.to_csv("videos.csv")
-    channel_df.to_csv("channels.csv")
-    comment_df.to_csv("comments.csv")
-    print("Saved @ " + os.getcwd())
-    print("Scraping complete.")
-    # os.chdir("..")
-    # os.chdir("..")
-
-'''
-# Functions
 def find_linkedIn(channel_name, query):
     found = False
     pattern = r'https:\/\/www\.linkedin\.com\/(company|in)\/.+'  # Used to find specific profile links
@@ -471,6 +269,12 @@ def find_sources(channel_df, video_df):
     # ---
 
     for i in range(0, channel_df.shape[0]):
+        linkedIn_found = (False, None)
+        wiki_found = (False, None)
+        site_found = (False, None)
+        twitter_found = (False, None)
+        fb_found = (False, None)
+
         channel_id = channel_df.iloc[i]["channel_id"]
         channel_name = channel_df.iloc[i]["channel_name"]
 
@@ -610,130 +414,4 @@ def find_sources(channel_df, video_df):
     ss_df.to_csv("source_check.csv")
     sl_df.to_csv("source_links.csv")
 
-    print("Complete.")
-
-
-def topsis(scores, weights):
-    wndm = {}
-
-    for column in weights.keys():
-        temp_list = []
-        x = 0
-        for i in range(0, scores.shape[0]):
-            num = scores.iloc[i][column] ** 2
-            x += num
-        denominator = sqrt(x)
-
-        # Normalize scores
-        for i in range(0, scores.shape[0]):
-            norm_score = scores.iloc[i][column] / denominator
-            temp_list.append(norm_score)
-
-        # Apply weight
-        for i in range(0, len(temp_list)):
-            temp_list[i] *= weights.get(column)
-
-        wndm.update({column: temp_list})
-
-    wndm_df = pd.DataFrame.from_dict(wndm)
-    ideal_best = wndm_df.max()
-    ideal_worst = wndm_df.min()
-
-    dist_from_best = []
-    dist_from_worst = []
-
-    # Euclidean distance from ideal best
-    for i in range(0, wndm_df.shape[0]):
-        temp_num = 0
-        for column in wndm_df.columns:
-            temp_num += (wndm_df.iloc[i][column] - ideal_best[column]) ** 2
-        dist_from_best.append(sqrt(temp_num))
-
-    # Euclidean distance from ideal worst
-    for i in range(0, wndm_df.shape[0]):
-        temp_num = 0
-        for column in wndm_df.columns:
-            temp_num += (wndm_df.iloc[i][column] - ideal_worst[column]) ** 2
-        dist_from_worst.append(sqrt(temp_num))
-
-    performance_rank = []
-    for i in range(0, wndm_df.shape[0]):
-        performance_rank.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
-
-    performance_rank = pd.Series(np.array(performance_rank))
-
-    return performance_rank
-
-
-if __name__ == '__main__':
-    cont = True
-
-    while cont:
-        print("Working @ " + os.getcwd())
-        print("     [1] Scrape videos from YouTube")
-        print("     [2] Find external sources")
-        print("     [3] Compute rankings and verifiability scores")
-        print("     [4] End program")
-        choice = int(input("Input: "))
-        print("----")
-
-        if choice == 1:
-            search_query = input("Search Query: ")
-            num_videos = int(input("Number of Videos: "))
-            filename = input("Filename (w/o .csv): ")
-
-            # Making a dataset
-            yt_scrape(search_query, num_videos, filename)
-
-        elif choice == 2:
-            filename = input("Filename (w/o .csv): ")
-
-            try:
-                # Change directory to specific folder
-                os.chdir(os.getcwd() + "/datasets/" + filename)
-
-                print("Working @ " + os.getcwd())
-
-                video_df = pd.read_csv(filename + ".csv").drop("Unnamed: 0", axis=1)
-                channel_df = pd.read_csv(filename + "_channels.csv").drop("Unnamed: 0", axis=1)
-                print(f"File {filename} found.")
-
-                find_sources(channel_df, video_df)
-
-                # Return to main folder
-                os.chdir("..")
-                os.chdir("..")
-
-            except FileNotFoundError:
-                print("File does not exist")
-
-        elif choice == 3:
-            filename = input("Enter dataset filename (w/o .csv): ")
-
-            try:
-                # Change directory to specific folder
-                os.chdir(os.getcwd() + "/datasets/" + filename)
-
-                print("Working @ " + os.getcwd())
-
-                ##################################
-
-                print("Complete.")
-
-                # Return to main folder
-                os.chdir("..")
-                os.chdir("..")
-
-            except FileNotFoundError:
-                print("File does not exist")
-
-        elif choice == 4:
-            cont = False
-            print("Ending program...")
-
-        print("---")
-        print("")
-        sleep(1)
-# '''
-
-
+    print("Source check complete.")
