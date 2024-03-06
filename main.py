@@ -36,7 +36,7 @@ if __name__ == '__main__':
     source_backlinks = pd.read_csv("source_backlinks.csv").drop("Unnamed: 0", axis=1)
     source_check = pd.read_csv("source_check.csv").drop("Unnamed: 0", axis=1)
 
-    topsis(prepare_scores(source_check, source_backlinks))
+    topsis(prepare_scores(source_check, source_backlinks), output="vs")
     # ----------------------------
 
 

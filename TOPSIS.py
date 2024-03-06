@@ -42,7 +42,7 @@ def prepare_scores(sc_df, sb_df):
     return comp_df
 
 
-def topsis(scores):
+def topsis(scores, output):
     weights = {
         "profiles": 0.10,
         "external_sites": 0.10,
@@ -98,16 +98,45 @@ def topsis(scores):
             temp_num += (wndm_df.iloc[i][column] - ideal_worst[column]) ** 2
         dist_from_worst.append(sqrt(temp_num))
 
-    performance_rank = []
+    performance_ranks = []
     for i in range(0, wndm_df.shape[0]):
-        performance_rank.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
+        performance_ranks.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
 
-    performance_rank = pd.Series(np.array(performance_rank))
+    performance_ranks = pd.Series(np.array(performance_ranks))
 
-    scores["vs"] = performance_rank
+    if output == "vs":
+        scores["vs"] = performance_ranks
+        vs_df = scores[["channel_id", "vs"]].sort_values("vs", ascending=False).reset_index().drop("index", axis=1)
 
-    vs_df = scores[["channel_id", "vs"]].sort_values("vs", ascending=False).reset_index().drop("index", axis=1)
-    print("Saving as scores as verifiability_scores.csv...")
-    vs_df.to_csv("verifiability_scores.csv")
+        stats = vs_df.describe().T
+        category = []
+        '''
+        <=max and >=75% - Very Verifiable
+        <75% and >=50% - Verfiable
+        <50% and >=25% - Somewhat Verifiable
+        <25% but >0% - Not so Verifiable
+        ==0% - Cannot be verified
+        '''
+        for i in range(vs_df.shape[0]):
+            score = vs_df.iloc[i]["vs"]
 
-    print("Channel verifiability scored.")
+            if stats.iloc[0]["max"] >= score >= stats.iloc[0]["75%"]:
+                category.append("Very Verifiable")
+            elif stats.iloc[0]["75%"] > score >= stats.iloc[0]["50%"]:
+                category.append("Verifiable")
+            elif stats.iloc[0]["50%"] > score >= stats.iloc[0]["25%"]:
+                category.append("Somewhat Verifiable")
+            elif stats.iloc[0]["25%"] > score > stats.iloc[0]["min"]:
+                category.append("Not so Verifiable")
+            elif score == 0.0:
+                category.append("Cannot be verified")
+
+        category = pd.Series(category, name="Category")
+        categorized_vf = pd.concat([vs_df, category], axis=1)
+        categorized_vf.head(10)
+
+        print("Saving scores as verifiability_scores.csv...")
+        vs_df.to_csv("verifiability_scores.csv")
+        print("Scoring complete.")
+    elif output == "rank":
+        pass

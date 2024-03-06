@@ -269,11 +269,11 @@ def find_sources(channel_df, video_df):
     # ---
 
     for i in range(0, channel_df.shape[0]):
-        linkedIn_found = (False, None)
-        wiki_found = (False, None)
-        site_found = (False, None)
-        twitter_found = (False, None)
-        fb_found = (False, None)
+        linkedIn_found = (False, np.nan)
+        wiki_found = (False, np.nan)
+        site_found = (False, np.nan)
+        twitter_found = (False, np.nan)
+        fb_found = (False, np.nan)
 
         channel_id = channel_df.iloc[i]["channel_id"]
         channel_name = channel_df.iloc[i]["channel_name"]
@@ -347,6 +347,8 @@ def find_sources(channel_df, video_df):
         # ---
 
         # --- If link not found in descriptions, search via Google
+        wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
+
         if not linkedIn_found[0]:
             linkedIn_found = find_linkedIn(channel_name, channel_name + query_tail[0])
 
@@ -358,8 +360,6 @@ def find_sources(channel_df, video_df):
 
         if not twitter_found[0]:
             twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
-
-        wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
 
         # Source checks ---
         sc_record = [
@@ -375,8 +375,8 @@ def find_sources(channel_df, video_df):
         # ---
 
         # Source links ---
-        fb_link = None
-        twitter_link = None
+        fb_link = np.nan
+        twitter_link = np.nan
 
         if fb_found[0]:
             fb_link = fb_found[1]

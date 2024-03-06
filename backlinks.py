@@ -64,9 +64,10 @@ def execute(df, mode):
         for i in range(df.shape[0]):
             if url_list[index] is np.nan:
                 backlinks[col][i] = 0
-                # print(f"--------------------- INDEX {index} COMPLETE ({col}: {i}: {result}) ---------------------")
+                # print(f"--------------------- INDEX {index} COMPLETE ({col}: {i}: No link) ---------------------")
                 index += 1
                 pbar.update(1)
+                sleep(1)
                 continue
             else:
                 # Wait for page to load and locate textbox
