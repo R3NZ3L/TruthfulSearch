@@ -9,17 +9,13 @@ from backlinks import get_backlinks
 if __name__ == '__main__':
     print("Working @ " + os.getcwd())
 
-    # ----- SCRAPING -----
-    search_query = input("Search Query: ")
-    num_videos = int(input("Number of Videos: "))
-    filename = input("Filename (w/o .csv): ")
-
-    yt_scrape(search_query, num_videos, filename)
-    # --------------------
+    # ----- YOUTUBE SCRAPING -----
+    yt_scrape()
+    # ----------------------------
 
     print("Working @ " + os.getcwd())
 
-    # ----- GETTING SOURCES -----
+    # ----- GOOGLE SERP SCRAPING -----
     video_df = pd.read_csv("videos.csv").drop("Unnamed: 0", axis=1)
     channel_df = pd.read_csv("channels.csv").drop("Unnamed: 0", axis=1)
 
@@ -28,7 +24,7 @@ if __name__ == '__main__':
     source_links = pd.read_csv("source_links.csv").drop("Unnamed: 0", axis=1)
 
     get_backlinks(video_df, source_links)
-    # ---------------------------
+    # --------------------------------
 
 
 

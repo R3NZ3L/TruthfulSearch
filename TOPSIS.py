@@ -138,5 +138,6 @@ def topsis(scores, output):
         print("Saving scores as verifiability_scores.csv...")
         vs_df.to_csv("verifiability_scores.csv")
         print("Scoring complete.")
+
     elif output == "rank":
         pass

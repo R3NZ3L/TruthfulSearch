@@ -20,7 +20,11 @@ apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
 youtube = build('youtube', 'v3', developerKey=apiKey)
 
 
-def yt_scrape(search_query, num_videos, filename):
+def yt_scrape():
+    search_query = input("Search Query: ")
+    num_videos = int(input("Number of Videos: "))
+    filename = input("Filename (w/o .csv): ")
+
     # Storing data in a numpy array of lists
     # ------------- SCRAPING ------------- #
     print("")
