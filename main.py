@@ -9,6 +9,7 @@ from backlinks import get_backlinks
 if __name__ == '__main__':
     print("Working @ " + os.getcwd())
 
+
     # ----- YOUTUBE SCRAPING -----
     yt_scrape()
     # ----------------------------
@@ -16,15 +17,25 @@ if __name__ == '__main__':
     print("Working @ " + os.getcwd())
 
     # ----- GOOGLE SERP SCRAPING -----
-    video_df = pd.read_csv("videos.csv").drop("Unnamed: 0", axis=1)
-    channel_df = pd.read_csv("channels.csv").drop("Unnamed: 0", axis=1)
+    try:
+        channel_df = pd.read_csv("unchecked.csv").drop("Unnamed: 0", axis=1)
+        unchecked_exists = True
+    except FileNotFoundError:
+        channel_df = pd.read_csv("channels.csv").drop("Unnamed: 0", axis=1)
+        unchecked_exists = False
+    finally:
+        video_df = pd.read_csv("videos.csv").drop("Unnamed: 0", axis=1)
 
-    find_sources(channel_df, video_df)
+    find_sources(channel_df, video_df, unchecked_exists)
+    # --------------------------------
 
+
+
+    # ----- BACKLINKS -----
     source_links = pd.read_csv("source_links.csv").drop("Unnamed: 0", axis=1)
 
     get_backlinks(video_df, source_links)
-    # --------------------------------
+    # ---------------------
 
 
 
@@ -40,6 +51,8 @@ if __name__ == '__main__':
     # ----- COMPUTING RANKS -----
 
     # ---------------------------
+
+
 
     # Return to main folder
     os.chdir("..")

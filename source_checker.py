@@ -12,6 +12,7 @@ import regex as re
 import requests
 from bs4 import BeautifulSoup
 import json
+import os
 
 # Put your personal API key here
 # DLSU account key
@@ -25,7 +26,6 @@ google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
 
 quota_reached = False
 stopped_at = None
-
 
 def find_linkedIn(channel_name, query):
     found = False
@@ -234,7 +234,13 @@ def check_about_links(pattern, links):
     return found, links
 
 
-def find_sources(channel_df, video_df):
+def find_sources(channel_df, video_df, unchecked_exists):
+    global quota_reached
+    global stopped_at
+
+    if not unchecked_exists:
+        unchecked = pd.DataFrame(columns=channel_df.columns)
+
     pbar = tqdm(total=channel_df.shape[0])
     pbar.set_description("Finding sources...")
 
@@ -352,6 +358,7 @@ def find_sources(channel_df, video_df):
         if not linkedIn_found[0]:
             linkedIn_found = find_linkedIn(channel_name, channel_name + query_tail[0])
 
+        '''
         if not site_found[0]:
             site_found = find_website(channel_name, channel_name + query_tail[2])
 
@@ -360,6 +367,7 @@ def find_sources(channel_df, video_df):
 
         if not twitter_found[0]:
             twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
+        # '''
 
         # Source checks ---
         sc_record = [
@@ -396,22 +404,55 @@ def find_sources(channel_df, video_df):
         source_links.append(sl_record)
         # ---
 
+        if quota_reached:
+            unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
         pbar.update(1)
     pbar.close()
 
-    global quota_reached
-    global stopped_at
     if quota_reached:
         print("Custom Search API daily quota reached.")
         print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
+        unchecked.to_csv("unchecked.csv")
 
     sc_nparray = np.array(source_check)
     sl_nparray = np.array(source_links)
 
-    ss_df = pd.DataFrame(sc_nparray, columns=cols)
+    sc_df = pd.DataFrame(sc_nparray, columns=cols)
     sl_df = pd.DataFrame(sl_nparray, columns=cols)
 
-    ss_df.to_csv("source_check.csv")
+    if unchecked_exists:
+        old_sc = pd.read_csv("source_check.csv").drop("Unnamed: 0", axis=1)
+        old_sl = pd.read_csv("source_links.csv").drop("Unnamed: 0", axis=1)
+        print("Concatenating with old results...")
+        sc_df = pd.concat([old_sc, sc_df]).reset_index().drop("index", axis=1)
+        sl_df = pd.concat([old_sl, sl_df]).reset_index().drop("index", axis=1)
+    else:
+        pass
+
+    sc_df.to_csv("source_check.csv")
     sl_df.to_csv("source_links.csv")
 
+    if not quota_reached:
+        os.remove("unchecked.csv")
+
     print("Source check complete.")
+
+
+if __name__ == '__main__':
+    filename = input("Filename (w/o .csv): ")
+    path = os.getcwd() + "/datasets/" + filename
+    os.chdir(path)
+
+    try:
+        channel_df = pd.read_csv("unchecked.csv").drop("Unnamed: 0", axis=1)
+        unchecked_exists = True
+    except FileNotFoundError:
+        channel_df = pd.read_csv("channels.csv").drop("Unnamed: 0", axis=1)
+        unchecked_exists = False
+    finally:
+        video_df = pd.read_csv("videos.csv").drop("Unnamed: 0", axis=1)
+
+    find_sources(channel_df, video_df, unchecked_exists)
+
+    os.chdir("..")
+    os.chdir("..")

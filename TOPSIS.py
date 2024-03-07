@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from math import sqrt
+import os
 
 
 def prepare_scores(sc_df, sb_df):
@@ -141,3 +142,14 @@ def topsis(scores, output):
 
     elif output == "rank":
         pass
+
+
+if __name__ == "__main__":
+    filename = input("Filename (w/o .csv): ")
+    path = os.getcwd() + "/datasets/" + filename
+    os.chdir(path)
+
+    source_backlinks = pd.read_csv("source_backlinks.csv").drop("Unnamed: 0", axis=1)
+    source_check = pd.read_csv("source_check.csv").drop("Unnamed: 0", axis=1)
+
+    topsis(prepare_scores(source_check, source_backlinks), output="vs")

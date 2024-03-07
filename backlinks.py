@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from tqdm import tqdm
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -196,3 +197,18 @@ def get_backlinks(video_df, source_links):
     sbl_df.to_csv("source_backlinks.csv")
 
     print("Backlinks acquired.")
+
+
+if __name__ == '__main__':
+    filename = input("Filename (w/o .csv): ")
+    path = os.getcwd() + "/datasets/" + filename
+    os.chdir(path)
+
+    video_df = pd.read_csv("videos.csv").drop("Unnamed: 0", axis=1)
+    source_links = pd.read_csv("source_links.csv").drop("Unnamed: 0", axis=1)
+
+    get_backlinks(video_df, source_links)
+
+    os.chdir("..")
+    os.chdir("..")
+    print("Back @ " + os.getcwd())

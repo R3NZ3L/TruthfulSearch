@@ -208,3 +208,12 @@ def yt_scrape():
     comment_df.to_csv("comments.csv")
     print("Saved @ " + os.getcwd())
     print("Scraping complete.")
+
+
+if __name__ == '__main__':
+    print("Working @ " + os.getcwd())
+    yt_scrape()
+
+    os.chdir("..")
+    os.chdir("..")
+    print("Back @ " + os.getcwd())
