@@ -16,8 +16,7 @@ import os
 
 # Put your personal API key here
 # DLSU account key
-# apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
-apiKey = 'AIzaSyBTRvkhM6ESdLHu0djfP39-IKHufQogxOI' # Baura
+apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
 
 # Search engine ID
 cseKey = "23c1c70a203ac4852"
