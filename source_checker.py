@@ -16,7 +16,8 @@ import os
 
 # Put your personal API key here
 # DLSU account key
-apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
+# apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
+apiKey = 'AIzaSyBTRvkhM6ESdLHu0djfP39-IKHufQogxOI' # Baura
 
 # Search engine ID
 cseKey = "23c1c70a203ac4852"
@@ -241,6 +242,8 @@ def find_sources(channel_df, video_df, unchecked_exists):
 
     if not unchecked_exists:
         unchecked = pd.DataFrame(columns=channel_df.columns)
+    elif unchecked_exists:
+        unchecked = pd.read_csv("unchecked.csv")
 
     pbar = tqdm(total=channel_df.shape[0])
     pbar.set_description("Finding sources...")
@@ -416,7 +419,7 @@ def find_sources(channel_df, video_df, unchecked_exists):
         print("Custom Search API daily quota reached.")
         print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
         print("Saving unchecked channels in unchecked.csv...")
-        unchecked.to_csv("unchecked.csv")
+        # unchecked.to_csv("unchecked.csv")
 
     sc_nparray = np.array(source_check)
     sl_nparray = np.array(source_links)
