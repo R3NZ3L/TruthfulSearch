@@ -17,9 +17,13 @@ import os
 # Put your personal API key here
 # DLSU account key
 apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
+# apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
+# apiKey = 'AIzaSyBTRvkhM6ESdLHu0djfP39-IKHufQogxOI' # Baura
 
 # Search engine ID
-cseKey = "23c1c70a203ac4852"
+cseKey = "23c1c70a203ac4852" # Aldecoa
+# cseKey = "a7c987e23f0fe448e" # Aquino
+# cseKey = "76c19208b12de4763" # Baura
 
 # Google Custom Search API
 google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
@@ -289,6 +293,7 @@ def find_sources(channel_df, video_df, unchecked_exists):
 
         if quota_reached:
             unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
+            pbar.update(1)
             continue
 
         about_page = requests.get(f'https://www.youtube.com/channel/{channel_id}/about')
@@ -376,55 +381,64 @@ def find_sources(channel_df, video_df, unchecked_exists):
             twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
         # '''
 
-        # Source checks ---
-        sc_record = [
-            channel_id,  # channel_id
-            channel_name,  # channel_name
-            linkedIn_found[0],
-            wiki_found[0],
-            site_found[0],
-            twitter_found[0],
-            fb_found[0]
-        ]
-        source_check.append(sc_record)
-        # ---
+        if not quota_reached:
+            # Source checks ---
+            sc_record = [
+                channel_id,  # channel_id
+                channel_name,  # channel_name
+                linkedIn_found[0],
+                wiki_found[0],
+                site_found[0],
+                twitter_found[0],
+                fb_found[0]
+            ]
+            source_check.append(sc_record)
+            # ---
 
-        # Source links ---
-        fb_link = np.nan
-        twitter_link = np.nan
+            # Source links ---
+            fb_link = np.nan
+            twitter_link = np.nan
 
-        if fb_found[0]:
-            fb_link = fb_found[1]
+            if fb_found[0]:
+                fb_link = fb_found[1]
 
-        if twitter_found[0]:
-            twitter_link = twitter_found[1]
+            if twitter_found[0]:
+                twitter_link = twitter_found[1]
 
-        sl_record = [
-            channel_id,
-            channel_name,
-            linkedIn_found[1],
-            wiki_found[1],
-            site_found[1],
-            twitter_link,
-            fb_link
-        ]
-        source_links.append(sl_record)
-        # ---
+            sl_record = [
+                channel_id,
+                channel_name,
+                linkedIn_found[1],
+                wiki_found[1],
+                site_found[1],
+                twitter_link,
+                fb_link
+            ]
+            source_links.append(sl_record)
+            # ---
+            pbar.update(1)
 
-        pbar.update(1)
+        elif quota_reached:
+            unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
+            pbar.update(1)
+            continue
+
     pbar.close()
 
     if quota_reached:
         print("Custom Search API daily quota reached.")
         print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
         print("Saving unchecked channels in unchecked.csv...")
-        # unchecked.to_csv("unchecked.csv")
+        unchecked.to_csv("unchecked.csv")
 
-    sc_nparray = np.array(source_check)
-    sl_nparray = np.array(source_links)
-
-    sc_df = pd.DataFrame(sc_nparray, columns=cols)
-    sl_df = pd.DataFrame(sl_nparray, columns=cols)
+    if len(source_check) > 0:
+        sc_nparray = np.array(source_check)
+        sl_nparray = np.array(source_links)
+        sc_df = pd.DataFrame(sc_nparray, columns=cols)
+        sl_df = pd.DataFrame(sl_nparray, columns=cols)
+    else:
+        sc_df = pd.DataFrame(columns=cols)
+        sl_df = pd.DataFrame(columns=cols)
 
     if unchecked_exists:
         old_sc = pd.read_csv("source_check.csv").drop("Unnamed: 0", axis=1)
