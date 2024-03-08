@@ -27,6 +27,7 @@ google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
 quota_reached = False
 stopped_at = None
 
+
 def find_linkedIn(channel_name, query):
     found = False
     pattern = r'https:\/\/www\.linkedin\.com\/(company|in)\/.+'  # Used to find specific profile links
@@ -284,6 +285,10 @@ def find_sources(channel_df, video_df, unchecked_exists):
         channel_id = channel_df.iloc[i]["channel_id"]
         channel_name = channel_df.iloc[i]["channel_name"]
 
+        if quota_reached:
+            unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
+            continue
+
         about_page = requests.get(f'https://www.youtube.com/channel/{channel_id}/about')
         soup = BeautifulSoup(about_page.content, 'html.parser')
         script_tags = soup.find_all("script")
@@ -404,14 +409,13 @@ def find_sources(channel_df, video_df, unchecked_exists):
         source_links.append(sl_record)
         # ---
 
-        if quota_reached:
-            unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
         pbar.update(1)
     pbar.close()
 
     if quota_reached:
         print("Custom Search API daily quota reached.")
         print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
+        print("Saving unchecked channels in unchecked.csv...")
         unchecked.to_csv("unchecked.csv")
 
     sc_nparray = np.array(source_check)
