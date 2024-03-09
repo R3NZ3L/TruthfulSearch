@@ -452,8 +452,11 @@ def find_sources(channel_df, video_df, unchecked_exists):
     sc_df.to_csv("source_check.csv")
     sl_df.to_csv("source_links.csv")
 
-    if not quota_reached:
-        os.remove("unchecked.csv")
+    if not quota_reached and unchecked_exists:
+        try:
+            os.remove("unchecked.csv")
+        except FileNotFoundError:
+            pass
 
     print("Source check complete.")
 
