@@ -243,10 +243,7 @@ def find_sources(channel_df, video_df, unchecked_exists):
     global quota_reached
     global stopped_at
 
-    if not unchecked_exists:
-        unchecked = pd.DataFrame(columns=channel_df.columns)
-    elif unchecked_exists:
-        unchecked = pd.read_csv("unchecked.csv")
+    unchecked = pd.DataFrame(columns=channel_df.columns)
 
     pbar = tqdm(total=channel_df.shape[0])
     pbar.set_description("Finding sources...")
@@ -467,7 +464,9 @@ if __name__ == '__main__':
     os.chdir(path)
 
     try:
+        print("Getting unchecked channels...")
         channel_df = pd.read_csv("unchecked.csv").drop("Unnamed: 0", axis=1)
+        os.remove("unchecked.csv")
         unchecked_exists = True
     except FileNotFoundError:
         channel_df = pd.read_csv("channels.csv").drop("Unnamed: 0", axis=1)

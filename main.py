@@ -18,7 +18,9 @@ if __name__ == '__main__':
 
     # ----- GOOGLE SERP SCRAPING -----
     try:
+        print("Getting unchecked channels...")
         channel_df = pd.read_csv("unchecked.csv").drop("Unnamed: 0", axis=1)
+        os.remove("unchecked.csv")
         unchecked_exists = True
     except FileNotFoundError:
         channel_df = pd.read_csv("channels.csv").drop("Unnamed: 0", axis=1)
