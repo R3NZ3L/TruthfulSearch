@@ -204,8 +204,8 @@ if __name__ == '__main__':
     path = os.getcwd() + "/datasets/" + filename
     os.chdir(path)
 
-    video_df = pd.read_csv("videos.csv").drop("Unnamed: 0", axis=1)
-    source_links = pd.read_csv("source_links.csv").drop("Unnamed: 0", axis=1)
+    video_df = pd.read_csv("videos.csv", index_col=0)
+    source_links = pd.read_csv("source_links.csv", index_col=0)
 
     get_backlinks(video_df, source_links)
 
