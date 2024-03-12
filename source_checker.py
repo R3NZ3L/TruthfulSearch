@@ -440,9 +440,11 @@ def find_sources(channel_df, video_df, unchecked_exists):
     if unchecked_exists:
         old_sc = pd.read_csv("source_check.csv", index_col=0)
         old_sl = pd.read_csv("source_links.csv", index_col=0)
-        print("Concatenating with old results...")
-        sc_df = pd.concat([old_sc, sc_df]).reset_index().drop("index", axis=1)
-        sl_df = pd.concat([old_sl, sl_df]).reset_index().drop("index", axis=1)
+
+        if old_sc.shape[0] != 0:
+            print("Concatenating with old results...")
+            sc_df = pd.concat([old_sc, sc_df]).reset_index().drop("index", axis=1)
+            sl_df = pd.concat([old_sl, sl_df]).reset_index().drop("index", axis=1)
     else:
         pass
 
