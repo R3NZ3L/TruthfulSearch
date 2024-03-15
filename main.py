@@ -5,6 +5,7 @@ from source_checker import find_sources
 from TOPSIS import topsis
 from TOPSIS import prepare_scores
 from backlinks import get_backlinks
+from subjectivity import subjectivity
 
 if __name__ == '__main__':
     print("Working @ " + os.getcwd())
@@ -41,24 +42,23 @@ if __name__ == '__main__':
 
 
 
-    # ----- COMPUTING SCORES -----
-    source_backlinks = pd.read_csv("source_backlinks.csv", index_col=0)
-    source_check = pd.read_csv("source_check.csv", index_col=0)
-
-    topsis(prepare_scores(source_check, source_backlinks), output="vs")
-    # ----------------------------
+    # ----- SUBJECTIVITY -----
+    subjectivity(video_df)
+    # ------------------------
 
 
 
-    # ----- COMPUTING RANKS -----
-
-    # ---------------------------
+    # ----- COMPUTING SCORES and RANKS -----
+    topsis(prepare_scores(output="vs"), output="vs")
+    topsis(prepare_scores(output="rank"), output="rank")
+    # --------------------------------------
 
 
 
     # Return to main folder
     os.chdir("..")
     os.chdir("..")
+    print("Back @ " + os.getcwd())
 
 
 
