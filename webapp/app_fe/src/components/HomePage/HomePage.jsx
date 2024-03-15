@@ -1,13 +1,28 @@
-import {useState} from 'react'
-import Video from '../Video/Video.jsx'
-import InfoCard from '../InfoCard/InfoCard.jsx'
-import './HomePage.css'
+import './HomePage.css';
+import Video from '../Video/Video.jsx';
+import InfoCard from '../InfoCard/InfoCard.jsx';
+import { useState, useEffect } from 'react';
 
 function HomePage() {
 
     const [topic, setTopic] = useState("covid") // default covid
     const possibleTopics = ["covid", "flat-earth", "alien-life"] 
-    
+    const [data, setData] = useState({})
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async ()=> {
+        try{
+        const response = await fetch("http://127.0.0.1:105/api/data", {method: 'GET'})
+        const message =  await response.json()
+        console.log(response)
+        //setData(message)
+        } catch(error) {
+        console.log("Error", error)
+        }
+    }
+
     const changeTopic = (e) => {
         if (possibleTopics.includes(e.target.value)) {
             setTopic(e.target.value) // call data fetch here
@@ -45,6 +60,7 @@ function HomePage() {
             </div>
             <InfoCard />
         </main>
+        Server returned this value: {data}
         </>
     );
 

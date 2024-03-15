@@ -2,14 +2,14 @@ import './InfoCard.css'
 
 function InfoCard() {
     return (
-        <div class="card">
-            <div class="img1"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
-            <div class="img2"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
-            <div class="main-content">
-              <div class="details">
+        <div className="card">
+            <div className="img1"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
+            <div className="img2"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
+            <div className="main-content">
+              <div className="details">
                 <h2>Channel Name</h2>
                 <h1>Video Title</h1>
-                <div class="channel-numbers">
+                <div className="channel-numbers">
                   <div>
                     <h2>12</h2>
                     <h2>Subscriber</h2>
@@ -25,8 +25,8 @@ function InfoCard() {
                 </div>
               </div>
               
-              <div class="channel-information">
-                <div class="channel-links">
+              <div className="channel-information">
+                <div className="channel-links">
                   <h1>Profile Links:</h1>
                   <span>Facebook: <a href="https://www.w3schools.com">www.w3schools.com</a></span>
                   <span>LinkedIn: <a href="https://www.w3schools.com">www.w3schools1.com</a></span>
@@ -39,11 +39,11 @@ function InfoCard() {
                 </div>
               </div>
 
-              <div class="video-score-breakdown">
+              <div className="video-score-breakdown">
                 <table>
                   <thead>
                     <tr>
-                      <th colspan="2">Verifiability Score Breakdown</th>
+                      <th colSpan="2">Verifiability Score Breakdown</th>
                     </tr>
                   </thead>
                   <tbody>
