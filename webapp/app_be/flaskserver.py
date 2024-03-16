@@ -27,7 +27,7 @@ def get_data():
     channels_df = pd.read_csv(channels_path).drop(['Unnamed: 0'], axis=1)
     links_df = pd.read_csv(links_path).drop(['channel_name', 'Unnamed: 0'], axis=1).fillna('').astype(str)
     verifiability_df = pd.read_csv(verifiability_path).drop(['Unnamed: 0'], axis=1)
-    raw_scores_df = pd.read_csv(raw_scores_path, usecols=['channel_id', 'p_desc', 'e_desc', 'li_desc', 'wi_desc', 'we_desc', 'tw_desc', 'fb_desc']).drop(['Unnamed: 0'], axis=1)
+    raw_scores_df = pd.read_csv(raw_scores_path, usecols=['channel_id', 'p_desc', 'e_desc', 'li_desc', 'wi_desc', 'we_desc', 'tw_desc', 'fb_desc'])
     merged_df = videos_df.merge(channels_df, how='inner', on='channel_id').merge(verifiability_df, how='inner', on="channel_id").merge(links_df, how='inner', on='channel_id').merge(raw_scores_df, how='inner', on='channel_id')
     if sort == 'verifiability':
         merged_df['category'] = pd.Categorical(merged_df['category'], ordered=True, categories=mostVerifiedSort)
