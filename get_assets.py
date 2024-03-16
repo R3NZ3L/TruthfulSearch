@@ -26,11 +26,12 @@ def yt_assets_scrape():
     channels_path = "channels.csv"
 
     videos_df = pd.read_csv(videos_path, usecols=['video_id'])['video_id'].tolist()
-    complete_videos_df = pd.read_csv(videos_path).drop('Unnamed: 0', axis=1)
+    complete_videos_df = pd.read_csv(videos_path).drop(['Unnamed: 0'], axis=1)
     channels_df = pd.read_csv(channels_path, usecols=['channel_id'])['channel_id'].tolist()
-    complete_channels_df = pd.read_csv(channels_path).drop('Unnamed: 0', axis=1)
+    complete_channels_df = pd.read_csv(channels_path).drop(['Unnamed: 0'], axis=1)
 
     thumbnail_links = []
+    print(channels_df)
     
     while (len(videos_df) > 0):
         if(len(videos_df) >= 50):
@@ -49,44 +50,33 @@ def yt_assets_scrape():
 
         video_data = video_request.execute()
         for video in video_data.get('items'):
-                try:
-                    thumbnail_links.append(video.get('snippet').get('thumbnails').get('standard').get('url'))
-                except:
-                    thumbnail_links.append('https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA')
+            try:
+                thumbnail_links.append(video.get('snippet').get('thumbnails').get('standard').get('url'))
+            except:
+                thumbnail_links.append('https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA')
 
     complete_videos_df['thumbnail'] = pd.Series(thumbnail_links)
 
     channel_profile_links = []
 
     while (len(channels_df) > 0):
-        if(len(channels_df) >= 50):
-            channels_request = youtube.channels().list(
-                part=['snippet'],
-                id=channels_df[0:50]
-            )
-            channels_df = channels_df[50:]
-        else:
-            channels_request = youtube.channels().list(
-                part=['snippet'],
-                id=channels_df[0:len(channels_df)]
-            )
-            channels_df = channels_df[len(channels_df):]
-
+        channels_request = youtube.channels().list(
+            part=['snippet'],
+            id=channels_df.pop(0)
+        )
         channels_data = channels_request.execute()
 
-        for channel in channels_data.get('items'):
-                try:
-                    channel_profile_links.append(channel.get('snippet').get('thumbnails').get('medium').get('url'))
-                except:
-                    channel_profile_links.append('https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA')
+        try:
+            channel_profile_links.append(channels_data.get('items')[0].get('snippet').get('thumbnails').get('medium').get('url'))
+        except:
+            channel_profile_links.append('https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA')
 
-   
     complete_channels_df['profile'] = pd.Series(channel_profile_links)
+    print(channel_profile_links)
 
-    
     complete_videos_df.to_csv('videos.csv')
     complete_channels_df.to_csv('channels.csv')
-   
+
     os.chdir("..")
     os.chdir("..")
     print("Back @ " + os.getcwd())
