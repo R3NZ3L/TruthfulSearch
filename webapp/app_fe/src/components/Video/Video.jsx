@@ -21,7 +21,7 @@ function Video(props) {
 
     return (
         <div className="video">
-            <img src={random_thumbnail} />
+            <img className="video_thumbnail" src={random_thumbnail} />
             <div className="metadata">
                 <p className="title">{props.videoInfo.video_title}</p>
                 <p className="view_count">{props.videoInfo.view_count}<span className="upload_date">{props.videoInfo.video_dop}</span></p>
