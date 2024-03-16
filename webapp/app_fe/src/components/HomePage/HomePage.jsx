@@ -8,7 +8,7 @@ function HomePage() {
     const [topic, setTopic] = useState("covid_philippines") // default covid
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel-palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
-    console.log("I rendered")
+    const [videoShown, setVideoShown] = useState(0)
 
     useEffect(() => {
         getData()
@@ -16,12 +16,12 @@ function HomePage() {
 
     function getData() {
        fetch("http://127.0.0.1:105/api/data?topic=" + topic, {method: 'GET'})
-       .then(response => response.json()).then(data => setVideoData(data)).finally(console.log('I got data'))
+       .then(response => response.json()).then(data => setVideoData(data))
     }
 
     const changeTopic = (e) => {
         if (possibleTopics.includes(e.target.value)) {
-            setTopic(e.target.value) // call data fetch here
+            setTopic(e.target.value) // change topic which will trigger another data fetching and rerender.
         } else {
             setTopic('covid_philippines') // default
         }
@@ -40,12 +40,9 @@ function HomePage() {
         </div>
         <main> 
             <div>
-                {&&}
-                {console.log(JSON.stringify(videoData[1]))}  
-                {JSON.stringify(videoData[1])}
-                {videoData.map(video => <Video key={video.video_id} score={2} videoInfo={video}/>)}
+                {videoData && videoData.map((video, index) => <Video onClick={() => setVideoShown(index)} key={video.video_id} score={2} videoInfo={video}/>)}
             </div>
-            <InfoCard/>
+            {videoData && <InfoCard video={videoData[videoShown]} />}
         </main>
         </>
     );

@@ -19,7 +19,7 @@ function Video(props) {
     } 
 
     return (
-        <div className="video">
+        <div className="video" onClick={props.onClick}>
             <img className="video_thumbnail" src={random_thumbnail} />
             <div className="metadata">
                 <p className="title">{props.videoInfo.video_title}</p>
