@@ -3,8 +3,11 @@ import './InfoCard.css'
 function InfoCard(props) {
 
     function fixURL(url) { 
-      if (url.slice(0,8) != 'https://')
+      if (url.slice(0,8) != 'https://') {
         return 'https://' + url;
+      } else {
+        return url
+      }
     }
 
     function valueCount(value) {
@@ -59,11 +62,11 @@ function InfoCard(props) {
                 <div className="channel-links">
                   <h1>Related Links:</h1>
                   <ul> 
-                    <li>{props.video.Facebook &&<span>Facebook: <u><a onClick={() => window.location.href = fixURL(props.video.Facebook)} target="_blank">{props.video.Facebook}</a></u></span>}</li>
-                    <li>{props.video.Twitter &&  <span>Twitter: <u><a onClick={() => window.location.href = fixURL(props.video.Twitter)} target="_blank">{props.video.Twitter}</a></u></span>}</li>
-                    <li>{props.video.LinkedIn && <span>LinkedIn: <u><a onClick={() => window.location.href = fixURL(props.video.LinkedIn)} target="_blank">{props.video.LinkedIn}</a></u></span>}</li>
-                    <li>{props.video.Website &&  <span>Personal: <u><a onClick={() => window.location.href = fixURL(props.video.Website)} target="_blank">{props.video.Website}</a></u></span>}</li>
-                    <li>{props.video.Wiki &&  <span>Wikipedia: <u><a onClick={() => window.location.href = fixURL(props.video.Wiki)} target="_blank">{props.video.Wiki}</a></u></span>}</li>
+                    <li>{props.video.Facebook &&<span>Facebook: <u><a href={fixURL(props.video.Facebook)} target="_blank">{props.video.Facebook}</a></u></span>}</li>
+                    <li>{props.video.Twitter &&  <span>Twitter: <u><a href={fixURL(props.video.Twitter)} target="_blank">{props.video.Twitter}</a></u></span>}</li>
+                    <li>{props.video.LinkedIn && <span>LinkedIn: <u><a href={fixURL(props.video.LinkedIn)} target="_blank">{props.video.LinkedIn}</a></u></span>}</li>
+                    <li>{props.video.Website &&  <span>Personal: <u><a href={fixURL(props.video.Website)} target="_blank">{props.video.Website}</a></u></span>}</li>
+                    <li>{props.video.Wiki &&  <span>Wikipedia: <u><a href={fixURL(props.video.Wiki)} target="_blank">{props.video.Wiki}</a></u></span>}</li>
                   </ul> 
                 </div>
               </div>
