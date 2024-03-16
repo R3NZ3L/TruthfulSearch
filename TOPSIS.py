@@ -10,8 +10,11 @@ def prepare_scores(output):
         sc_df = pd.read_csv("source_check.csv", index_col=0)
 
         comp_dict = {
-            "channel_id": {}, "profiles": {}, "external_sites": {},
-            "LinkedIn": {}, "Wiki": {}, "Website": {}, "Twitter": {}, "Facebook": {}
+            "channel_id": {}, "profiles": {}, "p_desc": {}, "external_sites": {}, "e_desc": {},
+            "LinkedIn": {}, "li_desc": {}, "Wiki": {}, "wi_desc": {},
+            "Website": {}, "we_desc": {},
+            "Twitter": {}, "tw_desc": {},
+            "Facebook": {}, "fb_desc": {}
         }
 
         for i in range(sc_df.shape[0]):
@@ -27,22 +30,30 @@ def prepare_scores(output):
             # Profiles
             if linkedIn and (facebook or twitter):
                 comp_dict["profiles"][i] = 20 / 20
+                comp_dict["p_desc"][i] = "Has existing LinkedIn AND Facebook OR Twitter/X profiles"
             elif linkedIn or (facebook and twitter):
                 comp_dict["profiles"][i] = 10 / 20
+                comp_dict["p_desc"][i] = "ONLY has existing LinkedIn OR Facebook AND Twitter/X profiles"
             elif (not linkedIn) and (facebook or twitter):
                 comp_dict["profiles"][i] = 5 / 20
+                comp_dict["p_desc"][i] = "ONLY has an existing Facebook OR Twitter/X profile"
             elif (not linkedIn) and (not facebook) and (not twitter):
                 comp_dict["profiles"][i] = 0 / 20
+                comp_dict["p_desc"][i] = "Has no existing profiles"
 
             # External Sites
             if wiki and website:
                 comp_dict["external_sites"][i] = 20 / 20
+                comp_dict["e_desc"][i] = "Has existing official Wikipedia page AND website"
             elif wiki and not website:
                 comp_dict["external_sites"][i] = 10 / 20
+                comp_dict["e_desc"][i] = "Has existing official Wikipedia page BUT no website"
             elif not wiki and website:
                 comp_dict["external_sites"][i] = 5 / 20
+                comp_dict["e_desc"][i] = "Has existing official website BUT no Wikipedia page"
             elif not wiki and not website:
                 comp_dict["external_sites"][i] = 0 / 20
+                comp_dict["e_desc"][i] = "Has no existing external sites"
 
             # // Backlinks //
             sb_linkedIn = int(sb_df.iloc[i]["LinkedIn"])
@@ -54,52 +65,72 @@ def prepare_scores(output):
             # LinkedIn
             if sb_linkedIn >= 100:
                 comp_dict["LinkedIn"][i] = 20 / 20
+                comp_dict["li_desc"][i] = "At least 100 backlinks"
             elif 100 > sb_linkedIn >= 50:
                 comp_dict["LinkedIn"][i] = 10 / 20
+                comp_dict["li_desc"][i] = "At least 50 but less than 100 backlinks"
             elif 50 > sb_linkedIn >= 25:
                 comp_dict["LinkedIn"][i] = 5 / 20
+                comp_dict["li_desc"][i] = "At least 25 but less than 50 backlinks"
             elif sb_linkedIn < 25:
                 comp_dict["LinkedIn"][i] = 0 / 20
+                comp_dict["li_desc"][i] = "Less than 25 backlinks"
 
             # Wiki
             if sb_wiki >= 3000:
                 comp_dict["Wiki"][i] = 20 / 20
+                comp_dict["wi_desc"][i] = "At least 3,000 backlinks"
             elif 3000 > sb_wiki >= 1500:
                 comp_dict["Wiki"][i] = 10 / 20
+                comp_dict["wi_desc"][i] = "At least 1,500 but less than 3,000 backlinks"
             elif 1500 > sb_wiki >= 500:
                 comp_dict["Wiki"][i] = 5 / 20
+                comp_dict["wi_desc"][i] = "At least 500 but less than 1,500 backlinks"
             elif sb_wiki < 500:
                 comp_dict["Wiki"][i] = 0 / 20
+                comp_dict["wi_desc"][i] = "Less than 500 backlinks"
 
             # Website
             if sb_website >= 3000:
                 comp_dict["Website"][i] = 20 / 20
+                comp_dict["we_desc"][i] = "At least 3,000 backlinks"
             elif 3000 > sb_website >= 1500:
                 comp_dict["Website"][i] = 10 / 20
+                comp_dict["we_desc"][i] = "At least 1,500 but less than 3,000 backlinks"
             elif 1500 > sb_website >= 500:
                 comp_dict["Website"][i] = 5 / 20
+                comp_dict["we_desc"][i] = "At least 500 but less than 1,500 backlinks"
             elif sb_website < 500:
                 comp_dict["Website"][i] = 0 / 20
+                comp_dict["we_desc"][i] = "Less than 500 backlinks"
 
             # Twitter
             if sb_twitter >= 100:
                 comp_dict["Twitter"][i] = 20 / 20
+                comp_dict["tw_desc"][i] = "At least 100 backlinks"
             elif 100 > sb_twitter >= 50:
                 comp_dict["Twitter"][i] = 10 / 20
+                comp_dict["tw_desc"][i] = "At least 50 but less than 100 backlinks"
             elif 50 > sb_twitter >= 25:
                 comp_dict["Twitter"][i] = 5 / 20
+                comp_dict["tw_desc"][i] = "At least 25 but less than 50 backlinks"
             elif sb_twitter < 25:
                 comp_dict["Twitter"][i] = 0 / 20
+                comp_dict["tw_desc"][i] = "Less than 25 backlinks"
 
             # Facebook
             if sb_facebook >= 100:
                 comp_dict["Facebook"][i] = 20 / 20
+                comp_dict["fb_desc"][i] = "At least 100 backlinks"
             elif 100 > sb_facebook >= 50:
                 comp_dict["Facebook"][i] = 10 / 20
+                comp_dict["fb_desc"][i] = "At least 50 but less than 100 backlinks"
             elif 50 > sb_facebook >= 25:
                 comp_dict["Facebook"][i] = 5 / 20
+                comp_dict["fb_desc"][i] = "At least 25 but less than 50 backlinks"
             elif sb_facebook < 25:
                 comp_dict["Facebook"][i] = 0 / 20
+                comp_dict["fb_desc"][i] = "Less than 25 backlinks"
 
     elif output == "rank":
         videos = pd.read_csv("videos.csv", index_col=0)
@@ -143,6 +174,10 @@ def prepare_scores(output):
 
 
     comp_df = pd.DataFrame.from_dict(comp_dict)
+
+    if output == "vs":
+        print("Saving raw scores as vs_raw_scores.csv...")
+        comp_df.to_csv("vs_raw_scores.csv")
 
     return comp_df
 
@@ -259,5 +294,4 @@ if __name__ == "__main__":
 
     topsis(prepare_scores(output="vs"), output="vs")
     topsis(prepare_scores(output="rank"), output="rank")
-
 
