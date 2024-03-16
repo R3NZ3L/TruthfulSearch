@@ -70,7 +70,7 @@ function InfoCard(props) {
                   </ul> 
                 </div>
               </div>
-
+              
               <div className="video-score-breakdown">
                 <table>
                   <thead>

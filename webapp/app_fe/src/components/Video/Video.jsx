@@ -6,13 +6,17 @@ function Video(props) {
 
     const [visibleToolTip, setVisibleToolTip] = useState(false);
 
-    const backgroundColor = {
+    const scoreColor = {
         "backgroundColor":  props.videoInfo.category == 'Cannot be verified' ? "#8B0000"        : 
                             props.videoInfo.category == 'Not so Verifiable' ? "	#FF8C00"     : 
                             props.videoInfo.category == 'Somewhat Verifiable' ? "#8B8000"    :
                             props.videoInfo.category == 'Verifiable' ? "#008B8B"  :
                             props.videoInfo.category == 'Very Verifiable' ? "#006400" : "black"
     } 
+
+    const backgroundColor = {
+        "backgroundColor":  props.toggled ? "blue" : null
+    }
 
     const opacity = {
         "opacity":  1
@@ -44,7 +48,7 @@ function Video(props) {
     }
 
     return (
-        <div className="video" onClick={props.onClick}>
+        <div className="video" onClick={props.onClick} style={backgroundColor}>
             <img className="video_thumbnail" src={props.videoInfo.thumbnail} />
             <div className="metadata">
                 <p className="title">{props.videoInfo.video_title}</p>
@@ -54,7 +58,7 @@ function Video(props) {
                         <img className='channel_image' src={props.videoInfo.profile} />
                     </div>
                     {props.videoInfo.channel_name}
-                    <span className="score" style={backgroundColor} onMouseOver={() => setVisibleToolTip(true)} onMouseLeave={() => setVisibleToolTip(false)}>
+                    <span className="score" style={scoreColor} onMouseOver={() => setVisibleToolTip(true)} onMouseLeave={() => setVisibleToolTip(false)}>
                         {props.videoInfo.category}
                         { visibleToolTip && 
                             <span className="channel_info_tooltip" style={opacity}> Click the score to learn more!</span>
