@@ -75,45 +75,39 @@ function InfoCard(props) {
                 <table>
                   <thead>
                     <tr>
-                      <th colSpan="2">Verifiability Score Breakdown</th>
+                      <th colSpan="2">Verifiability Breakdown</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>Profiles (LinkedIn, Facebook, and Twitter/X)</td>
-                      <td>10%</td>
+                      <td>{props.video.p_desc}</td>
                     </tr>
                     <tr>
                       <td>External Sites (Wikipedia and other Websites)</td>
-                      <td>10%</td>
+                      <td>{props.video.e_desc}</td>
                     </tr>
                     <tr>
-                      <td>Backlinks (LinkedIn)</td>
-                      <td>10%</td>
+                      <td>LinkedIn Backlinks</td>
+                      <td>{props.video.li_desc}</td>
                     </tr>
                     <tr>
-                      <td>Backlinks (Facebook)</td>
-                      <td>10%</td>
+                      <td>Facebook Backlinks</td>
+                      <td>{props.video.fb_desc}</td>
                     </tr>
                     <tr>
-                      <td>Backlinks (Twitter/X)</td>
-                      <td>10%</td>
+                      <td>Twitter/X Backlinks</td>
+                      <td>{props.video.tw_desc}</td>
                     </tr>
                     <tr>
-                      <td>Backlinks (Wikipedia)</td>
-                      <td>10%</td>
+                      <td>Wikipedia Backlinks</td>
+                      <td>{props.video.wi_desc}</td>
                     </tr>
                     <tr>
-                      <td>Backlinks (Other Websites)</td>
-                      <td>10%</td>
+                      <td>Website Backlinks</td>
+                      <td>{props.video.we_desc}</td>
                     </tr>
                   </tbody>
-                  <tfoot>
-                    <tr>
-                      <td>Total</td>
-                      <td>100%</td>
-                    </tr>
-                  </tfoot>
                 </table>
               </div>
             </div>
