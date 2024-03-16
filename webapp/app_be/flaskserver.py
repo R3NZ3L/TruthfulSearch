@@ -13,11 +13,12 @@ def get_data():
     topic = request.args.get('topic')
     videos_path = "datasets/" + topic + "/videos.csv"
     channels_path = "datasets/" + topic + "/channels.csv"
-    links_path = "datasets/" + topic + "/source_links.csv"
     verifiability_path = "datasets/" + topic + "/verifiability_scores.csv"
 
     videos_df = pd.read_csv(videos_path).drop(['video_transcript', 'Unnamed: 0'], axis=1)
     videos_df = videos_df.drop_duplicates()
+    # fill nan values with 0 for numeric columns
+    videos_df[videos_df.select_dtypes(include=[np.number]).columns] = videos_df.select_dtypes(include=[np.number]).fillna(0) 
     videos_df['description'] = videos_df['description'].fillna('').astype(str)
     channels_df = pd.read_csv(channels_path).drop(['Unnamed: 0'], axis=1)
     verifiability_df = pd.read_csv(verifiability_path).drop(['Unnamed: 0'], axis=1)
