@@ -17,7 +17,7 @@ youtube = build('youtube', 'v3', developerKey=apiKey)
 
 
 def yt_assets_scrape():
-
+    
     filename = input("Filename (w/o .csv): ")
     path = os.getcwd() + "/datasets/" + filename
     os.chdir(path)
@@ -51,14 +51,14 @@ def yt_assets_scrape():
         video_data = video_request.execute()
         for video in video_data.get('items'):
             try:
-                thumbnail_links.append(video.get('snippet').get('thumbnails').get('standard').get('url'))
+                thumbnail_links.append(video.get('snippet').get('thumbnails').get('high').get('url'))
             except:
                 thumbnail_links.append('https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA')
 
     complete_videos_df['thumbnail'] = pd.Series(thumbnail_links)
 
     channel_profile_links = []
-
+    """
     while (len(channels_df) > 0):
         channels_request = youtube.channels().list(
             part=['snippet'],
@@ -73,10 +73,11 @@ def yt_assets_scrape():
 
     complete_channels_df['profile'] = pd.Series(channel_profile_links)
     print(channel_profile_links)
-
+    """
     complete_videos_df.to_csv('videos.csv')
+    """
     complete_channels_df.to_csv('channels.csv')
-
+    """
     os.chdir("..")
     os.chdir("..")
     print("Back @ " + os.getcwd())
