@@ -52,7 +52,7 @@ function HomePage() {
         </div>
         <div className="sort">
             <select id="sort_choices" onChange={(e) => changeSort(e)}>
-                <option className="option" value="verifiability">By Verfiability Score</option>
+                <option className="option" value="verifiability">By Verifiability Score</option>
                 <option className="option" value="upload_date">By Upload Date</option>
             </select>
         </div>
