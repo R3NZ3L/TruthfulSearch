@@ -38,9 +38,19 @@ select::-ms-expand {
     display: none;
 }
 
+.sort {
+    padding: 10px 10px 10px 0px;
+}
+
 main {
     display: grid;
     grid-template-columns: 2fr 1fr;
+}
+
+#sort_choices {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+    border-radius: 20px;
 }
 
 @media (max-width: 575.98px) {
