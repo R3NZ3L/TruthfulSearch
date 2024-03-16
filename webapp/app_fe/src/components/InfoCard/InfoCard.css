@@ -38,7 +38,7 @@
   }
   
   .main-content .details{
-    padding: 0 40px;
+    /*padding: 0 40px;*/
   }
   
   .main-content h2{
@@ -55,7 +55,7 @@
   .main-content h1{
     /*text-transform: uppercase; */
     font-weight: 900;
-    font-size: 20px;
+    font-size: 18px;
     margin: 0 0 10px;
   }
   
@@ -76,6 +76,7 @@
   
   .main-content .channel-information .channel-links h1 {
     margin: 0px;
+    font-size: 15px;
   }
   
   .main-content .channel-information .channel-links span {
@@ -132,4 +133,5 @@
 
   .channel-links ul li {
     font-style: italic;
+    list-style: none;
   }

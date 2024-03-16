@@ -7,6 +7,31 @@ function InfoCard(props) {
         return 'https://' + url;
     }
 
+    function valueCount(value) {
+      const newValue = value.toString()
+      let returnable = ""
+      if(newValue.length < 4) {
+          return newValue
+      } else if(newValue.length < 7) {
+          for(let i = 0; i <= parseInt(newValue.length) - 4; i++) {
+              returnable = returnable + newValue[i]
+          }
+
+          return returnable + "K"
+      } else if(newValue.length < 10) {
+          for(let i = 0; i <= parseInt(newValue.length) - 7; i++) {
+              returnable = returnable + newValue[i]
+          }
+
+          return returnable + "M"
+      } else {
+          for(let i = 0; i <= parseInt(newValue.length) - 10; i++) {
+              returnable = returnable + newValue[i]
+          }
+          return returnable + "B"
+      }
+  }
+
     return (
         <div className="card">
             <div className="img2"><img src={props.video.profile} /></div>
@@ -16,15 +41,15 @@ function InfoCard(props) {
                 <h1>{props.video.video_title}</h1>
                 <div className="channel-numbers">
                   <div>
-                    <h2>{props.video.sub_count}</h2>
+                    <h2>{valueCount(props.video.sub_count)} {props.video.sub_count}</h2>
                     <h2>Subscriber</h2>
                   </div>
                   <div>
-                    <h2>{props.video.like_count}</h2>
+                    <h2>{valueCount(props.video.like_count)} {props.video.like_count}</h2>
                     <h2>Likes</h2>
                   </div>
                   <div>
-                    <h2>{props.video.comment_count}</h2>
+                    <h2>{valueCount(props.video.comment_count)} {props.video.comment_count}</h2>
                     <h2>Comments</h2>
                   </div>
                 </div>
@@ -33,11 +58,13 @@ function InfoCard(props) {
               <div className="channel-information">
                 <div className="channel-links">
                   <h1>Related Links:</h1>
-                  {props.video.Facebook &&<span>Facebook: <u><a onClick={() => window.location.href = fixURL(props.video.Facebook)} target="_blank">{props.video.Facebook}</a></u></span>}
-                  {props.video.Twitter &&  <span>Twitter: <u><a onClick={() => window.location.href = fixURL(props.video.Twitter)} target="_blank">{props.video.Twitter}</a></u></span>}
-                  {props.video.LinkedIn && <span>LinkedIn: <u><a onClick={() => window.location.href = fixURL(props.video.LinkedIn)} target="_blank">{props.video.LinkedIn}</a></u></span>}
-                  {props.video.Website &&  <span>Personal: <u><a onClick={() => window.location.href = fixURL(props.video.Website)} target="_blank">{props.video.Website}</a></u></span>}
-                  {props.video.Wiki &&  <span>Wikipedia: <u><a onClick={() => window.location.href = fixURL(props.video.Wiki)} target="_blank">{props.video.Wiki}</a></u></span>}
+                  <ul> 
+                    <li>{props.video.Facebook &&<span>Facebook: <u><a onClick={() => window.location.href = fixURL(props.video.Facebook)} target="_blank">{props.video.Facebook}</a></u></span>}</li>
+                    <li>{props.video.Twitter &&  <span>Twitter: <u><a onClick={() => window.location.href = fixURL(props.video.Twitter)} target="_blank">{props.video.Twitter}</a></u></span>}</li>
+                    <li>{props.video.LinkedIn && <span>LinkedIn: <u><a onClick={() => window.location.href = fixURL(props.video.LinkedIn)} target="_blank">{props.video.LinkedIn}</a></u></span>}</li>
+                    <li>{props.video.Website &&  <span>Personal: <u><a onClick={() => window.location.href = fixURL(props.video.Website)} target="_blank">{props.video.Website}</a></u></span>}</li>
+                    <li>{props.video.Wiki &&  <span>Wikipedia: <u><a onClick={() => window.location.href = fixURL(props.video.Wiki)} target="_blank">{props.video.Wiki}</a></u></span>}</li>
+                  </ul> 
                 </div>
               </div>
 
