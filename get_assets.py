@@ -23,6 +23,8 @@ def yt_assets_scrape():
 
     videos_df = pd.read_csv(videos_path, usecols=['video_id'])['video_id'].tolist()
     channels_df = pd.read_csv(channels_path, usecols=['channel_id'])['channel_id'].tolist()
+    videos_df = pd.read_csv(videos_path)
+    channels_df = pd.read_csv(channels_path)
     thumbnail_links = []
     """
     while (len(videos_df) > 0):
@@ -75,5 +77,28 @@ def yt_assets_scrape():
 
     pd.Series(channel_profile_links).to_csv('channel_profile_links', index=False, header=False)
     """
+
+    """
+    videos_path = "datasets/" + "covid_philippines" + "/videos.csv"
+    channels_path = "datasets/" + "covid_philippines" + "/channels.csv"
+    videos_df = pd.read_csv(videos_path)
+    channels_df = pd.read_csv(channels_path)
+    videos_df['thumbnail'] = pd.read_csv("thumbnail_links.csv", header=None)
+    channels_df['profile'] = pd.read_csv("channel_profile_links.csv", header=None)
+    print(channels_df)
     
+    path = os.getcwd() + "/datasets/" + 'covid_philippines'
+    os.chdir(path)
+
+    videos_df.to_csv('videos.csv', index=False)
+    channels_df.to_csv('channels.csv', index=False)
+
+    os.chdir("..")
+    os.chdir("..")
+    print("Back @ " + os.getcwd())
+    """
+
+    channels_path = "datasets/" + "covid_philippines" + "/channels.csv"
+    channels_df = pd.read_csv(channels_path)
+    print(videos_df.tail(10))
 yt_assets_scrape()
