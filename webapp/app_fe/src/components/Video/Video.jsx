@@ -51,9 +51,7 @@ function Video(props) {
                 <p className="view_count">{viewCount(props.videoInfo.view_count)} {props.videoInfo.view_count}<span className="upload_date">{props.videoInfo.video_dop}</span></p>
                 <div className="channel_info">
                     <div className='channel_image_wrapper'>
-                        
-                            <img className='channel_image' src={props.videoInfo.profile} />
-                        
+                        <img className='channel_image' src={props.videoInfo.profile} />
                     </div>
                     {props.videoInfo.channel_name}
                     <span className="score" style={backgroundColor} onMouseOver={() => setVisibleToolTip(true)} onMouseLeave={() => setVisibleToolTip(false)}>
