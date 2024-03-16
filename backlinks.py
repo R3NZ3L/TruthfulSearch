@@ -188,11 +188,10 @@ def get_backlinks(video_df, source_links):
     source_backlinks = execute(source_links, mode='external')
 
     vbl_df = pd.DataFrame.from_dict(video_backlinks)
-    sbl_df = pd.DataFrame.from_dict(source_backlinks)
-
     print("Saving as video backlinks as video_backlinks.csv...")
     vbl_df.to_csv("video_backlinks.csv")
 
+    sbl_df = pd.DataFrame.from_dict(source_backlinks)
     print("Saving as external source backlinks as source_backlinks.csv...")
     sbl_df.to_csv("source_backlinks.csv")
 
