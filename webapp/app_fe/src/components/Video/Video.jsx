@@ -15,7 +15,7 @@ function Video(props) {
     } 
 
     const backgroundColor = {
-        "backgroundColor":  props.toggled ? "blue" : null
+        "backgroundColor":  props.toggled ? "skyblue" : null
     }
 
     const opacity = {

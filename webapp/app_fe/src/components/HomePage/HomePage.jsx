@@ -10,6 +10,7 @@ function HomePage() {
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
     const [sortResultBy, setSortResultBy] = useState('verifiability')
+    const possibleSorts = ["verifiability", "upload_date"]
 
     useEffect(() => {
         getData()
@@ -26,6 +27,16 @@ function HomePage() {
         } else {
             setTopic('covid_philippines') // default
         }
+        console.log(sortResultBy)
+    }
+
+    const changeSort = (e) => {
+        if (possibleSorts.includes(e.target.value)) {
+            setSortResultBy(e.target.value) // change sort which will trigger another data fetching and rerender.
+        } else {
+            setSortResultBy('verifiability') // default
+        }
+        console.log(e.target.value)
     }
 
     return (
@@ -38,6 +49,12 @@ function HomePage() {
                 <option className="option" value="israel-palestine_conflict_history">Israel Palestine Conflict History</option>
             </select>
             <button>&#128269;</button>
+        </div>
+        <div className="sort">
+            <select id="sort_choices" onChange={(e) => changeSort(e)}>
+                <option className="option" value="verifiability">By Verfiability Score</option>
+                <option className="option" value="upload_date">By Upload Date</option>
+            </select>
         </div>
         <main> 
             <div>
