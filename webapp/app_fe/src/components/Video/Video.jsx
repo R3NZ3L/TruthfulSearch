@@ -6,15 +6,7 @@ import PropTypes from 'prop-types';
 function Video(props) {
 
     const [visibleToolTip, setVisibleToolTip] = useState(false);
-    /*
-    function convertScore() {
-        return  props.score == 1 ? "0-19%"  : 
-                props.score == 2 ? "20-39%" : 
-                props.score == 3 ? "40-59%" :
-                props.score == 4 ? "60-79%" :
-                props.score == 5 ? "80-100%" : "0-19%"
-    }
-    */
+
     const backgroundColor = {
         "backgroundColor":  props.videoInfo.category == 'Cannot be verified' ? "red"        : 
                             props.videoInfo.category == 'Not so Verifiable' ? "orange"     : 
@@ -22,7 +14,7 @@ function Video(props) {
                             props.videoInfo.category == 'Verifiable' ? "cyan"  :
                             props.videoInfo.category == 'Very Verifiable' ? "limegreen" : "black"
     } 
-
+    
     const opacity = {
         "opacity":  1
     } 

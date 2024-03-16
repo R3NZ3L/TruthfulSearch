@@ -10,10 +10,11 @@ CORS(app)
 
 @app.route('/api/data', methods=['GET'])
 def get_data():
-    videos_path = "datasets/" + "covid_philippines" + "/videos.csv"
-    channels_path = "datasets/" + "covid_philippines" + "/channels.csv"
-    links_path = "datasets/" + "covid_philippines" + "/source_links.csv"
-    verifiability_path = "datasets/" + "covid_philippines" + "/verifiability_scores.csv"
+    topic = request.args.get('topic')
+    videos_path = "datasets/" + topic + "/videos.csv"
+    channels_path = "datasets/" + topic + "/channels.csv"
+    links_path = "datasets/" + topic + "/source_links.csv"
+    verifiability_path = "datasets/" + topic + "/verifiability_scores.csv"
 
     videos_df = pd.read_csv(videos_path).drop(['video_transcript', 'Unnamed: 0'], axis=1)
     videos_df = videos_df.drop_duplicates()

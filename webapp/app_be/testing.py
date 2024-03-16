@@ -15,6 +15,6 @@ def getdata():
     verifiability_df = pd.read_csv(verifiability_path).drop(['Unnamed: 0'], axis=1)
     merged_df = videos_df.merge(channels_df, how='inner', on='channel_id').merge(verifiability_df, how='inner', on="channel_id")
     
-    print(merged_df)
+    print(merged_df.columns)
 
 getdata()

@@ -5,16 +5,16 @@ import { useState, useEffect } from 'react';
 
 function HomePage() {
 
-    const [topic, setTopic] = useState("covid") // default covid
-    const possibleTopics = ["covid", "flat-earth", "alien-life"] 
+    const [topic, setTopic] = useState("covid_philippines") // default covid
+    const possibleTopics = ["covid_philippines", "covid_vaccine", "israel-palestine_conflict_history"] 
     const [videoData, setVideoData] = useState([])
     useEffect(() => {
-        fetchData();
-    }, []);
+        fetchData(topic);
+    }, [topic]);
 
-    const fetchData = async ()=> {
+    const fetchData = async (topic) => {
         try{
-            const response = await fetch("http://127.0.0.1:105/api/data", {method: 'GET'})
+            const response = await fetch("http://127.0.0.1:105/api/data?topic="+topic, {method: 'GET'})
             const message =  await response.json()
             setVideoData(message)
         } catch(error) {
@@ -26,7 +26,7 @@ function HomePage() {
         if (possibleTopics.includes(e.target.value)) {
             setTopic(e.target.value) // call data fetch here
         } else {
-            setTopic("unavailable topic")
+            setTopic('covid_philippines') // default
         }
     }
 
