@@ -9,13 +9,14 @@ function HomePage() {
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel-palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
+    const [sortResultBy, setSortResultBy] = useState('verifiability')
 
     useEffect(() => {
         getData()
-    }, [topic]);
+    }, [topic, sortResultBy]);
 
     function getData() {
-       fetch("http://127.0.0.1:105/api/data?topic=" + topic, {method: 'GET'})
+       fetch("http://127.0.0.1:105/api/data?topic=" + topic + '&sort=' + sortResultBy, {method: 'GET'}) // can  sort by 'verifiability' or 'upload_date'
        .then(response => response.json()).then(data => setVideoData(data))
     }
 

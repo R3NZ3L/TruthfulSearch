@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 import re
 
+mostVerifiedSort = ['Cannot be verified', 'Not so Verifiable', 'Somewhat Verifiable', 'Verifiable', 'Very Verifiable']
+
 def getdata():
     filename = "covid_vaccine"
     videos_path = "datasets/" + filename + "/videos.csv"
@@ -18,7 +20,8 @@ def getdata():
     links_df = pd.read_csv(links_path).drop(['channel_name', 'Unnamed: 0'], axis=1).fillna('').astype(str)
     verifiability_df = pd.read_csv(verifiability_path).drop(['Unnamed: 0'], axis=1)
     merged_df = videos_df.merge(channels_df, how='inner', on='channel_id').merge(verifiability_df, how='inner', on="channel_id").merge(links_df, how='inner', on='channel_id')
-    
-    print(merged_df.info())
+    merged_df = merged_df.sort_values('video_dop', ascending=False)
+
+    print(merged_df['video_dop'].head(10))
 
 getdata()
