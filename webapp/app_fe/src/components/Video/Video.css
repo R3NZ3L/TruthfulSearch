@@ -118,17 +118,6 @@
     margin: 0 4px;
 }
 
-@media (max-width: 575.98px) {
-    .video {
-        flex-direction: column;
-    }
-
-    .video .description {
-        display: none;
-    }
-
-}
-
 .renderer {
     position: relative;
     display: block;

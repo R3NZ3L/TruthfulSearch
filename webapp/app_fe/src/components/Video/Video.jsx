@@ -1,7 +1,6 @@
 import random_thumbnail from '../../assets/random_thumbnail.jpg';
 import {useState} from 'react';
 import './Video.css';
-import PropTypes from 'prop-types';
 
 function Video(props) {
 
@@ -14,7 +13,7 @@ function Video(props) {
                             props.videoInfo.category == 'Verifiable' ? "cyan"  :
                             props.videoInfo.category == 'Very Verifiable' ? "limegreen" : "black"
     } 
-    
+
     const opacity = {
         "opacity":  1
     } 
@@ -43,14 +42,6 @@ function Video(props) {
             </div>
         </div>
     )
-}
-
-Video.propTypes = {
-    score: PropTypes.number,
-}
-
-Video.defaultProps = {
-    score: "1",
 }
 
 export default Video;

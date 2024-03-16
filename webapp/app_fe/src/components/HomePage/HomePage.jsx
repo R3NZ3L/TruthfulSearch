@@ -7,19 +7,16 @@ function HomePage() {
 
     const [topic, setTopic] = useState("covid_philippines") // default covid
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel-palestine_conflict_history"] 
-    const [videoData, setVideoData] = useState([])
+    const [videoData, setVideoData] = useState(null)
+    console.log("I rendered")
+
     useEffect(() => {
-        fetchData(topic);
+        getData()
     }, [topic]);
 
-    const fetchData = async (topic) => {
-        try{
-            const response = await fetch("http://127.0.0.1:105/api/data?topic="+topic, {method: 'GET'})
-            const message =  await response.json()
-            setVideoData(message)
-        } catch(error) {
-            console.log("Error", error)
-        }
+    function getData() {
+       fetch("http://127.0.0.1:105/api/data?topic=" + topic, {method: 'GET'})
+       .then(response => response.json()).then(data => setVideoData(data)).finally(console.log('I got data'))
     }
 
     const changeTopic = (e) => {
@@ -43,9 +40,12 @@ function HomePage() {
         </div>
         <main> 
             <div>
-                {videoData.map(video =><Video key={video.id} score={2} videoInfo={video}/>)}
+                {&&}
+                {console.log(JSON.stringify(videoData[1]))}  
+                {JSON.stringify(videoData[1])}
+                {videoData.map(video => <Video key={video.video_id} score={2} videoInfo={video}/>)}
             </div>
-            <InfoCard />
+            <InfoCard/>
         </main>
         </>
     );

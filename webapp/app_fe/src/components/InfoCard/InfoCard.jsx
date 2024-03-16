@@ -1,13 +1,13 @@
 import './InfoCard.css'
 
-function InfoCard() {
+function InfoCard(props) {
     return (
         <div className="card">
             <div className="img1"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
             <div className="img2"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
             <div className="main-content">
               <div className="details">
-                <h2>Channel Name</h2>
+                <h2>test</h2>
                 <h1>Video Title</h1>
                 <div className="channel-numbers">
                   <div>

@@ -42,3 +42,9 @@ main {
     display: grid;
     grid-template-columns: 2fr 1fr;
 }
+
+@media (max-width: 575.98px) {
+    #brand {
+        position: relative;
+    }
+}
