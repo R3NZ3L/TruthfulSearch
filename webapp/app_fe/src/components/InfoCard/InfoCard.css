@@ -47,6 +47,10 @@
     font-size: 15px;
     margin: 0 0 5px;
   }
+
+  .main-content .channel_name {
+    color: #a8a8a8;
+  }
   
   .main-content h1{
     /*text-transform: uppercase; */

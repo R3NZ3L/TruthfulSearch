@@ -7,7 +7,7 @@ function InfoCard(props) {
             <div className="img2"><img src="https://play-lh.googleusercontent.com/zaMefYVID82FrctnM3g2b9Ul1Wk9cAR1aYfKNq_uvHnDbGo2wqZgliYVioi8Fa3YTA" /></div>
             <div className="main-content">
               <div className="details">
-                <h2>{props.video.channel_name}</h2>
+                <h2 className="channel_name">{props.video.channel_name}</h2>
                 <h1>{props.video.video_title}</h1>
                 <div className="channel-numbers">
                   <div>
