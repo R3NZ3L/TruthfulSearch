@@ -44,15 +44,15 @@ function InfoCard(props) {
                 <h1>{props.video.video_title}</h1>
                 <div className="channel-numbers">
                   <div>
-                    <h2>{valueCount(props.video.sub_count)} {props.video.sub_count}</h2>
+                    <h2>{valueCount(props.video.sub_count)}</h2>
                     <h2>Subscriber</h2>
                   </div>
                   <div>
-                    <h2>{valueCount(props.video.like_count)} {props.video.like_count}</h2>
+                    <h2>{valueCount(props.video.like_count)}</h2>
                     <h2>Likes</h2>
                   </div>
                   <div>
-                    <h2>{valueCount(props.video.comment_count)} {props.video.comment_count}</h2>
+                    <h2>{valueCount(props.video.comment_count)}</h2>
                     <h2>Comments</h2>
                   </div>
                 </div>

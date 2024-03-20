@@ -1,6 +1,7 @@
 import './HomePage.css';
 import Video from '../Video/Video.jsx';
 import InfoCard from '../InfoCard/InfoCard.jsx';
+import Dropdown from '../Dropdown/Dropdown.jsx';
 import { useState, useEffect } from 'react';
 
 function HomePage() {
@@ -9,8 +10,7 @@ function HomePage() {
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel-palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
-    const [sortResultBy, setSortResultBy] = useState('verifiability')
-    const possibleSorts = ["verifiability", "upload_date"]
+    const [sortResultBy, setSortResultBy] = useState("verifiability")
 
     useEffect(() => {
         getData()
@@ -52,12 +52,7 @@ function HomePage() {
             </select>
             <button onClick={() => getData()}>&#128269;</button>
         </div>
-        <div className="sort">
-            <select id="sort_choices" onChange={(e) => changeSort(e)}>
-                <option className="option" value="verifiability">By Verifiability Score</option>
-                <option className="option" value="upload_date">By Upload Date</option>
-            </select>
-        </div>
+        <Dropdown sortResultBy={sortResultBy} setSortResultBy={setSortResultBy} />
         <main> 
             <div>
                 {videoData && videoData.map((video, index) => <Video onClick={() => setVideoShown(index)} toggled={index == videoShown} key={video.video_id} score={2} videoInfo={video}/>)}

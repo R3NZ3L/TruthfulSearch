@@ -52,7 +52,7 @@ function Video(props) {
             <img className="video_thumbnail" src={props.videoInfo.thumbnail} onClick={() => window.location.href = `/watch?id=${props.videoInfo.video_id}`}/>
             <div className="metadata">
                 <p className="title" onClick={() => window.location.href = `/watch?id=${props.videoInfo.video_id}`}>{props.videoInfo.video_title}</p>
-                <p className="view_count">{viewCount(props.videoInfo.view_count)} {props.videoInfo.view_count}<span className="upload_date">{props.videoInfo.video_dop}</span></p>
+                <p className="view_count">{viewCount(props.videoInfo.view_count)}<span className="upload_date">{props.videoInfo.video_dop}</span></p>
                 <div className="channel_info">
                     <div className='channel_image_wrapper'>
                         <img className='channel_image' src={props.videoInfo.profile} />
