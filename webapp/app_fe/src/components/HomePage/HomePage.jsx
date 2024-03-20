@@ -14,6 +14,7 @@ function HomePage() {
 
     useEffect(() => {
         getData()
+        console.log('Effect Happened')
     }, [sortResultBy])
 
     function getData() {
@@ -21,6 +22,7 @@ function HomePage() {
         .then(response => response.json())
         .then(data => setVideoData(data))
         .catch((error) => console.log('data fetching failed!, Here is the error: \n' + error));
+        console.log('Get Data happened')
     }
 
     const changeTopic = (e) => {
