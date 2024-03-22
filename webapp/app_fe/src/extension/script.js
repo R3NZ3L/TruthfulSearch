@@ -6,7 +6,7 @@ function fixURL(url) {
     }
   }
 
-  function valueCount(value) {
+function valueCount(value) {
     const newValue = value.toString()
     let returnable = ""
     if(newValue.length < 4) {
@@ -31,8 +31,7 @@ function fixURL(url) {
     }
 }
 
-let e = document.getElementById("secondary");
-e.innerHTML = 
+let template = 
 `<div class="card">
     <div class="img2"><img src=${'props.video.profile'} /></div>
     <div class="main-content">
@@ -154,3 +153,19 @@ e.innerHTML =
     </div>
     </div>
 </div>`
+
+const observer = new MutationObserver(() => {
+    if(document.getElementById('secondary-inner')) {
+        observer.disconnect();
+        document.getElementById('secondary-inner').remove();
+        document.getElementById('secondary').innerHTML = template;
+    }
+});
+  
+observer.observe(document.body, {
+    subtree: true,
+    childList: true,
+});
+
+
+
