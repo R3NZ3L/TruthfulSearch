@@ -47,12 +47,6 @@ main {
     grid-template-columns: 2fr 1fr;
 }
 
-#sort_choices {
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    border-radius: 20px;
-}
-
 @media (max-width: 575.98px) {
     #brand {
         position: relative;
