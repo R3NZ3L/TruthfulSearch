@@ -68,6 +68,12 @@
     overflow: hidden;
 }
 
+@media only screen and (max-width: 1400px) {
+    .video .description {
+        -webkit-line-clamp: 2;
+    }
+}
+
 .video .score {
     color: white;
     margin-left: 10px;
