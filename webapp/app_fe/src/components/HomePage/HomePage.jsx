@@ -55,7 +55,7 @@ function HomePage() {
         <Dropdown sortResultBy={sortResultBy} setSortResultBy={setSortResultBy} />
         <main> 
             <div>
-                {videoData && videoData.map((video, index) => <Video onClick={() => setVideoShown(index)} toggled={index == videoShown} key={video.video_id} score={2} videoInfo={video}/>)}
+                {videoData && videoData.map((video, index) => <Video onClick={() => setVideoShown(index)} toggled={index == videoShown} key={video.video_id+index} score={2} videoInfo={video}/>)}
             </div>
             {videoData && <InfoCard video={videoData[videoShown]} />}
         </main>

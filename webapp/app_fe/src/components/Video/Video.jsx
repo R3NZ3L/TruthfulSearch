@@ -49,9 +49,9 @@ function Video(props) {
 
     return (
         <div className="video" onClick={props.onClick} style={backgroundColor}>
-            <img className="video_thumbnail" src={props.videoInfo.thumbnail} onClick={() => window.location.href = `/watch?id=${props.videoInfo.video_id}`}/>
+            <img className="video_thumbnail" src={props.videoInfo.thumbnail} onClick={() => window.location.href = `https://youtube.com/watch?v=${props.videoInfo.video_id}`}/>
             <div className="metadata">
-                <p className="title" onClick={() => window.location.href = `/watch?id=${props.videoInfo.video_id}`}>{props.videoInfo.video_title}</p>
+                <p className="title" onClick={() => window.location.href = `https://youtube.com/watch?v=${props.videoInfo.video_id}`}>{props.videoInfo.video_title}</p>
                 <p className="view_count">{viewCount(props.videoInfo.view_count)}<span className="upload_date">{props.videoInfo.video_dop}</span></p>
                 <div className="channel_info">
                     <div className='channel_image_wrapper'>
