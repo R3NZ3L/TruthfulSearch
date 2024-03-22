@@ -65,72 +65,72 @@ def prepare_scores(output):
             # LinkedIn
             if sb_linkedIn >= 100:
                 comp_dict["LinkedIn"][i] = 20 / 20
-                comp_dict["li_desc"][i] = "At least 100 backlinks"
+                comp_dict["li_desc"][i] = "Referenced by at least 100 webpages"
             elif 100 > sb_linkedIn >= 50:
                 comp_dict["LinkedIn"][i] = 10 / 20
-                comp_dict["li_desc"][i] = "At least 50 but less than 100 backlinks"
+                comp_dict["li_desc"][i] = "Referenced by at least 50 but less than 100 webpages"
             elif 50 > sb_linkedIn >= 25:
                 comp_dict["LinkedIn"][i] = 5 / 20
-                comp_dict["li_desc"][i] = "At least 25 but less than 50 backlinks"
+                comp_dict["li_desc"][i] = "Referenced by at least 25 but less than 50 webpages"
             elif sb_linkedIn < 25:
                 comp_dict["LinkedIn"][i] = 0 / 20
-                comp_dict["li_desc"][i] = "Less than 25 backlinks"
+                comp_dict["li_desc"][i] = "Referenced by less than 25 webpages"
 
             # Wiki
             if sb_wiki >= 3000:
                 comp_dict["Wiki"][i] = 20 / 20
-                comp_dict["wi_desc"][i] = "At least 3,000 backlinks"
+                comp_dict["wi_desc"][i] = "Referenced by at least 3,000 webpages"
             elif 3000 > sb_wiki >= 1500:
                 comp_dict["Wiki"][i] = 10 / 20
-                comp_dict["wi_desc"][i] = "At least 1,500 but less than 3,000 backlinks"
+                comp_dict["wi_desc"][i] = "Referenced by at least 1,500 but less than 3,000 webpages"
             elif 1500 > sb_wiki >= 500:
                 comp_dict["Wiki"][i] = 5 / 20
-                comp_dict["wi_desc"][i] = "At least 500 but less than 1,500 backlinks"
+                comp_dict["wi_desc"][i] = "Referenced by at least 500 but less than 1,500 webpages"
             elif sb_wiki < 500:
                 comp_dict["Wiki"][i] = 0 / 20
-                comp_dict["wi_desc"][i] = "Less than 500 backlinks"
+                comp_dict["wi_desc"][i] = "Referenced by less than 500 webpages"
 
             # Website
             if sb_website >= 3000:
                 comp_dict["Website"][i] = 20 / 20
-                comp_dict["we_desc"][i] = "At least 3,000 backlinks"
+                comp_dict["we_desc"][i] = "Referenced by at least 3,000 webpages"
             elif 3000 > sb_website >= 1500:
                 comp_dict["Website"][i] = 10 / 20
-                comp_dict["we_desc"][i] = "At least 1,500 but less than 3,000 backlinks"
+                comp_dict["we_desc"][i] = "Referenced by at least 1,500 but less than 3,000 webpages"
             elif 1500 > sb_website >= 500:
                 comp_dict["Website"][i] = 5 / 20
-                comp_dict["we_desc"][i] = "At least 500 but less than 1,500 backlinks"
+                comp_dict["we_desc"][i] = "Referenced by at least 500 but less than 1,500 webpages"
             elif sb_website < 500:
                 comp_dict["Website"][i] = 0 / 20
-                comp_dict["we_desc"][i] = "Less than 500 backlinks"
+                comp_dict["we_desc"][i] = "Referenced by less than 500 webpages"
 
             # Twitter
             if sb_twitter >= 100:
                 comp_dict["Twitter"][i] = 20 / 20
-                comp_dict["tw_desc"][i] = "At least 100 backlinks"
+                comp_dict["tw_desc"][i] = "Referenced by at least 100 webpages"
             elif 100 > sb_twitter >= 50:
                 comp_dict["Twitter"][i] = 10 / 20
-                comp_dict["tw_desc"][i] = "At least 50 but less than 100 backlinks"
+                comp_dict["tw_desc"][i] = "Referenced by at least 50 but less than 100 webpages"
             elif 50 > sb_twitter >= 25:
                 comp_dict["Twitter"][i] = 5 / 20
-                comp_dict["tw_desc"][i] = "At least 25 but less than 50 backlinks"
+                comp_dict["tw_desc"][i] = "Referenced by at least 25 but less than 50 webpages"
             elif sb_twitter < 25:
                 comp_dict["Twitter"][i] = 0 / 20
-                comp_dict["tw_desc"][i] = "Less than 25 backlinks"
+                comp_dict["tw_desc"][i] = "Referenced by less than 25 webpages"
 
             # Facebook
             if sb_facebook >= 100:
                 comp_dict["Facebook"][i] = 20 / 20
-                comp_dict["fb_desc"][i] = "At least 100 backlinks"
+                comp_dict["fb_desc"][i] = "Referenced by at least 100 webpages"
             elif 100 > sb_facebook >= 50:
                 comp_dict["Facebook"][i] = 10 / 20
-                comp_dict["fb_desc"][i] = "At least 50 but less than 100 backlinks"
+                comp_dict["fb_desc"][i] = "Referenced by at least 50 but less than 100 webpages"
             elif 50 > sb_facebook >= 25:
                 comp_dict["Facebook"][i] = 5 / 20
-                comp_dict["fb_desc"][i] = "At least 25 but less than 50 backlinks"
+                comp_dict["fb_desc"][i] = "Referenced by at least 25 but less than 50 webpages"
             elif sb_facebook < 25:
                 comp_dict["Facebook"][i] = 0 / 20
-                comp_dict["fb_desc"][i] = "Less than 25 backlinks"
+                comp_dict["fb_desc"][i] = "Referenced by less than 25 webpages"
 
     elif output == "rank":
         videos = pd.read_csv("videos.csv", index_col=0)
