@@ -25,6 +25,7 @@ def get_data():
     videos_df = videos_df.drop_duplicates(keep='last')
     # fill nan values with 0 for numeric columns
     videos_df[videos_df.select_dtypes(include=[np.number]).columns] = videos_df.select_dtypes(include=[np.number]).fillna(0) 
+    videos_df['thumbnail'] = videos_df['thumbnail'].fillna('https://c0.wallpaperflare.com/preview/287/460/40/black-black-and-white-cubes-dice.jpg')
     videos_df['description'] = videos_df['description'].fillna('').astype(str)
     channels_df = pd.read_csv(channels_path).drop(['Unnamed: 0'], axis=1)
     links_df = pd.read_csv(links_path).drop(['channel_name', 'Unnamed: 0'], axis=1).fillna('').astype(str)
