@@ -215,6 +215,13 @@ comments_observer.observe(document.body, {
     childList: true,
 });
 
+// Code for checking if youtube video ended
+//document.addEventListener('yt-navigate-finish', function(event) {
+    var videoElement = document.querySelector('video');
+    videoElement.addEventListener('ended', function(event) {
+      console.log(event);
+    });
+//  });
 
 
 
