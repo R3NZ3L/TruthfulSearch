@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 function HomePage() {
 
     const [topic, setTopic] = useState("covid_philippines") // default covid
-    const possibleTopics = ["covid_philippines", "covid_vaccine", "israel-palestine_conflict_history"] 
+    const possibleTopics = ["covid_philippines", "covid_vaccine", "israel_palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
     const [sortResultBy, setSortResultBy] = useState("verifiability")
@@ -48,7 +48,7 @@ function HomePage() {
             <select id="topic_choices" onChange={(e) => changeTopic(e)}>
                 <option className="option" value="covid_philippines">Covid Philippines</option>
                 <option className="option" value="covid_vaccine">Covid Vaccine</option>
-                <option className="option" value="israel-palestine_conflict_history">Israel Palestine Conflict History</option>
+                <option className="option" value="israel_palestine_conflict_history">Israel Palestine Conflict History</option>
             </select>
             <button onClick={() => getData()}>&#128269;</button>
         </div>
