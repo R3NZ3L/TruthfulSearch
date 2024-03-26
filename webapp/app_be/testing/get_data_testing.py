@@ -34,6 +34,6 @@ def getdata():
     merged_df = videos_df.merge(channels_df, how='inner', on='channel_id').merge(verifiability_df, how='inner', on="channel_id").merge(links_df, how='inner', on='channel_id').merge(raw_scores_df, how='inner', on='channel_id')
     merged_df = merged_df.merge(channel_backlinks_df, how='inner', on='channel_id').merge(video_backlinks_df, how='inner', on='video_id')
     
-    print(videos_df[videos_df['thumbnail'].isnull()])
+    print(merged_df.columns)
 
 getdata()

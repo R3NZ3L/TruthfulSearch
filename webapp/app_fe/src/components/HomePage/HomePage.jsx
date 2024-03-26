@@ -18,7 +18,7 @@ function HomePage() {
     }, [sortResultBy])
 
     function getData() {
-        fetch("http://127.0.0.1:105/api/data?topic=" + topic + '&sort=' + sortResultBy, {method: 'GET'}) // can  sort by 'verifiability' or 'upload_date'
+        fetch("http://127.0.0.1:105/api/data_main?topic=" + topic + '&sort=' + sortResultBy, {method: 'GET'}) // can  sort by 'verifiability' or 'upload_date'
         .then(response => response.json())
         .then(data => setVideoData(data))
         .catch((error) => console.log('data fetching failed!, Here is the error: \n' + error));
