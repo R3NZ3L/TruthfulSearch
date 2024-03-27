@@ -177,7 +177,7 @@ const comments_observer = new MutationObserver(() => {
 });
 
 
-function loadData(state, searchParams) {
+function loadData(state) {
     fetch("http://127.0.0.1:105/api/data_extension?id=" + searchParams.get('v')) // get data of current video
     .then(response => {
         if (response != null) {
@@ -205,19 +205,19 @@ function loadData(state, searchParams) {
 
 const searchParams = new URLSearchParams(window.location.search);
 if (searchParams.has('v')) {
-    loadData('', searchParams);
+    loadData('');
 }
 
 document.getElementsByClassName('ytp-next-button ytp-button')[0].addEventListener('click', function (event) { // when next button is clicked
-    loadData('changevideo', searchParams);
+    loadData('changevideo');
 });
 
 document.getElementsByClassName('ytp-prev-button ytp-button')[0].addEventListener('click', function (event) { // when next button is clicked
-    loadData('changevideo', searchParams);
+    loadData('changevideo');
 });
 
 window.addEventListener('popstate', function (event) {
-	loadData('changevideo', searchParams);
+	loadData('changevideo');
 });
 
 comments_observer.observe(document.body, {
@@ -244,7 +244,7 @@ videoElement.addEventListener('canplay', function(event) {
         currentURL = newURL;
         var currentParam = new URLSearchParams(currentURL);
         if (currentParam.has('v')) {
-            loadData('', currentParam);
+            loadData('');
         }
     }
 })
