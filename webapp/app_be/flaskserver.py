@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, Response
 from flask import jsonify
 from flask_cors import CORS
 import numpy as np
@@ -16,6 +16,7 @@ mostVerifiedSort = ['Cannot be verified', 'Not so Verifiable', 'Somewhat Verifia
 def get_data():
     if (request.endpoint == 'data_main'):
         try:
+            dbConnection = None
             topic = request.args.get('topic')
             sort = request.args.get('sort')
             engine = db.create_engine("mysql+pymysql://user:12345678@158.178.243.83:3306/" + topic)
@@ -49,7 +50,7 @@ def get_data():
             return(merged_df.to_dict(orient='records'))
         except Exception as e:
             if(dbConnection != None): dbConnection.close()
-            return(json.dump({}))
+            return Response(response='Database Connection Error', status=500) # Database Connection Error
 
     elif(request.endpoint == 'data_extension'):
         try:
@@ -91,9 +92,11 @@ def get_data():
                                 WHERE v.video_id = :id"""), {'id': id})).drop_duplicates(keep='last')
                 dbConnection.close()
                 return(videos_df.to_dict(orient='records')[0])
+            else:
+                return Response(response='Data does not exist in any of the database', status=404) 
         except Exception as e:
             if(dbConnection != None): dbConnection.close()
-            return (json.dump({}))
+            return Response(response='Database Connection Error', status=500) # Database Connection Error
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0', port=105)

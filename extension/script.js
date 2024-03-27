@@ -31,7 +31,7 @@ function valueCount(value) {
     }
 }
 
-let template = (data) => {
+function template(data) { 
     return `<div class="card">
         <div class="img2"><img src=${data.profile} /></div>
         <div class="main-content">
@@ -155,19 +155,73 @@ let template = (data) => {
     </div>`
 }
 
-const recommendation_bar_observer = new MutationObserver(() => {
-    if(document.getElementById('secondary-inner')) {
-        recommendation_bar_observer.disconnect();
+let card = null
+function loadCard() {
+    if (card != null) {
         document.getElementById('secondary-inner').style.display = 'none';
         const node = document.createElement("div")
         node.setAttribute("id", "secondary-card");
-        node.innerHTML = template;
+        node.innerHTML = card;
         document.getElementById("secondary").appendChild(node);
-        //document.getElementById('secondary').innerHTML = template;
+    }
+}
+
+const recommendation_bar_observer = new MutationObserver(() => {
+    if(document.getElementById('secondary-inner')) {
+        recommendation_bar_observer.disconnect();
+        loadCard()
     }
 });
 
-const comments_observer = new MutationObserver(() => {
+var currentURL = window.location.search;
+var currentParams = new URLSearchParams(window.location.search);
+function loadData(state) {
+    fetch("http://127.0.0.1:105/api/data_extension?id=" + currentParams.get('v')) // get data of current video
+    .then(response => {
+        if (response.status == 200) return response.json()
+        else if (response.status == 404) throw 'Data not found in the database'
+        else if (response.status == 500) throw 'Database Error'
+    })
+    .then(data => {
+        console.log('Video found in the database')
+        card = template(data);
+        if (state == 'initial') {
+            recommendation_bar_observer.observe(document.body, {
+                subtree: true,
+                childList: true,
+            });
+        } else if (state == 'changevideo') {
+            if (document.getElementById('secondary-card') != null) {
+                document.getElementById('secondary-card').remove()
+            }
+            loadCard()
+        }
+    }).catch((error) => {
+        console.log('Error: ' + error)
+        if (document.getElementById('secondary-card') != null) {
+            document.getElementById('secondary-card').remove()
+            document.getElementById('secondary-inner').style.display = 'block';
+            card = null
+        }
+    });
+}
+
+window.addEventListener("load", () => {
+    loadData('initial');
+    console.log('Initial load of the document/window')
+});
+
+var videoElement = document.querySelector('video');
+videoElement.addEventListener('canplay', function(event) {
+    var newURL = window.location.search
+    if(currentURL != newURL) {
+        currentURL = newURL;
+        currentParams = new URLSearchParams(newURL);
+        loadData('changevideo');
+    }
+});
+
+const comments_observer = new MutationObserver(() => { // updates the comment count after the user scrolls down to the comment section
     if(document.getElementById('leading-section')) {
         comments_observer.disconnect();
         if (document.getElementById('comment_count') != null) {
@@ -176,78 +230,25 @@ const comments_observer = new MutationObserver(() => {
     }
 });
 
-
-function loadData(state) {
-    fetch("http://127.0.0.1:105/api/data_extension?id=" + searchParams.get('v')) // get data of current video
-    .then(response => {
-        if (response != null) {
-            return response.json()
-        }
-        else throw Error('Database error')
-    })
-    .then(data => {
-        template = template(data);
-        recommendation_bar_observer.observe(document.body, {
-            subtree: true,
-            childList: true,
-        });
-    }).catch((error) => {
-        console.log('data fetching failed!')
-        document.getElementById('secondary-inner').style.display = "block"
-        document.getElementById('secondary-card').style.display = "none";
-        if(state == 'changevideo') {
-            document.getElementById('secondary-inner').style.display = "none"
-            document.getElementById('secondary-card').style.display = "block";
-            window.location.reload()
-        }
-    });
-}
-
-const searchParams = new URLSearchParams(window.location.search);
-if (searchParams.has('v')) {
-    loadData('');
-}
-
-document.getElementsByClassName('ytp-next-button ytp-button')[0].addEventListener('click', function (event) { // when next button is clicked
-    loadData('changevideo');
-});
-
-document.getElementsByClassName('ytp-prev-button ytp-button')[0].addEventListener('click', function (event) { // when next button is clicked
-    loadData('changevideo');
-});
-
-window.addEventListener('popstate', function (event) {
-	loadData('changevideo');
-});
-
-comments_observer.observe(document.body, {
+comments_observer.observe(document.body, { // Check if the comment section already loaded
     subtree: true,
     childList: true,
 });
 
-// Code for checking if youtube video ended
-/*document.addEventListener('yt-navigate-finish', function(event) {
-    var videoElement = document.querySelector('video');
-    videoElement.addEventListener('ended', function(event) {
-      console.log(event);
-    });
-//  });
+/*
+document.getElementsByClassName('ytp-next-button ytp-button')[0].addEventListener('click', function () { // when next button is clicked
+    loadData('changevideo');
+    console.log('The user clicked the next video button')
+});
+
+document.getElementsByClassName('ytp-prev-button ytp-button')[0].addEventListener('click', function () { // when previous button is clicked
+    loadData('changevideo');
+    console.log('The user clicked the previous video button')
+});
+
+window.addEventListener('popstate', function () { // When the user goes back or forward using the browser's history
+	loadData('changevideo');
+    console.log('The user goes back or forward using the browser\'s history')
+});
 */
-
-var currentURL = window.location.search;
-var newURL = "";
-
-var videoElement = document.querySelector('video');
-videoElement.addEventListener('canplay', function(event) {
-    newURL = window.location.search;
-    if(currentURL != newURL) {
-        currentURL = newURL;
-        var currentParam = new URLSearchParams(currentURL);
-        if (currentParam.has('v')) {
-            loadData('');
-        }
-    }
-})
-
-
 
