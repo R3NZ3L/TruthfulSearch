@@ -158,8 +158,12 @@ let template = (data) => {
 const recommendation_bar_observer = new MutationObserver(() => {
     if(document.getElementById('secondary-inner')) {
         recommendation_bar_observer.disconnect();
-        document.getElementById('secondary-inner').remove();
-        document.getElementById('secondary').innerHTML = template;
+        document.getElementById('secondary-inner').style.display = 'none';
+        const node = document.createElement("div")
+        node.setAttribute("id", "secondary-card");
+        node.innerHTML = template;
+        document.getElementById("secondary").appendChild(node);
+        //document.getElementById('secondary').innerHTML = template;
     }
 });
 
@@ -173,7 +177,7 @@ const comments_observer = new MutationObserver(() => {
 });
 
 
-function loadData(state) {
+function loadData(state, searchParams) {
     fetch("http://127.0.0.1:105/api/data_extension?id=" + searchParams.get('v')) // get data of current video
     .then(response => {
         if (response != null) {
@@ -189,25 +193,31 @@ function loadData(state) {
         });
     }).catch((error) => {
         console.log('data fetching failed!')
-        if(state == 'changevideo') window.location.reload()
+        document.getElementById('secondary-inner').style.display = "block"
+        document.getElementById('secondary-card').style.display = "none";
+        if(state == 'changevideo') {
+            document.getElementById('secondary-inner').style.display = "none"
+            document.getElementById('secondary-card').style.display = "block";
+            window.location.reload()
+        }
     });
 }
 
 const searchParams = new URLSearchParams(window.location.search);
 if (searchParams.has('v')) {
-    loadData('');
+    loadData('', searchParams);
 }
 
 document.getElementsByClassName('ytp-next-button ytp-button')[0].addEventListener('click', function (event) { // when next button is clicked
-    loadData('changevideo');
+    loadData('changevideo', searchParams);
 });
 
 document.getElementsByClassName('ytp-prev-button ytp-button')[0].addEventListener('click', function (event) { // when next button is clicked
-    loadData('changevideo');
+    loadData('changevideo', searchParams);
 });
 
 window.addEventListener('popstate', function (event) {
-	loadData('changevideo');
+	loadData('changevideo', searchParams);
 });
 
 comments_observer.observe(document.body, {
@@ -216,12 +226,28 @@ comments_observer.observe(document.body, {
 });
 
 // Code for checking if youtube video ended
-//document.addEventListener('yt-navigate-finish', function(event) {
+/*document.addEventListener('yt-navigate-finish', function(event) {
     var videoElement = document.querySelector('video');
     videoElement.addEventListener('ended', function(event) {
       console.log(event);
     });
 //  });
+*/
+
+var currentURL = window.location.search;
+var newURL = "";
+
+var videoElement = document.querySelector('video');
+videoElement.addEventListener('canplay', function(event) {
+    newURL = window.location.search;
+    if(currentURL != newURL) {
+        currentURL = newURL;
+        var currentParam = new URLSearchParams(currentURL);
+        if (currentParam.has('v')) {
+            loadData('', currentParam);
+        }
+    }
+})
 
 
 
