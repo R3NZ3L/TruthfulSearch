@@ -7,7 +7,7 @@ mostVerifiedSort = ['Cannot be verified', 'Not so Verifiable', 'Somewhat Verifia
 
 def getdata():
     try:
-        engine = db.create_engine("mysql+pymysql://user:12345678@158.178.243.83:3306/covid_vaccine")
+        engine = db.create_engine("mysql+pymysql://user:12345678@18.142.50.165:3306/covid_vaccine")
         dbConnection = engine.connect()
         videos_df = pd.DataFrame(dbConnection.execute(db.text("SELECT * FROM videos"))).drop(['video_transcript'], axis=1).drop_duplicates(keep='last')
         videos_df[videos_df.select_dtypes(include=[np.number]).columns] = videos_df.select_dtypes(include=[np.number]).fillna(0) 

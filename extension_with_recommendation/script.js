@@ -158,11 +158,11 @@ function template(data) {
 let card = null
 function loadCard() {
     if (card != null) {
-        document.getElementById('secondary-inner').style.display = 'none';
+        const parent = document.getElementById("secondary")
         const node = document.createElement("div")
         node.setAttribute("id", "secondary-card");
         node.innerHTML = card;
-        document.getElementById("secondary").appendChild(node);
+        parent.insertBefore(node, parent.firstChild);
     }
 }
 
@@ -200,7 +200,6 @@ function loadData(state) {
         console.log('Error: ' + error)
         if (document.getElementById('secondary-card') != null) {
             document.getElementById('secondary-card').remove()
-            document.getElementById('secondary-inner').style.display = 'block';
             card = null
         }
     });
@@ -234,21 +233,3 @@ comments_observer.observe(document.body, { // Check if the comment section alrea
     subtree: true,
     childList: true,
 });
-
-/*
-document.getElementsByClassName('ytp-next-button ytp-button')[0].addEventListener('click', function () { // when next button is clicked
-    loadData('changevideo');
-    console.log('The user clicked the next video button')
-});
-
-document.getElementsByClassName('ytp-prev-button ytp-button')[0].addEventListener('click', function () { // when previous button is clicked
-    loadData('changevideo');
-    console.log('The user clicked the previous video button')
-});
-
-window.addEventListener('popstate', function () { // When the user goes back or forward using the browser's history
-	loadData('changevideo');
-    console.log('The user goes back or forward using the browser\'s history')
-});
-*/
-
