@@ -11,6 +11,10 @@ CORS(app)
 
 mostVerifiedSort = ['Cannot be verified', 'Not so Verifiable', 'Somewhat Verifiable', 'Verifiable', 'Very Verifiable']
 
+@app.route('/', methods=['GET'])
+def hello():
+    return 'Truthful Search API Homepage'
+
 @app.route('/api/data_main', endpoint='data_main', methods=['GET'])
 @app.route('/api/data_extension', endpoint='data_extension', methods=['GET'])
 def get_data():
@@ -19,7 +23,7 @@ def get_data():
             dbConnection = None
             topic = request.args.get('topic')
             sort = request.args.get('sort')
-            engine = db.create_engine("mysql+pymysql://user:12345678@158.178.243.83:3306/" + topic)
+            engine = db.create_engine("mysql+pymysql://user:12345678@18.142.50.165:3306/" + topic)
             dbConnection = engine.connect()
             videos_df = pd.DataFrame(dbConnection.execute(db.text("SELECT * FROM videos"))).drop(['video_transcript'], axis=1).drop_duplicates(keep='last')
             videos_df[videos_df.select_dtypes(include=[np.number]).columns] = videos_df.select_dtypes(include=[np.number]).fillna(0) 
@@ -56,19 +60,19 @@ def get_data():
         try:
             dbConnection = None
             id = request.args.get('id')
-            covid_philippines_engine = db.create_engine("mysql+pymysql://user:12345678@158.178.243.83:3306/covid_philippines")
+            covid_philippines_engine = db.create_engine("mysql+pymysql://user:12345678@18.142.50.165:3306/covid_philippines")
             covid_philippines_dbConnection = covid_philippines_engine.connect()
             covid_philippines = covid_philippines_dbConnection.execute(db.text("SELECT video_id FROM videos WHERE video_id = :id"), {'id': id}).fetchall()
             if (len(covid_philippines) != 0): # if found in covid_philippines database
                 dbConnection = covid_philippines_dbConnection
             else:
-                covid_vaccine_engine = db.create_engine("mysql+pymysql://user:12345678@158.178.243.83:3306/covid_vaccine")
+                covid_vaccine_engine = db.create_engine("mysql+pymysql://user:12345678@18.142.50.165:3306/covid_vaccine")
                 covid_vaccine_dbConnection = covid_vaccine_engine.connect()
                 covid_vaccine = covid_vaccine_dbConnection.execute(db.text("SELECT video_id FROM videos WHERE video_id = :id"), {'id': id}).fetchall()
                 if(len(covid_vaccine) != 0): # if found in covid_vaccine database
                     dbConnection = covid_vaccine_dbConnection
                 else:
-                    israel_palestine_engine = db.create_engine("mysql+pymysql://user:12345678@158.178.243.83:3306/israel_palestine_conflict_history")
+                    israel_palestine_engine = db.create_engine("mysql+pymysql://user:12345678@18.142.50.165:3306/israel_palestine_conflict_history")
                     israel_palestine_dbConnection = israel_palestine_engine.connect()
                     israel_palestine = israel_palestine_dbConnection.execute(db.text("SELECT video_id FROM videos WHERE video_id = :id"), {'id': id}).fetchall()
                     if(len(israel_palestine) != 0): # if found in israel_palestine database

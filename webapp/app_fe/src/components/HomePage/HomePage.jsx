@@ -10,6 +10,7 @@ function HomePage() {
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel_palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
+    const [videoShownPosition, setVideoShownPosition] = useState(null);
     const [sortResultBy, setSortResultBy] = useState("verifiability")
 
     useEffect(() => {
@@ -54,10 +55,14 @@ function HomePage() {
         </div>
         <Dropdown sortResultBy={sortResultBy} setSortResultBy={setSortResultBy} />
         <main> 
-            <div>
-                {videoData && videoData.map((video, index) => <Video onClick={() => setVideoShown(index)} toggled={index == videoShown} key={video.video_id+index} score={2} videoInfo={video}/>)}
+            <div id="video-container">
+                {videoData && videoData.map((video, index) => <Video onClick={() => {
+                        setVideoShown(index);
+                    }} 
+                    toggled={index == videoShown} key={video.video_id+index} score={2} videoInfo={video}/>)
+                }
             </div>
-            {videoData && <InfoCard video={videoData[videoShown]} />}
+            {videoData && <InfoCard video={videoData[videoShown]} videoPosition={document.getElementsByClassName('video')[videoShown].offsetTop - document.getElementById('video-container').offsetTop}/>}
         </main>
         </>
     );
