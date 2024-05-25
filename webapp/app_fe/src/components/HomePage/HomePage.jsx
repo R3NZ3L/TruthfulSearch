@@ -10,7 +10,6 @@ function HomePage() {
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel_palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
-    const [videoShownPosition, setVideoShownPosition] = useState(null);
     const [sortResultBy, setSortResultBy] = useState("verifiability")
 
     useEffect(() => {
@@ -67,7 +66,6 @@ function HomePage() {
         </>
     );
 
-    
 }
 
 export default HomePage
