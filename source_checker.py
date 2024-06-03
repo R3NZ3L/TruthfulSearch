@@ -16,15 +16,15 @@ import os
 
 # Put your personal API key here
 # DLSU account key
-# apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
+apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
 # apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
-apiKey = 'AIzaSyBTRvkhM6ESdLHu0djfP39-IKHufQogxOI' # Baura
+# apiKey = 'AIzaSyBTRvkhM6ESdLHu0djfP39-IKHufQogxOI' # Baura
 # apiKey = 'AIzaSyA7eqxwuzM6SUDDVTss6DSzKGEt7kSJesg' # Sevillana
 
 # Search engine ID
-# cseKey = "23c1c70a203ac4852" # Aldecoa
+cseKey = "23c1c70a203ac4852" # Aldecoa
 # cseKey = "a7c987e23f0fe448e" # Aquino
-cseKey = "76c19208b12de4763" # Baura
+# cseKey = "76c19208b12de4763" # Baura
 # cseKey = "a674809398a7b46df" # Sevillana
 
 # Google Custom Search API
@@ -210,7 +210,7 @@ def find_twitter(channel_name, query):
 
 
 def check_desc(channel_id, videos_df, pattern):
-    # Get first 5 videos of channel from videos_df
+    # Get up to the first 5 videos of a channel from videos_df
     videos_df = videos_df.loc[videos_df["channel_id"] == channel_id].reset_index().drop("index", axis=1).head()
     found = (False, np.nan)
 
@@ -223,6 +223,9 @@ def check_desc(channel_id, videos_df, pattern):
         match = re.search(pattern, desc)
         if match is not None:
             found = (True, match.group())
+
+            # print(f"Found in video description: {match.group()}")
+
             break
 
     return found
@@ -235,18 +238,17 @@ def check_about_links(pattern, links):
         match = re.search(pattern, links[i][1])
         if match is not None:
             found = (True, match.group())
+
+            # print(f"Found in About section: {match.group()}")
+
+            # Remove found link to shorten search for succeeding calls of check_about_links
             links.pop(i)
             break
 
     return found, links
 
 
-def find_sources(channel_df, video_df, unchecked_exists):
-    global quota_reached
-    global stopped_at
-
-    unchecked = pd.DataFrame(columns=channel_df.columns)
-
+def find_sources_via_yt(channel_df, video_df):
     pbar = tqdm(total=channel_df.shape[0])
     pbar.set_description("Finding sources...")
 
@@ -258,43 +260,42 @@ def find_sources(channel_df, video_df, unchecked_exists):
         "Twitter", "Facebook"
     ]
 
-    query_tail = [
-        " LinkedIn",
-        " Wiki",
-        " Official Website",
-        " Facebook",
-        " Twitter"
-    ]
-
     # --- Patterns to search for links within video descriptions
-    desc_linkedIn_pattern = r"(?<=(Linked(in|In)\:\s))https:\/\/(www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_])+\/"
-    desc_website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))https:\/\/\w+(\.(\w|\w[-_])+)?\.\w{3}(\.\w{2})?(\/(\w|\w[-_])+)?"
-    desc_fb_pattern = r"(?<=((F|f)acebook\:\s))https:\/\/(www\.)?facebook\.com\/(\w|\w[-_])+"
-    desc_twitter_pattern = r"(?<=((T|t)witter\:\s))https:\/\/(www\.)?(twitter|x)\.com\/(\w|\w[-_])+"
+    desc_linkedIn_pattern = r"(?<=(Linked(in|In)\:\s))(https:\/\/www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_/])+\/"
+    # desc_website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))https:\/\/\w+(\.(\w|\w[-_])+)?\.\w{3}(\.\w{2})?(\/(\w|\w[-_])+)?"
+    desc_website_pattern = r"(?<=(W|w)ebsite((\:)\s|\sat\s))(\w|[:/.-])+"
+    desc_fb_pattern = r"(?<=((F|f)acebook\:\s))(https:\/\/www\.)?facebook\.com\/(\w|\w[-_/])+"
+    desc_twitter_pattern = r"(?<=((T|t)witter\:\s))(https:\/\/www\.)?(twitter|x)\.com\/(\w|\w[-_/])+"
     # ---
 
     # --- Patterns to search for links within About sections in channel pages
-    about_website_pattern = r"(W|w)ebsite"
-    about_fb_pattern = r"facebook\.com\/.+"
-    about_linkedIn_pattern = r"linkedin\.com\/(company|in)\/.+"
-    about_twitter_pattern = r"twitter\.com\/.+"
+    about_website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))(\w|[:/.])+"
+    about_fb_pattern = r"(https:\/\/www\.)?facebook\.com\/(\w|\w[-_/])+"
+    about_linkedIn_pattern = r"(https:\/\/www\.)?linkedin\.com\/(company|in)\/(\w|\w[-_/])+"
+    about_twitter_pattern = r"(https:\/\/www\.)?twitter\.com\/(\w|\w[-_/])+"
     # ---
 
+    '''
+    Iterate through a DataFrame of channels
+    '''
     for i in range(0, channel_df.shape[0]):
-        linkedIn_found = (False, np.nan)
+        '''
+        Wiki page will not be searched for via YT channel pages and video descriptions.
+        This value will be updated on a separate function (searching via Google using CSE)
+        '''
         wiki_found = (False, np.nan)
-        site_found = (False, np.nan)
-        twitter_found = (False, np.nan)
-        fb_found = (False, np.nan)
 
         channel_id = channel_df.iloc[i]["channel_id"]
         channel_name = channel_df.iloc[i]["channel_name"]
 
-        if quota_reached:
-            unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
-            pbar.update(1)
-            continue
+        # --- Checking descriptions from channel's videos
+        linkedIn_found = check_desc(channel_id, video_df, desc_linkedIn_pattern)
+        site_found = check_desc(channel_id, video_df, desc_website_pattern)
+        fb_found = check_desc(channel_id, video_df, desc_fb_pattern)
+        twitter_found = check_desc(channel_id, video_df, desc_twitter_pattern)
+        # ---
 
+        # --- Checking About section from channel pages
         about_page = requests.get(f'https://www.youtube.com/channel/{channel_id}/about')
         soup = BeautifulSoup(about_page.content, 'html.parser')
         script_tags = soup.find_all("script")
@@ -328,107 +329,75 @@ def find_sources(channel_df, video_df, unchecked_exists):
                         url = link['channelExternalLinkViewModel']['link']['content']
                         links.append([link_title, url])
 
-                    fb_found, links = check_about_links(about_fb_pattern, links)
-                    twitter_found, links = check_about_links(about_twitter_pattern, links)
-                    linkedIn_found, links = check_about_links(about_linkedIn_pattern, links)
-
-                    site_found = (False, np.nan)
-
-                    for i in range(0, len(links)):
-                        match = re.search(about_website_pattern, links[i][0])
-                        if match is not None:
-                            site_found = (True, links[i][1])
-                            break
-
-                    for i in range(0, len(links)):
-                        link_title = links[i][0]
-                        similarity = round(jaro_similarity(channel_name, link_title), 2)
-                        if similarity >= 0.60:
-                            match = re.search(r"youtube\.com\/.+", links[i][1])
-                            if match is None:
+                    '''
+                    Extracting official site link is given more priority
+                    '''
+                    if not site_found[0]:
+                        for i in range(0, len(links)):
+                            match = re.search(about_website_pattern, links[i][0])
+                            if match is not None:
                                 site_found = (True, links[i][1])
                                 break
 
-        # --- Checking descriptions from channel's videos
-        if not linkedIn_found[0]:
-            linkedIn_found = check_desc(channel_id, video_df, desc_linkedIn_pattern)
+                        for i in range(0, len(links)):
+                            link_title = links[i][0]
+                            similarity = round(jaro_similarity(channel_name, link_title), 2)
+                            if similarity >= 0.60:
+                                match = re.search(r"youtube\.com\/.+", links[i][1])
+                                if match is None:
+                                    site_found = (True, links[i][1])
+                                    break
 
-        if not site_found[0]:
-            site_found = check_desc(channel_id, video_df, desc_website_pattern)
+                    '''
+                    Use previously declared RegEx patterns to extract links
+                    for Facebook, Twitter, and LinkedIn in a channel's About section
+                    '''
+                    if not fb_found[0]:
+                        fb_found, links = check_about_links(about_fb_pattern, links)
 
-        if not fb_found[0]:
-            fb_found = check_desc(channel_id, video_df, desc_fb_pattern)
+                    if not twitter_found[0]:
+                        twitter_found, links = check_about_links(about_twitter_pattern, links)
 
-        if not twitter_found[0]:
-            twitter_found = check_desc(channel_id, video_df, desc_twitter_pattern)
+                    if not linkedIn_found[0]:
+                        linkedIn_found, links = check_about_links(about_linkedIn_pattern, links)
+
+        # Source checks ---
+        sc_record = [
+            channel_id,  # channel_id
+            channel_name,  # channel_name
+            linkedIn_found[0],
+            wiki_found[0],
+            site_found[0],
+            twitter_found[0],
+            fb_found[0]
+        ]
+        source_check.append(sc_record)
         # ---
 
-        # --- If link not found in descriptions, search via Google
-        wiki_found = find_wiki(channel_name, channel_name + query_tail[1])
+        # Source links ---
+        fb_link = np.nan
+        twitter_link = np.nan
 
-        if not linkedIn_found[0]:
-            linkedIn_found = find_linkedIn(channel_name, channel_name + query_tail[0])
+        if fb_found[0]:
+            fb_link = fb_found[1]
 
-        '''
-        if not site_found[0]:
-            site_found = find_website(channel_name, channel_name + query_tail[2])
+        if twitter_found[0]:
+            twitter_link = twitter_found[1]
 
-        if not fb_found[0]:
-            fb_found = find_fb(channel_name, channel_name + query_tail[3])
-
-        if not twitter_found[0]:
-            twitter_found = find_twitter(channel_name, channel_name + query_tail[4])
-        # '''
-
-        if not quota_reached:
-            # Source checks ---
-            sc_record = [
-                channel_id,  # channel_id
-                channel_name,  # channel_name
-                linkedIn_found[0],
-                wiki_found[0],
-                site_found[0],
-                twitter_found[0],
-                fb_found[0]
-            ]
-            source_check.append(sc_record)
-            # ---
-
-            # Source links ---
-            fb_link = np.nan
-            twitter_link = np.nan
-
-            if fb_found[0]:
-                fb_link = fb_found[1]
-
-            if twitter_found[0]:
-                twitter_link = twitter_found[1]
-
-            sl_record = [
-                channel_id,
-                channel_name,
-                linkedIn_found[1],
-                wiki_found[1],
-                site_found[1],
-                twitter_link,
-                fb_link
-            ]
-            source_links.append(sl_record)
-            # ---
-            pbar.update(1)
-
-        elif quota_reached:
-            unchecked = pd.concat([unchecked, channel_df.loc[channel_df["channel_id"] == str(channel_id)]])
-            pbar.update(1)
-            continue
+        sl_record = [
+            channel_id,
+            channel_name,
+            linkedIn_found[1],
+            wiki_found[1],
+            site_found[1],
+            twitter_link,
+            fb_link
+        ]
+        source_links.append(sl_record)
+        # ---
+        pbar.update(1)
 
     pbar.close()
-
-    if quota_reached:
-        print("Custom Search API daily quota reached.")
-        print(f"Stopped at channel '{stopped_at[0]}' with query '{stopped_at[1]}'")
-        print("Saving unchecked channels in unchecked.csv...")
-        unchecked.to_csv("unchecked.csv")
 
     if len(source_check) > 0:
         sc_nparray = np.array(source_check)
@@ -439,25 +408,8 @@ def find_sources(channel_df, video_df, unchecked_exists):
         sc_df = pd.DataFrame(columns=cols)
         sl_df = pd.DataFrame(columns=cols)
 
-    if unchecked_exists:
-        old_sc = pd.read_csv("source_check.csv", index_col=0)
-        old_sl = pd.read_csv("source_links.csv", index_col=0)
-
-        if old_sc.shape[0] != 0:
-            print("Concatenating with old results...")
-            sc_df = pd.concat([old_sc, sc_df]).reset_index().drop("index", axis=1)
-            sl_df = pd.concat([old_sl, sl_df]).reset_index().drop("index", axis=1)
-    else:
-        pass
-
     sc_df.to_csv("source_check.csv")
     sl_df.to_csv("source_links.csv")
-
-    if not quota_reached and unchecked_exists:
-        try:
-            os.remove("unchecked.csv")
-        except FileNotFoundError:
-            pass
 
     print("Source check complete.")
 
@@ -467,18 +419,12 @@ if __name__ == '__main__':
     path = os.getcwd() + "/datasets/" + filename
     os.chdir(path)
 
-    try:
-        print("Getting unchecked channels...")
-        channel_df = pd.read_csv("unchecked.csv", index_col=0)
-        os.remove("unchecked.csv")
-        unchecked_exists = True
-    except FileNotFoundError:
-        channel_df = pd.read_csv("channels.csv", index_col=0)
-        unchecked_exists = False
-    finally:
-        video_df = pd.read_csv("videos.csv", index_col=0)
+    print("Reading list of channels...")
+    channel_df = pd.read_csv("channels.csv", index_col=0)
+    print("Reading list of videos...")
+    video_df = pd.read_csv("videos.csv", index_col=0)
 
-    find_sources(channel_df, video_df, unchecked_exists)
+    find_sources_via_yt(channel_df, video_df)
 
     os.chdir("..")
     os.chdir("..")

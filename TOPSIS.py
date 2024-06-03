@@ -89,7 +89,7 @@ def prepare_scores(output):
             elif sb_wiki < 500:
                 comp_dict["Wiki"][i] = 0 / 20
                 comp_dict["wi_desc"][i] = "Referenced by less than 500 webpages"
-
+            
             # Website
             if sb_website >= 3000:
                 comp_dict["Website"][i] = 20 / 20
