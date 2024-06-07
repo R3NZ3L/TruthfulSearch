@@ -19,15 +19,17 @@ def check_desc(channel_id, videos_df, pattern):
     for i in range(0, videos_df.shape[0]):
         # Get description
         desc = repr(videos_df.iloc[i]["description"]).replace("\\n", " ").replace("  ", " ")
+        # print(desc)
 
         # Using RegEx, find links using given pattern
         match = re.search(pattern, desc)
         if match is not None:
-            found = (True, match.group())
+            if len(match.group()) >= 5:
+                found = (True, match.group())
 
-            # print(f"Found in video description: {match.group()}")
+                # print(f"Found in video description: {match.group()}")
 
-            break
+                break
 
     return found
 
@@ -62,8 +64,8 @@ def find_sources_via_yt(channel_df, video_df):
     ]
 
     # --- Patterns to search for links within About sections in channel pages and video descriptions
-    website_pattern = r"(?<=(W|w)ebsite((\:)?\s|\sat\s))(\w|[:/.])+"
-    fb_pattern = r"(https:\/\/www\.)?facebook\.com\/(\w|\w[-_/])+"
+    website_pattern = r"(?<=(W|w)ebsite((\:\s)?|\sat\s))(http(s)?:|\w|[/_.-])+"
+    fb_pattern = r"(https:\/\/www\.)?facebook\.com\/(\w|\w[-_/.-])+"
     linkedIn_pattern = r"(https:\/\/www\.)?linkedin\.com\/(company|in)\/(\w|[-_/.])+"
     twitter_pattern = r"(https:\/\/www\.)?twitter\.com\/(\w|\w[-_/])+"
     instagram_pattern = r"(https:\/\/www\.)?instagram\.com\/(\w|\w[-_/])+"

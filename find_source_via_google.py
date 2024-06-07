@@ -28,7 +28,6 @@ cseKey = "23c1c70a203ac4852" # Aldecoa
 google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
 
 quota_reached = False
-stopped_at = None
 
 
 def find_linkedIn(channel_name, query):
@@ -59,10 +58,8 @@ def find_linkedIn(channel_name, query):
                         break
     except HttpError:
         global quota_reached
-        global stopped_at
         if not quota_reached:
             quota_reached = True
-            stopped_at = (channel_name, query)
 
     if not found:
         return found, np.nan
@@ -99,10 +96,8 @@ def find_wiki(channel_name, query):
                         break
     except HttpError:
         global quota_reached
-        global stopped_at
         if not quota_reached:
             quota_reached = True
-            stopped_at = (channel_name, query)
 
     if not found:
         return found, np.nan
@@ -131,10 +126,8 @@ def find_website(channel_name, query):
                     break
     except HttpError:
         global quota_reached
-        global stopped_at
         if not quota_reached:
             quota_reached = True
-            stopped_at = (channel_name, query)
 
     if not found:
         return found, np.nan
@@ -163,10 +156,8 @@ def find_fb(channel_name, query):
                     break
     except HttpError:
         global quota_reached
-        global stopped_at
         if not quota_reached:
             quota_reached = True
-            stopped_at = (channel_name, query)
 
     if not found:
         return found, np.nan
@@ -197,10 +188,8 @@ def find_twitter(channel_name, query):
                     break
     except HttpError:
         global quota_reached
-        global stopped_at
         if not quota_reached:
             quota_reached = True
-            stopped_at = (channel_name, query)
 
     if not found:
         return found, np.nan
@@ -231,10 +220,8 @@ def find_instagram(channel_name, query):
                     break
     except HttpError:
         global quota_reached
-        global stopped_at
         if not quota_reached:
             quota_reached = True
-            stopped_at = (channel_name, query)
 
     if not found:
         return found, np.nan
@@ -242,40 +229,81 @@ def find_instagram(channel_name, query):
         return found, link
 
 
-def find_sources_via_google(sc, sl):
+def find_sources_via_google(sc, sl, unchecked_exists):
     global quota_reached
 
-    # Building queries for missing sources
-    queries = []
+    sc = sc.fillna('')
+    sl = sl.fillna('')
 
-    for i in range(sc.shape[0]):
-        for column in sc.columns[2:]:
-            if not sc.iloc[i][column]:
-                channel_name = sc.iloc[i]["channel_name"]
-                # print(f"{channel_name} {column}")
-                queries.append((i, channel_name, column))
+    if unchecked_exists[0]:
+        queries = unchecked_exists[1]
+    else:
+        queries = pd.DataFrame(columns=["pos", "channel_name", "source"])
+        for i in range(sc.shape[0]):
+            for column in sc.columns[2:]:
+                if not sc.iloc[i][column]:
+                    channel_name = sc.iloc[i]["channel_name"]
+                    data = {"pos": [i], "channel_name": [channel_name], "source": [column]}
+                    row = pd.DataFrame.from_dict(data)
+                    queries = pd.concat([queries, row], axis=0, ignore_index=True)
 
-    print(f"Trying to look for {len(queries)} missing sources via Google...")
+    print(f"Trying to look for {queries.shape[0]} missing sources via Google...")
 
-    for i in range(len(queries)):
-        '''
-        TODO:
-        - Pop query from queries
-        - Use appropriate function to check for the right source
-        - If found, update source_check and source_links accordingly
-        - If quota_reached, save queries as a file (maybe .csv)
-        '''
-        query = queries.pop(0)
-        # print(f"{query[1]} {query[2]}")
+    pbar = tqdm(total=queries.shape[0])
+    pbar.set_description("Finding sources on Google...")
+    i = 0
+    ended_on = 0
 
-        if not quota_reached:
-            pass
+    for i in range(queries.shape[0]):
+        if quota_reached:
+            break
         else:
-            # Save queries as .csv
-            pass
+            pos = queries.iloc[i]["pos"]
+            channel_name = queries.iloc[i]["channel_name"]
+            source = queries.iloc[i]["source"]
+            query = str(channel_name + " " + source)
+            # print(f"[{i}] {query}")
+            found, link = (False, np.nan)
 
-    print(f"Queries left: {len(queries)}")
+            # '''
+            if source == "LinkedIn":
+                found, link = find_linkedIn(channel_name, query)
+            elif source == "Wiki":
+                found, link = find_wiki(channel_name, query)
+            elif source == "Website":
+                found, link = find_website(channel_name, query)
+            elif source == "Twitter":
+                found, link = find_twitter(channel_name, query)
+            elif source == "Facebook":
+                found, link = find_fb(channel_name, query)
+            elif source == "Instagram":
+                found, link = find_instagram(channel_name, query)
+            # '''
 
+            if quota_reached:
+                print(f"CSE quota met at index [{i}], query [{query}]")
+                ended_on = i
+                break
+            else:
+                print(f"{found}: {link}")
+                sc.at[pos, source] = found
+                sl.at[pos, source] = link
+                pbar.update(1)
+
+    pbar.close()
+
+    if i == queries.shape[0] - 1:
+        print("All queries processed")
+    else:
+        queries = queries.iloc[ended_on:]
+        unchecked = queries.shape[0]
+        print(f"Queries left: {unchecked}")
+        print("Saving unchecked sources as unchecked.csv...")
+        queries.to_csv("unchecked.csv")
+
+    print("Saving changes to checklist and links...")
+    sc.to_csv("source_check.csv")
+    sl.to_csv("source_links.csv")
 
 
 if __name__ == '__main__':
@@ -289,8 +317,16 @@ if __name__ == '__main__':
     print("Reading source links...")
     sl = pd.read_csv("source_links.csv", index_col=0)
 
-    find_sources_via_google(sc, sl)
+    try:
+        unchecked_exists = (True, pd.read_csv("unchecked.csv", index_col=0))
+        print("Getting remaining queries...")
+        os.remove("unchecked.csv")
+    except FileNotFoundError:
+        unchecked_exists = (False, np.nan)
 
+    find_sources_via_google(sc, sl, unchecked_exists)
+
+    os.chdir("..")
     os.chdir("..")
 
 

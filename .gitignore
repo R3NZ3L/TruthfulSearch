@@ -35,3 +35,4 @@ notebooks/.ipynb_checkpoints/Sentiment_comments-checkpoint.ipynb
 /datasets/test/vs_raw_scores.csv
 /datasets/test/channels.csv
 /datasets/test/comments.csv
+/datasets/test/unchecked.csv
