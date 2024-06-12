@@ -10,6 +10,7 @@ import numpy as np
 from tqdm import tqdm
 import regex as re
 import os
+import time
 
 # Put your personal API key here
 # DLSU account key
@@ -280,12 +281,15 @@ def find_sources_via_google(sc, sl, unchecked_exists):
                 found, link = find_instagram(channel_name, query)
             # '''
 
+            time.sleep(1)
+
             if quota_reached:
+                print(f"{found}, {link}")
                 print(f"CSE quota met at index [{i}], query [{query}]")
                 ended_on = i
                 break
             else:
-                print(f"{found}: {link}")
+                # print(f"{found}: {link}")
                 sc.at[pos, source] = found
                 sl.at[pos, source] = link
                 pbar.update(1)
@@ -306,9 +310,35 @@ def find_sources_via_google(sc, sl, unchecked_exists):
     sl.to_csv("source_links.csv")
 
 
+def clean_links():
+    checklist = pd.read_csv("source_check.csv", index_col=0)
+    links = pd.read_csv("source_links.csv", index_col=0)
+    df = links[links.columns[2:]]
+
+    for i in range(df.shape[0]):
+        for column in df.columns:
+            if checklist.iloc[i][column]:
+                link = df.iloc[i][column]
+
+                # Add https:// to links
+                if re.search(r'^https:\/\/', link) is None:
+                    link = 'https://' + link
+
+                # Remove . at the end of links to avoid Bad Request error
+                link = re.sub(r'(?<=\w)\.$', '', link)
+
+                # Change http to https
+                link = re.sub(r'^http:\/\/', 'https://', link)
+
+                # Update link
+                links.at[i, column] = link
+
+    links.to_csv("source_links.csv")
+
+
 if __name__ == '__main__':
-    filename = input("Filename (w/o .csv): ")
-    path = os.getcwd() + "/datasets/" + filename
+    folder = input("Folder name: ")
+    path = os.getcwd() + "/datasets/" + folder
     os.chdir(path)
 
     print("Reading source checklist...")
@@ -325,6 +355,7 @@ if __name__ == '__main__':
         unchecked_exists = (False, np.nan)
 
     find_sources_via_google(sc, sl, unchecked_exists)
+    clean_links()
 
     os.chdir("..")
     os.chdir("..")

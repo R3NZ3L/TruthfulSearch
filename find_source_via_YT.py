@@ -126,7 +126,12 @@ def find_sources_via_yt(channel_df, video_df):
                         url = link['channelExternalLinkViewModel']['link']['content']
                         links.append([link_title, url])
 
+                    # print(links)
+
                     '''
+                    Use previously declared RegEx patterns to extract links
+                    for Website, Facebook, Twitter, LinkedIn, and Instagram in a channel's About section
+                    
                     Extracting official site link is given more priority
                     '''
                     if not site_found[0]:
@@ -134,8 +139,11 @@ def find_sources_via_yt(channel_df, video_df):
                             match = re.search(website_pattern, links[i][0])
                             if match is not None:
                                 site_found = (True, links[i][1])
+                                # print(site_found[1])
                                 break
 
+                        ''' This code block got false positives (i.e. App Store links for news
+                        #   apps, with the name of the organization in the link title)
                         for i in range(0, len(links)):
                             link_title = links[i][0]
                             similarity = round(jaro_similarity(channel_name, link_title), 2)
@@ -143,12 +151,9 @@ def find_sources_via_yt(channel_df, video_df):
                                 match = re.search(r"youtube\.com\/.+", links[i][1])
                                 if match is None:
                                     site_found = (True, links[i][1])
+                                    print(site_found[1])
                                     break
-
-                    '''
-                    Use previously declared RegEx patterns to extract links
-                    for Facebook, Twitter, and LinkedIn in a channel's About section
-                    '''
+                        '''
                     if not fb_found[0]:
                         fb_found, links = check_about_links(fb_pattern, links)
 
@@ -176,17 +181,6 @@ def find_sources_via_yt(channel_df, video_df):
         # ---
 
         # Source links ---
-        '''
-        fb_link = np.nan
-        twitter_link = np.nan
-
-        if fb_found[0]:
-            fb_link = fb_found[1]
-
-        if twitter_found[0]:
-            twitter_link = twitter_found[1]
-        '''
-
         sl_record = [
             channel_id,
             channel_name,
@@ -218,9 +212,35 @@ def find_sources_via_yt(channel_df, video_df):
     sl_df.to_csv("source_links.csv")
 
 
+def clean_links():
+    checklist = pd.read_csv("source_check.csv", index_col=0)
+    links = pd.read_csv("source_links.csv", index_col=0)
+    df = links[links.columns[2:]]
+
+    for i in range(df.shape[0]):
+        for column in df.columns:
+            if checklist.iloc[i][column]:
+                link = df.iloc[i][column]
+
+                # Remove . at the end of links to avoid Bad Request error
+                link = re.sub(r'(?<=\w)\.$', '', link)
+
+                # Change http to https
+                link = re.sub(r'^http:\/\/', 'https://', link)
+
+                # Add https:// to links
+                if re.search(r'^https:\/\/', link) is None:
+                    link = 'https://' + link
+
+                # Update link
+                links.at[i, column] = link
+
+    links.to_csv("source_links.csv")
+
+
 if __name__ == '__main__':
-    filename = input("Filename (w/o .csv): ")
-    path = os.getcwd() + "/datasets/" + filename
+    folder = input("Folder name: ")
+    path = os.getcwd() + "/datasets/" + folder
     os.chdir(path)
 
     print("Reading list of channels...")
@@ -229,6 +249,7 @@ if __name__ == '__main__':
     video_df = pd.read_csv("videos.csv", index_col=0)
 
     find_sources_via_yt(channel_df, video_df)
+    clean_links()
 
     os.chdir("..")
     os.chdir("..")

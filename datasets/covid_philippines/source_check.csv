@@ -1,38 +1,38 @@
-,channel_id,channel_name,LinkedIn,Wiki,Website,Twitter,Facebook
-0,UC4SUWizzKc1tptprBkWjX2Q,South China Morning Post,True,True,True,True,True
-1,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,True,True,True,True,True
-2,UCPgLNge0xqQHWM5B5EFH9Cg,The Telegraph,True,True,False,False,False
-3,UCvi6hEzLM-Z_unKPSuuzKvg,ANC 24/7,False,False,True,True,True
-4,UCdnZdQxYXnbN4uWJg96oGxw,Rappler,True,True,True,True,True
-5,UCvRAX-ujvZ0eTMLGG2vki9w,INQUIRER.net,False,True,True,True,True
-6,UC16niRr50-MSBwiO3YDb3RA,BBC News,False,True,True,True,True
-7,UC_Lnb8ZHqqgLbp-7hltuT9w,CNA Insider,False,False,True,True,True
-8,UC83jt4dlz1Gjl58fzQrrKZg,CNA,True,True,True,True,True
-9,UC_gUM8rL-Lrg6O3adPW9K1g,WION,False,True,True,True,True
-10,UCE2606prvXQc_noEqKxVJXA,ABS-CBN News,False,True,True,True,True
-11,UC5664f6TkaeHgwBly50DWZQ,Manila Bulletin Online,True,True,True,True,True
-12,UChLtXXpo4Ge1ReTEboVvTDg,Global News,True,True,True,True,True
-13,UChqUTb7kYRX8-EiaN3XFrSQ,Reuters,True,True,True,True,True
-14,UC3XaG-7UVi2vD8ZZEMNnnpw,UNTV News and Rescue,False,False,True,True,True
-15,UChDKyKQ59fYz3JO2fl0Z6sg,TODAY,False,True,True,True,True
-16,UCSwwFP8hhA0Spah0ZUKZQVQ,UNICEF USA,True,True,True,True,True
-17,UCvCZ0jX-J3Z-7jXtWzmv79w,UNICEF Philippines,True,True,True,True,True
-18,UCknLrEdhRCp1aegoMqRaCZg,DW News,False,True,True,True,True
-19,UCoTrrnpqNOqR_yhrv6KIHiA,FEATR,False,True,True,True,True
-20,UCQfwfsi5VrQ8yKZ-UWmAEFg,FRANCE 24 English,True,True,True,True,True
-21,UCVSNOxehfALut52NbkfRBaA,Voice of America,True,True,False,True,True
-22,UCqYw-CTd1dU2yGI71sEyqNw,GMA Integrated News,False,True,False,False,False
-23,UCpWvshQVx1d7BqCsPnVuNIw,The Star,True,True,True,False,False
-24,UC4p_I9eiRewn2KoU-nawrDg,The Straits Times,False,True,True,True,True
-25,UCJq1YV3cJbJNs_xxp5_P7vQ,Doctor Wessam Atif,True,False,False,False,False
-26,UCgHMBsUeTBqZyG8dkGbbVKQ,TVUP,False,False,True,True,True
-27,UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,False,True,True,True,True
-28,UCsAueyuPjaPGcSfR3bIBPUg,Philstar News,False,False,True,True,True
-29,UC2-_WWPT_124iN6jiym4fOw,Asian Boss,True,True,True,True,True
-30,UCXTuTQZarVcFR_fgQXvsLpw,Gulf News,True,True,True,True,False
-31,UCXV-Jt3UPJPstvLVx6A1Z7Q,Kristypata,False,False,False,True,False
-32,UChirEOpgFCupRAk5etXqPaA,Bloomberg Quicktake,False,False,False,True,True
-33,UCHeFV2atoLtgdKH4iu29orA,Delightful Travellers,False,False,True,True,True
-34,UC4pMugpCikfWueXEV7sr3Mw,Diseases Simplified,False,False,False,False,False
-35,UCqgTKnYIeu4DNXGN5fBCY9Q,Bongbong Marcos,False,True,True,True,True
-36,UCNTTTRCsrNvKRW6ywNlIpaw,PIDS,False,False,True,True,True
+,channel_id,channel_name,LinkedIn,Wiki,Website,Twitter,Facebook,Instagram
+0,UC4SUWizzKc1tptprBkWjX2Q,South China Morning Post,True,True,True,True,True,True
+1,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,True,True,True,True,True,True
+2,UCPgLNge0xqQHWM5B5EFH9Cg,The Telegraph,True,True,True,True,True,True
+3,UCvi6hEzLM-Z_unKPSuuzKvg,ANC 24/7,False,False,True,True,True,False
+4,UCdnZdQxYXnbN4uWJg96oGxw,Rappler,True,True,True,True,True,True
+5,UCvRAX-ujvZ0eTMLGG2vki9w,INQUIRER.net,False,False,True,True,True,True
+6,UC16niRr50-MSBwiO3YDb3RA,BBC News,False,True,True,True,True,True
+7,UC_Lnb8ZHqqgLbp-7hltuT9w,CNA Insider,False,False,True,True,True,True
+8,UC83jt4dlz1Gjl58fzQrrKZg,CNA,False,True,True,True,True,True
+9,UC_gUM8rL-Lrg6O3adPW9K1g,WION,False,True,True,True,True,True
+10,UCE2606prvXQc_noEqKxVJXA,ABS-CBN News,False,True,True,True,True,True
+11,UC5664f6TkaeHgwBly50DWZQ,Manila Bulletin Online,True,True,True,True,True,True
+12,UChLtXXpo4Ge1ReTEboVvTDg,Global News,True,True,True,True,True,True
+13,UChqUTb7kYRX8-EiaN3XFrSQ,Reuters,True,True,True,True,True,True
+14,UC3XaG-7UVi2vD8ZZEMNnnpw,UNTV News and Rescue,False,False,True,True,True,True
+15,UChDKyKQ59fYz3JO2fl0Z6sg,TODAY,False,True,True,True,True,True
+16,UCSwwFP8hhA0Spah0ZUKZQVQ,UNICEF USA,True,True,True,True,True,True
+17,UCvCZ0jX-J3Z-7jXtWzmv79w,UNICEF Philippines,True,True,True,True,True,True
+18,UCknLrEdhRCp1aegoMqRaCZg,DW News,False,True,True,True,True,True
+19,UCoTrrnpqNOqR_yhrv6KIHiA,FEATR,False,True,True,True,True,True
+20,UCQfwfsi5VrQ8yKZ-UWmAEFg,FRANCE 24 English,True,True,True,True,True,True
+21,UCVSNOxehfALut52NbkfRBaA,Voice of America,True,True,True,True,True,True
+22,UCqYw-CTd1dU2yGI71sEyqNw,GMA Integrated News,False,True,True,True,True,True
+23,UCpWvshQVx1d7BqCsPnVuNIw,The Star,True,True,True,True,True,True
+24,UC4p_I9eiRewn2KoU-nawrDg,The Straits Times,False,True,True,True,True,True
+25,UCJq1YV3cJbJNs_xxp5_P7vQ,Doctor Wessam Atif,True,False,False,False,False,False
+26,UCgHMBsUeTBqZyG8dkGbbVKQ,TVUP,False,False,True,True,True,False
+27,UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,False,True,True,True,True,True
+28,UCsAueyuPjaPGcSfR3bIBPUg,Philstar News,False,False,False,True,True,True
+29,UC2-_WWPT_124iN6jiym4fOw,Asian Boss,True,True,True,True,True,True
+30,UCXTuTQZarVcFR_fgQXvsLpw,Gulf News,True,True,False,True,False,False
+31,UCXV-Jt3UPJPstvLVx6A1Z7Q,Kristypata,False,False,False,True,True,True
+32,UChirEOpgFCupRAk5etXqPaA,Bloomberg Quicktake,False,False,False,True,True,True
+33,UCHeFV2atoLtgdKH4iu29orA,Delightful Travellers,False,False,True,True,True,True
+34,UC4pMugpCikfWueXEV7sr3Mw,Diseases Simplified,False,False,False,False,False,False
+35,UCqgTKnYIeu4DNXGN5fBCY9Q,Bongbong Marcos,False,False,False,True,True,True
+36,UCNTTTRCsrNvKRW6ywNlIpaw,PIDS,False,False,False,True,True,False
