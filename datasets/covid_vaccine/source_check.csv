@@ -38,40 +38,40 @@
 36,UC_YFbvKedjnVjqrZqBR4L8Q,News4JAX The Local Station,False,False,False,True,True,True
 37,UC85VW73bQLEjs_taFKP7TwQ,Nucleus Medical Media,True,False,True,True,True,True
 38,UCG5KB3yJEvWS9tal134vPQg,Nutshell,True,True,True,True,True,True
-39,UCZ8Sxmkweh65HetaZfR8YuA,The Hollywood Reporter,True,True,False,True,True,False
-40,UCH4BNI0-FOK2dMXoFtViWHw,Be Smart,False,False,False,True,True,True
-41,UCrkhryqZABVzsGvfeAp0uIw,The BMJ,False,False,False,True,True,False
-42,UCLXo7UDZvByw2ixzpQCufnA,Vox,False,False,False,True,True,False
-43,UC6ZFN9Tx6xh-skXCuRHCDpQ,PBS NewsHour,False,False,False,True,True,True
-44,UCi4fcBVyo4CAnmdgXeO-NvA,CBS Boston,False,False,False,True,True,False
-45,UChDKyKQ59fYz3JO2fl0Z6sg,TODAY,False,False,True,True,True,False
-46,UCsooa4yRKGN_zEE8iknghZA,TED-Ed,False,False,True,True,True,False
-47,UCGaVdbSav8xWuFWTadK6loA,vlogbrothers,False,False,False,True,False,False
-48,UCVKYCeuR3OyO-M2rfUXHDyg,KTVB,False,False,False,False,False,False
-49,UCiTGKA9W0G0TL8Hm7Uf_u9A,Alila Medical Media,False,False,False,True,False,False
-50,UCJA54SrrVv7qRrEQSPVJ8Ug,Community Health Network,True,False,False,True,True,False
-51,UCumtYpCY26F6Jr3satUgMvA,NTV Telugu,False,False,False,True,True,False
-52,UCf3BkFTwI4G1vMc6W-NpQNw,Australian Department of Health and Aged Care,False,False,False,False,False,False
-53,UCHd62-u_v4DvJ8TCFtpi4GA,Washington Post,False,False,False,True,True,True
-54,UCXIJgqnII2ZOINSWNOGFThA,Fox News,False,False,False,True,True,True
-55,UCGbQJy-531_5vfphay-rChQ,People,False,False,False,True,True,True
-56,UCYx6O5ltWUVi8xzEGkM0WYQ,Pristyn Care Surgeries,True,False,False,False,True,False
-57,UCIYLOcEUX6TbBo7HQVF2PKA,9 News Australia,False,False,False,True,True,True
-58,UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,False,False,False,True,True,False
-59,UCH1oRy1dINbMVp3UFWrKP0w,Good Morning America,False,False,False,True,True,True
-60,UCrlIS7z20CnVaCrMvdkig_g,Eyewitness News ABC7NY,False,False,False,True,True,True
-61,UCpi8TJfiA4lKGkaXs__YdBA,The Try Guys,False,False,False,True,True,True
-62,UCxyiSz4m161Z6frOsFxJpgw,Cleveland Clinic,True,False,False,True,True,False
-63,UCByGc7P_siORkC1pum8T3_Q,WFSB 3,False,False,False,False,False,False
-64,UC1dVGItBqV4w-4xQHoX1UDg,CBS 17,False,False,False,True,True,False
-65,UCHqkXbgqrDrDVInBMSoGQgQ,The Daily Signal,False,False,False,True,True,False
-66,UCmKKVuZrBfSGiuvtOuipoDA,NBC Bay Area,False,False,False,True,True,True
-67,UCoookXUzPciGrEZEXmh4Jjg,Sesame Street,False,False,False,False,False,False
-68,UCw9zM4_S570N72pUfwIkuwQ,BJC HealthCare,True,False,False,True,True,False
-69,UCYPvAwZP8pZhSMW8qs7cVCw,India Today,False,False,True,True,True,False
+39,UCZ8Sxmkweh65HetaZfR8YuA,The Hollywood Reporter,True,True,True,True,True,False
+40,UCH4BNI0-FOK2dMXoFtViWHw,Be Smart,False,True,True,True,True,True
+41,UCrkhryqZABVzsGvfeAp0uIw,The BMJ,False,True,True,True,True,True
+42,UCLXo7UDZvByw2ixzpQCufnA,Vox,True,False,True,True,True,True
+43,UC6ZFN9Tx6xh-skXCuRHCDpQ,PBS NewsHour,True,True,True,True,True,True
+44,UCi4fcBVyo4CAnmdgXeO-NvA,CBS Boston,False,False,True,True,True,False
+45,UChDKyKQ59fYz3JO2fl0Z6sg,TODAY,False,True,True,True,True,True
+46,UCsooa4yRKGN_zEE8iknghZA,TED-Ed,False,False,True,True,True,True
+47,UCGaVdbSav8xWuFWTadK6loA,vlogbrothers,False,True,True,True,False,False
+48,UCVKYCeuR3OyO-M2rfUXHDyg,KTVB,True,True,True,True,False,True
+49,UCiTGKA9W0G0TL8Hm7Uf_u9A,Alila Medical Media,False,False,True,True,False,False
+50,UCJA54SrrVv7qRrEQSPVJ8Ug,Community Health Network,True,True,True,True,True,True
+51,UCumtYpCY26F6Jr3satUgMvA,NTV Telugu,False,True,True,True,True,True
+52,UCf3BkFTwI4G1vMc6W-NpQNw,Australian Department of Health and Aged Care,False,False,True,True,True,True
+53,UCHd62-u_v4DvJ8TCFtpi4GA,Washington Post,False,True,True,True,True,True
+54,UCXIJgqnII2ZOINSWNOGFThA,Fox News,True,True,True,True,True,True
+55,UCGbQJy-531_5vfphay-rChQ,People,False,True,True,True,True,True
+56,UCYx6O5ltWUVi8xzEGkM0WYQ,Pristyn Care Surgeries,True,True,False,True,True,True
+57,UCIYLOcEUX6TbBo7HQVF2PKA,9 News Australia,False,True,False,True,True,True
+58,UCm7lHFkt2yB_WzL67aruVBQ,Hindustan Times,False,True,True,True,True,True
+59,UCH1oRy1dINbMVp3UFWrKP0w,Good Morning America,True,True,True,True,True,True
+60,UCrlIS7z20CnVaCrMvdkig_g,Eyewitness News ABC7NY,False,True,False,True,True,True
+61,UCpi8TJfiA4lKGkaXs__YdBA,The Try Guys,False,True,True,True,True,True
+62,UCxyiSz4m161Z6frOsFxJpgw,Cleveland Clinic,True,True,True,True,True,True
+63,UCByGc7P_siORkC1pum8T3_Q,WFSB 3,True,True,False,False,False,False
+64,UC1dVGItBqV4w-4xQHoX1UDg,CBS 17,True,True,True,True,True,True
+65,UCHqkXbgqrDrDVInBMSoGQgQ,The Daily Signal,True,True,True,True,True,True
+66,UCmKKVuZrBfSGiuvtOuipoDA,NBC Bay Area,True,False,True,True,True,True
+67,UCoookXUzPciGrEZEXmh4Jjg,Sesame Street,True,True,True,True,True,True
+68,UCw9zM4_S570N72pUfwIkuwQ,BJC HealthCare,True,True,True,True,True,True
+69,UCYPvAwZP8pZhSMW8qs7cVCw,India Today,False,True,True,True,True,True
 70,UCG5TBPANNSiKf1Dp-R5Dibg,Dr.G Bhanu Prakash Animated Medical Videos,False,False,False,False,False,True
-71,UC13mSI38YWz5zfvxXDPpePA,FOX 13 Tampa Bay,False,False,False,True,True,False
-72,UCT350j4u6alUKyF9eu2bGug,ABC10,False,False,False,True,True,True
+71,UC13mSI38YWz5zfvxXDPpePA,FOX 13 Tampa Bay,True,False,True,True,True,False
+72,UCT350j4u6alUKyF9eu2bGug,ABC10,True,False,False,True,True,True
 73,UC9k-yiEpRHMNVOnOi_aQK8w,Inside Edition,False,False,False,True,True,False
 74,UC5UlvCrYsS8axWEQ9Kd1sAg,VJNeurology,False,False,False,False,False,False
 75,UCmMAcf_ytC_H54h8wpUGEzA,NYSDOH NY,False,False,False,False,False,False
