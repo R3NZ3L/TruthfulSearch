@@ -284,15 +284,31 @@ def find_sources_via_google(sc, sl, unchecked_exists):
             time.sleep(1)
 
             if quota_reached:
-                print(f"{found}, {link}")
+                # print(f"{found}, {link}")
                 print(f"CSE quota met at index [{i}], query [{query}]")
                 ended_on = i
                 break
             else:
+                '''
+                Even when quota is met, script still passes through here for some reason.
+                Assumption is that the quota_reached edit from the find_XXXXX functions doesn't
+                push through.
+                
+                Band-aid solution is to check for the status of the variable twice, as seen below.
+                '''
                 # print(f"{found}: {link}")
-                sc.at[pos, source] = found
-                sl.at[pos, source] = link
-                pbar.update(1)
+
+                time.sleep(1)
+
+                if quota_reached:
+                    # print(f"{found}, {link}")
+                    print(f"CSE quota met at index [{i}], query [{query}]")
+                    ended_on = i
+                    break
+                else:
+                    sc.at[pos, source] = found
+                    sl.at[pos, source] = link
+                    pbar.update(1)
 
     pbar.close()
 

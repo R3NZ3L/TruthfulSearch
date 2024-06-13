@@ -1,18 +1,18 @@
 ,channel_id,channel_name,LinkedIn,Wiki,Website,Twitter,Facebook,Instagram
-0,UCupvZG-5ko_eiXAupbDfxWw,CNN,,,,https://twitter.com/cnnbrk,https://facebook.com/cnn,
-1,UCSrZ3UV4jOidv8ppoVuvW9Q,euronews,https://linkedin.com/company/euronews,,,https://twitter.com/euronews,https://facebook.com/euronews,
-2,UC_gUM8rL-Lrg6O3adPW9K1g,WION,,,https://www.wionews.com,https://twitter.com/WIONews,https://www.facebook.com/WIONews,
-3,UCLpPdayeUfDyh6jg3oN-GIg,Dr. Jen Caudle,https://linkedin.com/in/drjencaudle,,,https://twitter.com/drjencaudle,https://facebook.com/drjencaudle,https://instagram.com/drjencaudle
-4,UCvixJtaXuNdMPUGdOPcY8Ag,David Pakman Show,,,,https://twitter.com/dpakman,https://facebook.com/davidpakmanshow,https://instagram.com/david
-5,UCTrQ7HXWRRxr7OsOtodr2_w,Channel 4 News,,,,https://twitter.com/Channel4News,https://www.facebook.com/Channel4News,https://www.instagram.com/channel4news
-6,UCF9IOB2TExg3QIBupFtBDxg,Dr. John Campbell,,,,https://twitter.com/Johnincarlisle,,
-7,UCIALMKvObZNtJ6AmdCLP7Lg,Bloomberg Television,,,,,,
-8,UCCjG8NtOig0USdrT5D1FpxQ,NewsNation,,,,https://twitter.com/NewsNation,https://facebook.com/NewsNationNow,
-9,UCLbidg2ZT49dWrxDkwNKr0g,Doc Schmidt,,,,https://twitter.com/schmidt_doc,,
-10,UCShOERdmAnqqizmgm6LN10g,Dr Danish Salim's Dr D Better Life,,,,,https://facebook.com/drdbetterlife,
-11,UC5T7D-Dh1eDGtsAFCuwv_Sw,7NEWS Australia,,,,https://twitter.com/7NewsAustralia,https://www.facebook.com/7NewsAustralia,https://www.instagram.com/7newsaustralia
-12,UCVgO39Bk5sMo66-6o6Spn6Q,ABC News (Australia),,,,https://twitter.com/abcnews,https://facebook.com/abcnews,https://instagram.com/abcnews_au
-13,UCBu0KdNokE4MqdkacvH37_A,WFAA,https://linkedin.com/company/wfaa-tv,,,https://twitter.com/wfaa,https://facebook.com/wfaa,
+0,UCupvZG-5ko_eiXAupbDfxWw,CNN,https://www.linkedin.com/company/cnn,https://en.wikipedia.org/wiki/CNN,https://www.cnn.com/,https://twitter.com/cnnbrk,https://facebook.com/cnn,https://www.instagram.com/cnn/?hl=en
+1,UCSrZ3UV4jOidv8ppoVuvW9Q,euronews,https://linkedin.com/company/euronews,https://en.wikipedia.org/wiki/Euronews,https://www.euronews.com/,https://twitter.com/euronews,https://facebook.com/euronews,https://www.instagram.com/euronews.tv/?hl=en
+2,UC_gUM8rL-Lrg6O3adPW9K1g,WION,,https://en.wikipedia.org/wiki/WION,https://www.wionews.com,https://twitter.com/WIONews,https://www.facebook.com/WIONews,https://www.instagram.com/WIONews/
+3,UCLpPdayeUfDyh6jg3oN-GIg,Dr. Jen Caudle,https://linkedin.com/in/drjencaudle,,https://www.drjencaudle.com/,https://twitter.com/drjencaudle,https://facebook.com/drjencaudle,https://instagram.com/drjencaudle
+4,UCvixJtaXuNdMPUGdOPcY8Ag,David Pakman Show,https://www.linkedin.com/in/davidpakman,https://en.wikipedia.org/wiki/The_David_Pakman_Show,https://www.facebook.com/davidpakmanshow/,https://twitter.com/dpakman,https://facebook.com/davidpakmanshow,https://instagram.com/david
+5,UCTrQ7HXWRRxr7OsOtodr2_w,Channel 4 News,,https://en.wikipedia.org/wiki/Channel_4_News,https://www.channel4.com/news/,https://twitter.com/Channel4News,https://www.facebook.com/Channel4News,https://www.instagram.com/channel4news
+6,UCF9IOB2TExg3QIBupFtBDxg,Dr. John Campbell,https://www.linkedin.com/in/john-campbell-aa1275140,https://en.wikipedia.org/wiki/John_Campbell,https://www.facebook.com/Campbellteaching/,https://twitter.com/Johnincarlisle,https://www.facebook.com/Campbellteaching/,https://www.instagram.com/dr.john.campbell/
+7,UCIALMKvObZNtJ6AmdCLP7Lg,Bloomberg Television,https://www.linkedin.com/company/bloomberglive,https://en.wikipedia.org/wiki/Bloomberg_Television,,https://twitter.com/bloombergtv?lang=en,https://www.facebook.com/BloombergTelevision/,https://www.instagram.com/bloombergtv/?hl=en
+8,UCCjG8NtOig0USdrT5D1FpxQ,NewsNation,https://www.linkedin.com/company/newsnationnetwork,https://en.wikipedia.org/wiki/NewsNation,https://www.newsnationnow.com/,https://twitter.com/NewsNation,https://facebook.com/NewsNationNow,https://www.instagram.com/newsnationnow/?hl=en
+9,UCLbidg2ZT49dWrxDkwNKr0g,Doc Schmidt,https://www.linkedin.com/in/doc-schmidt-8184b2291,https://en.wikipedia.org/wiki/Eric_Schmidt,https://www.docschmidt.org/,https://twitter.com/schmidt_doc,https://www.facebook.com/docschmidtfb/,
+10,UCShOERdmAnqqizmgm6LN10g,Dr Danish Salim's Dr D Better Life,,,,,https://facebook.com/drdbetterlife,https://www.instagram.com/drdbetterlife/
+11,UC5T7D-Dh1eDGtsAFCuwv_Sw,7NEWS Australia,,https://en.wikipedia.org/wiki/Sky_News_Australia,https://7news.com.au/,https://twitter.com/7NewsAustralia,https://www.facebook.com/7NewsAustralia,https://www.instagram.com/7newsaustralia
+12,UCVgO39Bk5sMo66-6o6Spn6Q,ABC News (Australia),,https://en.wikipedia.org/wiki/ABC_News_(Australia),,https://twitter.com/abcnews,https://facebook.com/abcnews,https://instagram.com/abcnews_au
+13,UCBu0KdNokE4MqdkacvH37_A,WFAA,https://linkedin.com/company/wfaa-tv,https://en.wikipedia.org/wiki/WFAA,https://www.wfaa.com/,https://twitter.com/wfaa,https://facebook.com/wfaa,https://www.instagram.com/wfaa/?hl=en
 14,UCCj956IF62FbT7Gouszaj9w,BBC,,,,https://twitter.com/bbciplayer,https://facebook.com/bbciplayer,
 15,UC0vn8ISa4LKMunLbzaXLnOQ,GBNews,,,,https://twitter.com/GBNEWS,https://www.facebook.com/GBNewsOnline,
 16,UCDvJcb8Adv-_bOrtnRLmiDw,WFLA News Channel 8,,,,https://twitter.com/wfla,https://facebook.com/WFLANewsChannel8,
