@@ -1,32 +1,32 @@
 ,channel_id,channel_name,LinkedIn,Wiki,Website,Twitter,Facebook,Instagram
-0,UC7fWeaHhqgM4Ry-RMpM2YYw,TRT World,False,False,True,True,True,False
-1,UC9MAhZQQd9egwWCxrwSIsJQ,HISTORY,False,False,False,True,True,False
-2,UC_gUM8rL-Lrg6O3adPW9K1g,WION,False,False,True,True,True,False
-3,UCLXo7UDZvByw2ixzpQCufnA,Vox,False,False,False,True,True,False
-4,UCX6b17PVsYBQ0ip5gyeme-Q,CrashCourse,False,False,False,True,True,True
-5,UCVgO39Bk5sMo66-6o6Spn6Q,ABC News (Australia),False,False,False,True,True,True
-6,UC0yLX6hpcYhAU3iVjhwD5-A,TRT Afrika,False,False,False,False,False,False
-7,UCWlIGsKGsvgFJHkiZml4O1A,Grunge,False,False,False,False,True,False
-8,UCV3Nm3T-XAgVhKH9jT0ViRg,AJ+,False,False,False,True,True,True
-9,UC88lvyJe7aHZmcvzvubDFRg,Timeline - World History Documentaries,False,False,False,False,True,True
-10,UC9h8BDcXwkhZtnqoQJ7PggA,Warographics,False,False,False,True,False,True
-11,UC3uAjWoLZ4bSi6qI9SjALxA,Imperial War Museums,False,False,False,True,True,True
-12,UC6ZFN9Tx6xh-skXCuRHCDpQ,PBS NewsHour,False,False,False,True,True,True
-13,UC5T7D-Dh1eDGtsAFCuwv_Sw,7NEWS Australia,False,False,False,True,True,True
-14,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,False,False,True,True,True,True
+0,UC7fWeaHhqgM4Ry-RMpM2YYw,TRT World,True,True,True,True,True,True
+1,UC9MAhZQQd9egwWCxrwSIsJQ,HISTORY,False,True,True,True,True,True
+2,UC_gUM8rL-Lrg6O3adPW9K1g,WION,False,True,True,True,True,True
+3,UCLXo7UDZvByw2ixzpQCufnA,Vox,True,False,True,True,True,True
+4,UCX6b17PVsYBQ0ip5gyeme-Q,CrashCourse,False,True,True,True,True,True
+5,UCVgO39Bk5sMo66-6o6Spn6Q,ABC News (Australia),False,True,False,True,True,True
+6,UC0yLX6hpcYhAU3iVjhwD5-A,TRT Afrika,False,False,True,True,True,True
+7,UCWlIGsKGsvgFJHkiZml4O1A,Grunge,False,True,True,True,True,True
+8,UCV3Nm3T-XAgVhKH9jT0ViRg,AJ+,False,True,True,True,True,True
+9,UC88lvyJe7aHZmcvzvubDFRg,Timeline - World History Documentaries,False,False,True,False,True,True
+10,UC9h8BDcXwkhZtnqoQJ7PggA,Warographics,False,False,True,True,False,True
+11,UC3uAjWoLZ4bSi6qI9SjALxA,Imperial War Museums,False,True,True,True,True,True
+12,UC6ZFN9Tx6xh-skXCuRHCDpQ,PBS NewsHour,True,True,True,True,True,True
+13,UC5T7D-Dh1eDGtsAFCuwv_Sw,7NEWS Australia,False,True,True,True,True,True
+14,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,True,True,True,True,True,True
 15,UCsgPO6cNV0wBG-Og3bUZoFA,Free Documentary - History,False,False,False,False,True,False
-16,UCQHRLH8RQIrdGWMhf5heWiA,OnePath Network,False,False,False,False,True,True
-17,UCTrQ7HXWRRxr7OsOtodr2_w,Channel 4 News,False,False,False,True,True,True
-18,UCLfMmOriSyPbd5JhHpnj4Ng,TimeGhost History,False,False,False,False,True,False
-19,UCK-HHyVCfKYzhxVOJgBt73w,Keerthi History,False,False,False,True,True,True
-20,UCkS_HP3m9NXOgswVAKbMeJQ,Then & Now,False,False,False,True,False,True
-21,UCWQ9ZFFhEqUZ0r1IspnBm6Q,TDC,False,False,False,True,True,False
-22,UC8URMa1fI4rlaLc-Lhev2fQ,Ryan McBeth,False,False,False,True,False,False
-23,UCeUJFQ0D9qs6aVNyUt9fkeQ,The Armchair Historian,False,False,False,True,False,False
+16,UCQHRLH8RQIrdGWMhf5heWiA,OnePath Network,False,True,True,True,True,True
+17,UCTrQ7HXWRRxr7OsOtodr2_w,Channel 4 News,False,True,True,True,True,True
+18,UCLfMmOriSyPbd5JhHpnj4Ng,TimeGhost History,True,False,True,False,True,True
+19,UCK-HHyVCfKYzhxVOJgBt73w,Keerthi History,False,False,True,True,True,True
+20,UCkS_HP3m9NXOgswVAKbMeJQ,Then & Now,False,True,True,True,False,True
+21,UCWQ9ZFFhEqUZ0r1IspnBm6Q,TDC,True,True,True,True,True,False
+22,UC8URMa1fI4rlaLc-Lhev2fQ,Ryan McBeth,True,True,True,True,True,True
+23,UCeUJFQ0D9qs6aVNyUt9fkeQ,The Armchair Historian,True,False,True,True,True,True
 24,UCGDXj3vSgJ8MCbzbb_C9thA,SLICE Full Doc,False,False,False,False,False,False
-25,UCz8QaiQxApLq8sLNcszYyJw,Firstpost,False,False,False,True,True,True
+25,UCz8QaiQxApLq8sLNcszYyJw,Firstpost,False,True,True,True,True,True
 26,UCIRYBXDze5krPDzAEOxFGVA,Guardian News,False,False,False,True,True,True
-27,UC0p5jTq6Xx_DosDFxVXnWaQ,The Economist,False,False,False,False,False,False
+27,UC0p5jTq6Xx_DosDFxVXnWaQ,The Economist,False,True,True,True,True,True
 28,UC7JrMLRDJLUh5BPBYykMcrQ,History on Maps,False,False,False,False,False,False
 29,UCYCVm1aN33HYdLs66DHw_ow,Amit Sengupta,False,False,False,True,True,True
 30,UCupvZG-5ko_eiXAupbDfxWw,CNN,False,False,False,True,True,False

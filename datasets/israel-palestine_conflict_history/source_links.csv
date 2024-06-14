@@ -1,32 +1,32 @@
 ,channel_id,channel_name,LinkedIn,Wiki,Website,Twitter,Facebook,Instagram
-0,UC7fWeaHhqgM4Ry-RMpM2YYw,TRT World,,,https://trt.world,https://twitter.com/trtworld,https://facebook.com/TRTWorld,
-1,UC9MAhZQQd9egwWCxrwSIsJQ,HISTORY,,,,https://twitter.com/history,https://www.facebook.com/History,
-2,UC_gUM8rL-Lrg6O3adPW9K1g,WION,,,https://www.wionews.com,https://twitter.com/WIONews,https://www.facebook.com/WIONews,
-3,UCLXo7UDZvByw2ixzpQCufnA,Vox,,,,https://twitter.com/voxdotcom,https://facebook.com/vox,
-4,UCX6b17PVsYBQ0ip5gyeme-Q,CrashCourse,,,,https://twitter.com/TheCrashCourse,https://facebook.com/YouTubeCrashCourse,https://www.instagram.com/thecrashcourse
-5,UCVgO39Bk5sMo66-6o6Spn6Q,ABC News (Australia),,,,https://twitter.com/abcnews,https://facebook.com/abcnews,https://instagram.com/abcnews_au
-6,UC0yLX6hpcYhAU3iVjhwD5-A,TRT Afrika,,,,,,
-7,UCWlIGsKGsvgFJHkiZml4O1A,Grunge,,,,,https://facebook.com/GrungeHQ,
-8,UCV3Nm3T-XAgVhKH9jT0ViRg,AJ+,,,,https://twitter.com/ajplus,https://www.facebook.com/ajplusenglish,https://www.instagram.com/ajplus
-9,UC88lvyJe7aHZmcvzvubDFRg,Timeline - World History Documentaries,,,,,https://www.facebook.com/timelineWH,https://www.instagram.com/timelineWH
-10,UC9h8BDcXwkhZtnqoQJ7PggA,Warographics,,,,https://twitter.com/SimonWhistler,,https://www.instagram.com/simonwhistler
-11,UC3uAjWoLZ4bSi6qI9SjALxA,Imperial War Museums,,,,https://twitter.com/I_W_M,https://www.facebook.com/iwm,https://www.instagram.com/imperialwarmuseums
-12,UC6ZFN9Tx6xh-skXCuRHCDpQ,PBS NewsHour,,,,https://twitter.com/newshour,https://facebook.com/newshour,https://instagram.com/newshour
-13,UC5T7D-Dh1eDGtsAFCuwv_Sw,7NEWS Australia,,,,https://twitter.com/7NewsAustralia,https://www.facebook.com/7NewsAustralia,https://www.instagram.com/7newsaustralia
-14,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,,,https://www.aljazeera.com/,https://twitter.com/AJEnglish,https://www.facebook.com/aljazeera,https://www.instagram.com/_aljazeeraworld
+0,UC7fWeaHhqgM4Ry-RMpM2YYw,TRT World,https://www.linkedin.com/company/trtworld,https://en.wikipedia.org/wiki/TRT_World,https://trt.world,https://twitter.com/trtworld,https://facebook.com/TRTWorld,https://www.instagram.com/trtworld/?hl=en
+1,UC9MAhZQQd9egwWCxrwSIsJQ,HISTORY,,https://en.wikipedia.org/wiki/History,https://www.history.com/,https://twitter.com/history,https://www.facebook.com/History,https://www.instagram.com/history/?hl=en
+2,UC_gUM8rL-Lrg6O3adPW9K1g,WION,,https://en.wikipedia.org/wiki/WION,https://www.wionews.com,https://twitter.com/WIONews,https://www.facebook.com/WIONews,https://www.instagram.com/WIONews/
+3,UCLXo7UDZvByw2ixzpQCufnA,Vox,https://www.linkedin.com/company/vox-com,,https://www.vox.com/,https://twitter.com/voxdotcom,https://facebook.com/vox,https://www.instagram.com/voxdotcom/?hl=en
+4,UCX6b17PVsYBQ0ip5gyeme-Q,CrashCourse,,https://en.wikipedia.org/wiki/Crash_Course_(web_series),https://teachaids.org/for-concussions/crashcourse/,https://twitter.com/TheCrashCourse,https://facebook.com/YouTubeCrashCourse,https://www.instagram.com/thecrashcourse
+5,UCVgO39Bk5sMo66-6o6Spn6Q,ABC News (Australia),,https://en.wikipedia.org/wiki/ABC_News_(Australia),,https://twitter.com/abcnews,https://facebook.com/abcnews,https://instagram.com/abcnews_au
+6,UC0yLX6hpcYhAU3iVjhwD5-A,TRT Afrika,,,https://trtafrika.com/,https://twitter.com/trtafrika?lang=en,https://www.facebook.com/trtafrika/,https://www.instagram.com/trtafrika/?hl=en
+7,UCWlIGsKGsvgFJHkiZml4O1A,Grunge,,https://en.wikipedia.org/wiki/Grunge,https://www.grunge.com/,https://twitter.com/grungehq,https://facebook.com/GrungeHQ,https://www.instagram.com/smells_likegrunge/?hl=en
+8,UCV3Nm3T-XAgVhKH9jT0ViRg,AJ+,,https://en.wikipedia.org/wiki/AJ%2B,https://global.ajplus.net/english/home,https://twitter.com/ajplus,https://www.facebook.com/ajplusenglish,https://www.instagram.com/ajplus
+9,UC88lvyJe7aHZmcvzvubDFRg,Timeline - World History Documentaries,,,https://www.reddit.com/r/AskHistory/comments/12f3gfj/timeline_world_history_documentaries_on_youtube/,,https://www.facebook.com/timelineWH,https://www.instagram.com/timelineWH
+10,UC9h8BDcXwkhZtnqoQJ7PggA,Warographics,,,https://www.reddit.com/r/SimonWhistler/comments/176sh71/israeali_war_warographics/,https://twitter.com/SimonWhistler,,https://www.instagram.com/simonwhistler
+11,UC3uAjWoLZ4bSi6qI9SjALxA,Imperial War Museums,,https://en.wikipedia.org/wiki/Imperial_War_Museum,https://www.iwm.org.uk/home-page,https://twitter.com/I_W_M,https://www.facebook.com/iwm,https://www.instagram.com/imperialwarmuseums
+12,UC6ZFN9Tx6xh-skXCuRHCDpQ,PBS NewsHour,https://www.linkedin.com/company/pbsnewshour,https://en.wikipedia.org/wiki/PBS_NewsHour,https://www.pbs.org/newshour/,https://twitter.com/newshour,https://facebook.com/newshour,https://instagram.com/newshour
+13,UC5T7D-Dh1eDGtsAFCuwv_Sw,7NEWS Australia,,https://en.wikipedia.org/wiki/Sky_News_Australia,https://7news.com.au/,https://twitter.com/7NewsAustralia,https://www.facebook.com/7NewsAustralia,https://www.instagram.com/7newsaustralia
+14,UCNye-wNBqNL5ZzHSJj3l8Bg,Al Jazeera English,https://www.linkedin.com/company/aljazeera,https://en.wikipedia.org/wiki/Al_Jazeera_English,https://www.aljazeera.com/,https://twitter.com/AJEnglish,https://www.facebook.com/aljazeera,https://www.instagram.com/_aljazeeraworld
 15,UCsgPO6cNV0wBG-Og3bUZoFA,Free Documentary - History,,,,,https://facebook.com/FreeDocumentaryOfficial,
-16,UCQHRLH8RQIrdGWMhf5heWiA,OnePath Network,,,,,https://www.facebook.com/onepathnetwork,https://www.instagram.com/onepathnetwork
-17,UCTrQ7HXWRRxr7OsOtodr2_w,Channel 4 News,,,,https://twitter.com/Channel4News,https://www.facebook.com/Channel4News,https://www.instagram.com/channel4news
-18,UCLfMmOriSyPbd5JhHpnj4Ng,TimeGhost History,,,,,https://www.facebook.com/TimeGhost,
-19,UCK-HHyVCfKYzhxVOJgBt73w,Keerthi History,,,,https://twitter.com/KeerthiHistory,https://www.facebook.com/keerthistory,https://www.instagram.com/keerthihistory
-20,UCkS_HP3m9NXOgswVAKbMeJQ,Then & Now,,,,https://twitter.com/lewlewwaller,,https://www.instagram.com/thethenandnow
-21,UCWQ9ZFFhEqUZ0r1IspnBm6Q,TDC,,,,https://twitter.com/thedailyconvo,https://facebook.com/thedailyconversation,
-22,UC8URMa1fI4rlaLc-Lhev2fQ,Ryan McBeth,,,,https://twitter.com/RyanMcbeth,,
-23,UCeUJFQ0D9qs6aVNyUt9fkeQ,The Armchair Historian,,,,https://twitter.com/ArmchairHist,,
+16,UCQHRLH8RQIrdGWMhf5heWiA,OnePath Network,,https://en.wikipedia.org/wiki/OnePath_Network,https://onepathnetwork.com/,https://twitter.com/onepathnetwork?lang=en,https://www.facebook.com/onepathnetwork,https://www.instagram.com/onepathnetwork
+17,UCTrQ7HXWRRxr7OsOtodr2_w,Channel 4 News,,https://en.wikipedia.org/wiki/Channel_4_News,https://www.channel4.com/news/,https://twitter.com/Channel4News,https://www.facebook.com/Channel4News,https://www.instagram.com/channel4news
+18,UCLfMmOriSyPbd5JhHpnj4Ng,TimeGhost History,https://www.linkedin.com/company/timeghost,,https://tvtropes.org/pmwiki/pmwiki.php/WebVideo/TimeGhostHistory,,https://www.facebook.com/TimeGhost,https://www.instagram.com/timeghosthistory/?hl=en
+19,UCK-HHyVCfKYzhxVOJgBt73w,Keerthi History,,,https://keerthihistory.graphy.com/,https://twitter.com/KeerthiHistory,https://www.facebook.com/keerthistory,https://www.instagram.com/keerthihistory
+20,UCkS_HP3m9NXOgswVAKbMeJQ,Then & Now,,https://en.wikipedia.org/wiki/Then_and_Now,https://luskincenter.history.ucla.edu/then-now-podcast/,https://twitter.com/lewlewwaller,,https://www.instagram.com/thethenandnow
+21,UCWQ9ZFFhEqUZ0r1IspnBm6Q,TDC,https://www.linkedin.com/company/technical-development-corporation,https://en.wikipedia.org/wiki/TDC,https://tdcorp.org/,https://twitter.com/thedailyconvo,https://facebook.com/thedailyconversation,
+22,UC8URMa1fI4rlaLc-Lhev2fQ,Ryan McBeth,https://www.linkedin.com/in/ryan-mcbeth-5927a21,https://en.wikipedia.org/wiki/Ryan_MacBeth,https://www.ryanmcbeth.com/,https://twitter.com/RyanMcbeth,https://www.facebook.com/mcbethR/,https://www.instagram.com/therealryanmcbeth/?hl=en
+23,UCeUJFQ0D9qs6aVNyUt9fkeQ,The Armchair Historian,https://www.linkedin.com/company/thearmchairhistorian,,https://twitter.com/armchairhist?lang=en,https://twitter.com/ArmchairHist,https://www.facebook.com/p/The-Armchair-Historian-100066258834444/,https://www.instagram.com/armchairhistorians/?hl=en
 24,UCGDXj3vSgJ8MCbzbb_C9thA,SLICE Full Doc,,,,,,
-25,UCz8QaiQxApLq8sLNcszYyJw,Firstpost,,,,https://twitter.com/firstpost,https://www.facebook.com/firstpostin,https://www.instagram.com/firstpost
+25,UCz8QaiQxApLq8sLNcszYyJw,Firstpost,,https://en.wikipedia.org/wiki/Firstpost,https://www.firstpost.com/,https://twitter.com/firstpost,https://www.facebook.com/firstpostin,https://www.instagram.com/firstpost
 26,UCIRYBXDze5krPDzAEOxFGVA,Guardian News,,,,https://twitter.com/guardian,https://www.facebook.com/theguardian,https://instagram.com/guardian
-27,UC0p5jTq6Xx_DosDFxVXnWaQ,The Economist,,,,,,
+27,UC0p5jTq6Xx_DosDFxVXnWaQ,The Economist,,https://en.wikipedia.org/wiki/The_Economist,https://www.economist.com/,https://twitter.com/theeconomist,https://www.facebook.com/TheEconomist/,https://www.instagram.com/theeconomist/?hl=en
 28,UC7JrMLRDJLUh5BPBYykMcrQ,History on Maps,,,,,,
 29,UCYCVm1aN33HYdLs66DHw_ow,Amit Sengupta,,,,https://twitter.com/amitsengupta01,https://www.facebook.com/amitsengupta01,https://www.instagram.com/amitsengupta01
 30,UCupvZG-5ko_eiXAupbDfxWw,CNN,,,,https://twitter.com/cnnbrk,https://facebook.com/cnn,

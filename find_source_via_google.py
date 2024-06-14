@@ -16,14 +16,14 @@ import time
 # DLSU account key
 # apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
 #apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
-apiKey='AIzaSyDZlAPC29rxMjh-gu-ZfgTPb8wrRLglrs4'
-# apiKey = 'AIzaSyDKBteFADAddCvCCvEKrfJRFSxc-ovflsQ' # Baura
+# apiKey='AIzaSyDZlAPC29rxMjh-gu-ZfgTPb8wrRLglrs4'
+apiKey = 'AIzaSyDKBteFADAddCvCCvEKrfJRFSxc-ovflsQ' # Baura
 # apiKey = 'AIzaSyDH6SzpJVTOzf_RC2j6Pq08KG6zPa3itwE' # Sevillana
 
 # Search engine ID
 # cseKey = "23c1c70a203ac4852" # Aldecoa
-cseKey = "a7c987e23f0fe448e" # Aquino
-# cseKey = "05e988b88095c4deb" # Baura
+# cseKey = "a7c987e23f0fe448e" # Aquino
+cseKey = "05e988b88095c4deb" # Baura
 #cseKey = "5269d103bb52e4488" # Sevillana
 
 # Google Custom Search API
