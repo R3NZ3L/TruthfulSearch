@@ -53,15 +53,15 @@
 51,UCW39zufHfsuGgpLviKh297Q,DW Documentary,False,False,True,False,True,True
 52,UCfAOh2t5DpxVrgS9NQKjC7A,The Onion,True,True,True,True,True,True
 53,UCJFOER35ggIWwsXh2ZDnqyg,The Economic Times,True,True,True,True,True,True
-54,UCrC8mOqJQpoB7NuIMKIS6rQ,StudyIQ IAS,True,False,True,False,True,False
-55,UCZaT_X_mc0BI-djXOlfhqWQ,VICE News,False,False,False,True,True,True
-56,UC2Cl2g2xFTZoAEldxYVzQFg,Geo History,False,False,False,False,False,False
-57,UC16niRr50-MSBwiO3YDb3RA,BBC News,False,False,False,True,True,False
-58,UCaXkIU1QidjPwiAYu6GcHjg,MSNBC,False,False,False,True,True,False
-59,UCT350j4u6alUKyF9eu2bGug,ABC10,False,False,False,True,True,True
-60,UCK7tptUDHh-RYDsdxO1-5QQ,The Wall Street Journal,False,False,False,True,True,False
-61,UCP5tjEmvPItGyLhmjdwP7Ww,RealLifeLore,False,False,False,False,True,False
-62,UCwHYp-o1OlEVnMRoXLoaaOA,Meaningful People,False,False,False,False,False,False
+54,UCrC8mOqJQpoB7NuIMKIS6rQ,StudyIQ IAS,True,False,True,False,True,True
+55,UCZaT_X_mc0BI-djXOlfhqWQ,VICE News,True,True,False,True,True,True
+56,UC2Cl2g2xFTZoAEldxYVzQFg,Geo History,False,True,False,False,False,False
+57,UC16niRr50-MSBwiO3YDb3RA,BBC News,False,True,False,True,True,True
+58,UCaXkIU1QidjPwiAYu6GcHjg,MSNBC,True,True,False,True,True,True
+59,UCT350j4u6alUKyF9eu2bGug,ABC10,True,True,True,True,True,True
+60,UCK7tptUDHh-RYDsdxO1-5QQ,The Wall Street Journal,False,True,True,True,True,True
+61,UCP5tjEmvPItGyLhmjdwP7Ww,RealLifeLore,False,False,False,True,True,False
+62,UCwHYp-o1OlEVnMRoXLoaaOA,Meaningful People,False,True,False,False,False,False
 63,UCnQC_G5Xsjhp9fEJKuIcrSw,Ben Shapiro,False,False,False,True,True,False
 64,UCqTa3sNT6SfiQ2DQK_kuWlA,Oneindia News,False,False,False,True,True,True
 65,UCHDFNoOk8WOXtHo8DIc8efQ,Mohammed Hijab,False,False,False,True,True,False
