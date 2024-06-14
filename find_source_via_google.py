@@ -15,17 +15,19 @@ import time
 # Put your personal API key here
 # DLSU account key
 # apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
-#apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
-#apiKey='AIzaSyDZlAPC29rxMjh-gu-ZfgTPb8wrRLglrs4' #2ndacct Aquino
-#apiKey ='AIzaSyAZxwwAfgVoTSys4HCiirvs-h0ynph-rmU' #3rd aquino
+# apiKey = 'AIzaSyCl5w8PQxEpIN8cdePhSXfD9-UDWOpDiV8' # 2nd acct Aldecoa
+apiKey = 'AIzaSyDrA3VG9qxJOSxgcQKpcuQgjQVA1XjtpbQ' # 3rd acct Aldecoa
+# apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
+# apiKey = 'AIzaSyDZlAPC29rxMjh-gu-ZfgTPb8wrRLglrs4' # 2nd acct Aquino
+# apiKey = 'AIzaSyAZxwwAfgVoTSys4HCiirvs-h0ynph-rmU' # 3rd acct Aquino
 # apiKey = 'AIzaSyDKBteFADAddCvCCvEKrfJRFSxc-ovflsQ' # Baura
-apiKey = 'AIzaSyAPvryNBQ3TkXwqBJdW9_0AkhhCYZRtA2c' # Sevillana
+# apiKey = 'AIzaSyAPvryNBQ3TkXwqBJdW9_0AkhhCYZRtA2c' # Sevillana
 
 # Search engine ID
-# cseKey = "23c1c70a203ac4852" # Aldecoa
+cseKey = "23c1c70a203ac4852" # Aldecoa
 # cseKey = "a7c987e23f0fe448e" # Aquino
 # cseKey = "05e988b88095c4deb" # Baura
-cseKey = "f465f751a15a34c35" # Sevillana
+# cseKey = "f465f751a15a34c35" # Sevillana
 
 # Google Custom Search API
 google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
@@ -44,21 +46,25 @@ def find_linkedIn(channel_name, query):
         ).execute()
 
         for i in range(0, 10):
-            link = li_response.get("items")[i].get("formattedUrl")
-            if re.search(pattern, link) is not None:
-                # Get profile name from search result
-                match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("title"))
-                if match is not None:
-                    profile_name = match.group()
+            try:
+                link = li_response.get("items")[i].get("formattedUrl")
+                if re.search(pattern, link) is not None:
+                    # Get profile name from search result
+                    match = re.search(r'\w+\s(\w+)?', li_response.get("items")[i].get("title"))
+                    if match is not None:
+                        profile_name = match.group()
 
-                    # Get similarity between found profile name and channel name
-                    # This is to prevent false positives in finding a LinkedIn profile
-                    similarity = round(jaro_similarity(channel_name.lower(), profile_name.lower()), 2)
+                        # Get similarity between found profile name and channel name
+                        # This is to prevent false positives in finding a LinkedIn profile
+                        similarity = round(jaro_similarity(channel_name.lower(), profile_name.lower()), 2)
 
-                    # If n% similar, consider LinkedIn profile as found
-                    if similarity >= 0.80:
-                        found = True
-                        break
+                        # If n% similar, consider LinkedIn profile as found
+                        if similarity >= 0.80:
+                            found = True
+                            break
+            except IndexError:
+                break
+
     except HttpError:
         global quota_reached
         if not quota_reached:
@@ -81,22 +87,26 @@ def find_wiki(channel_name, query):
         ).execute()
 
         for i in range(0, 10):
-            link = wiki_response.get("items")[i].get("formattedUrl")
-            if re.search(pattern, link) is not None:
-                # Get Wiki page name from search result
-                title = wiki_response.get("items")[i].get("title")
-                match = re.search(r'.+(?=\s-\sWikipedia)', title)
-                if match is not None:
-                    page_name = match.group()
+            try:
+                link = wiki_response.get("items")[i].get("formattedUrl")
+                if re.search(pattern, link) is not None:
+                    # Get Wiki page name from search result
+                    title = wiki_response.get("items")[i].get("title")
+                    match = re.search(r'.+(?=\s-\sWikipedia)', title)
+                    if match is not None:
+                        page_name = match.group()
 
-                    # Get similarity between found Wiki page name and channel name
-                    # This is to prevent false positives in finding a Wiki page
-                    similarity = round(jaro_similarity(channel_name.lower(), page_name.lower()), 2)
+                        # Get similarity between found Wiki page name and channel name
+                        # This is to prevent false positives in finding a Wiki page
+                        similarity = round(jaro_similarity(channel_name.lower(), page_name.lower()), 2)
 
-                    # If n% similar, consider Wiki page as found
-                    if similarity >= 0.80:
-                        found = True
-                        break
+                        # If n% similar, consider Wiki page as found
+                        if similarity >= 0.80:
+                            found = True
+                            break
+            except IndexError:
+                break
+
     except HttpError:
         global quota_reached
         if not quota_reached:
@@ -120,13 +130,17 @@ def find_website(channel_name, query):
         ).execute()
 
         for i in range(0, 10):
-            title = website_response.get("items")[i].get("title")
-            link = website_response.get("items")[i].get("link")
-            if channel_name.lower() in title.lower():
-                if re.search(pattern, link) is None:
-                    # The first result among the filtered at this point is MOST LIKELY the official website
-                    found = True
-                    break
+            try:
+                title = website_response.get("items")[i].get("title")
+                link = website_response.get("items")[i].get("link")
+                if title.lower() in channel_name.lower():
+                    if re.search(pattern, link) is None:
+                        # The first result among the filtered at this point is MOST LIKELY the official website
+                        found = True
+                        break
+            except IndexError:
+                break
+
     except HttpError:
         global quota_reached
         if not quota_reached:
@@ -149,14 +163,18 @@ def find_fb(channel_name, query):
         ).execute()
 
         for i in range(0, 10):
-            link = fb_response.get("items")[i].get("formattedUrl")
-            if re.search(pattern, link) is not None:
-                title = fb_response.get("items")[i].get("title")
-                similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+            try:
+                link = fb_response.get("items")[i].get("formattedUrl")
+                if re.search(pattern, link) is not None:
+                    title = fb_response.get("items")[i].get("title")
+                    similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
 
-                if similarity >= 0.80:
-                    found = True
-                    break
+                    if similarity >= 0.80:
+                        found = True
+                        break
+            except IndexError:
+                break
+
     except HttpError:
         global quota_reached
         if not quota_reached:
@@ -179,16 +197,20 @@ def find_twitter(channel_name, query):
         ).execute()
 
         for i in range(0, 10):
-            link = twitter_response.get("items")[i].get("formattedUrl")
-            if re.search(pattern, link) is not None:
-                title = twitter_response.get("items")[i].get("title")
-                # Remove filler text after actual name of profile
-                title = re.sub(r'\s\(@.+', "", title)
-                similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+            try:
+                link = twitter_response.get("items")[i].get("formattedUrl")
+                if re.search(pattern, link) is not None:
+                    title = twitter_response.get("items")[i].get("title")
+                    # Remove filler text after actual name of profile
+                    title = re.sub(r'\s\(@.+', "", title)
+                    similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
 
-                if similarity >= 0.80:
-                    found = True
-                    break
+                    if similarity >= 0.80:
+                        found = True
+                        break
+            except IndexError:
+                break
+
     except HttpError:
         global quota_reached
         if not quota_reached:
@@ -211,16 +233,20 @@ def find_instagram(channel_name, query):
         ).execute()
 
         for i in range(0, 10):
-            link = instagram_response.get("items")[i].get("formattedUrl")
-            if re.search(pattern, link) is not None:
-                title = instagram_response.get("items")[i].get("title")
-                # Remove filler text after actual name of profile
-                title = re.sub(r'\s\(@.+', "", title)
-                similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
+            try:
+                link = instagram_response.get("items")[i].get("formattedUrl")
+                if re.search(pattern, link) is not None:
+                    title = instagram_response.get("items")[i].get("title")
+                    # Remove filler text after actual name of profile
+                    title = re.sub(r'\s\(@.+', "", title)
+                    similarity = round(jaro_similarity(channel_name.lower(), title.lower()), 2)
 
-                if similarity >= 0.80:
-                    found = True
-                    break
+                    if similarity >= 0.80:
+                        found = True
+                        break
+            except IndexError:
+                break
+
     except HttpError:
         global quota_reached
         if not quota_reached:
@@ -347,6 +373,13 @@ def clean_links():
 
                 # Change http to https
                 link = re.sub(r'^http:\/\/', 'https://', link)
+
+                # Remove false positive matches (usually Facebook, Twitter, or Instagram links)
+                if column == "Website":
+                    if re.search(r'(https:\/\/www\.)?(facebook|twitter|instagram)\.com\/(\w|\w[-_/])+',
+                                 link) is not None:
+                        checklist.at[i, column] = False
+                        links.at[i, column] = np.nan
 
                 # Update link
                 links.at[i, column] = link

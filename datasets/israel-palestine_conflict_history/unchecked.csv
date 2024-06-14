@@ -1,241 +1,312 @@
 ,pos,channel_name,source
-218,54,StudyIQ IAS,Instagram
-219,55,VICE News,LinkedIn
-220,55,VICE News,Wiki
-221,55,VICE News,Website
-222,56,Geo History,LinkedIn
-223,56,Geo History,Wiki
-224,56,Geo History,Website
-225,56,Geo History,Twitter
-226,56,Geo History,Facebook
-227,56,Geo History,Instagram
-228,57,BBC News,LinkedIn
-229,57,BBC News,Wiki
-230,57,BBC News,Website
-231,57,BBC News,Instagram
-232,58,MSNBC,LinkedIn
-233,58,MSNBC,Wiki
-234,58,MSNBC,Website
-235,58,MSNBC,Instagram
-236,59,ABC10,LinkedIn
-237,59,ABC10,Wiki
-238,59,ABC10,Website
-239,60,The Wall Street Journal,LinkedIn
-240,60,The Wall Street Journal,Wiki
-241,60,The Wall Street Journal,Website
-242,60,The Wall Street Journal,Instagram
-243,61,RealLifeLore,LinkedIn
-244,61,RealLifeLore,Wiki
-245,61,RealLifeLore,Website
-246,61,RealLifeLore,Twitter
-247,61,RealLifeLore,Instagram
-248,62,Meaningful People,LinkedIn
-249,62,Meaningful People,Wiki
-250,62,Meaningful People,Website
-251,62,Meaningful People,Twitter
-252,62,Meaningful People,Facebook
-253,62,Meaningful People,Instagram
-254,63,Ben Shapiro,LinkedIn
-255,63,Ben Shapiro,Wiki
-256,63,Ben Shapiro,Website
-257,63,Ben Shapiro,Instagram
-258,64,Oneindia News,LinkedIn
-259,64,Oneindia News,Wiki
-260,64,Oneindia News,Website
-261,65,Mohammed Hijab,LinkedIn
-262,65,Mohammed Hijab,Wiki
-263,65,Mohammed Hijab,Website
-264,65,Mohammed Hijab,Instagram
-265,66,ITV News,LinkedIn
-266,66,ITV News,Wiki
-267,66,ITV News,Website
-268,67,Ayn Rand Institute,LinkedIn
-269,67,Ayn Rand Institute,Wiki
-270,67,Ayn Rand Institute,Website
-271,68,Coleman Hughes,LinkedIn
-272,68,Coleman Hughes,Wiki
-273,68,Coleman Hughes,Website
-274,68,Coleman Hughes,Instagram
-275,69,Unpacked,LinkedIn
-276,69,Unpacked,Wiki
-277,69,Unpacked,Website
-278,70,Johnny Harris,LinkedIn
-279,70,Johnny Harris,Wiki
-280,70,Johnny Harris,Website
-281,70,Johnny Harris,Twitter
-282,71,60 Minutes,LinkedIn
-283,71,60 Minutes,Wiki
-284,71,60 Minutes,Website
-285,71,60 Minutes,Instagram
-286,72,OnlyIAS Extended,LinkedIn
-287,72,OnlyIAS Extended,Wiki
-288,72,OnlyIAS Extended,Website
-289,73,Dovahhatty,LinkedIn
-290,73,Dovahhatty,Wiki
-291,73,Dovahhatty,Website
-292,73,Dovahhatty,Facebook
-293,73,Dovahhatty,Instagram
-294,74,TED,Wiki
-295,74,TED,Website
-296,75,WAS: Popular History,LinkedIn
-297,75,WAS: Popular History,Wiki
-298,75,WAS: Popular History,Website
-299,75,WAS: Popular History,Twitter
-300,75,WAS: Popular History,Facebook
-301,75,WAS: Popular History,Instagram
-302,76,Jubilee,LinkedIn
-303,76,Jubilee,Wiki
-304,77,Kranthi Vlogger,LinkedIn
-305,77,Kranthi Vlogger,Wiki
-306,77,Kranthi Vlogger,Website
-307,77,Kranthi Vlogger,Twitter
-308,77,Kranthi Vlogger,Instagram
-309,78,World Map,LinkedIn
-310,78,World Map,Wiki
-311,78,World Map,Website
-312,78,World Map,Twitter
-313,78,World Map,Facebook
-314,78,World Map,Instagram
-315,79,Nitish Rajput,Wiki
-316,80,Foil Arms and Hog,LinkedIn
-317,80,Foil Arms and Hog,Wiki
-318,81,Times Radio,LinkedIn
-319,81,Times Radio,Wiki
-320,81,Times Radio,Website
-321,81,Times Radio,Instagram
-322,82,KPRC 2 Click2Houston,LinkedIn
-323,82,KPRC 2 Click2Houston,Wiki
-324,82,KPRC 2 Click2Houston,Website
-325,82,KPRC 2 Click2Houston,Instagram
-326,83,Washington Post,LinkedIn
-327,83,Washington Post,Wiki
-328,83,Washington Post,Website
-329,83,Washington Post,Facebook
-330,83,Washington Post,Instagram
-331,84,NBC News,LinkedIn
-332,84,NBC News,Wiki
-333,84,NBC News,Website
-334,84,NBC News,Instagram
-335,85,Jewish Voice for Peace,LinkedIn
-336,85,Jewish Voice for Peace,Wiki
-337,85,Jewish Voice for Peace,Website
-338,85,Jewish Voice for Peace,Twitter
-339,85,Jewish Voice for Peace,Facebook
-340,85,Jewish Voice for Peace,Instagram
-341,86,Valuetainment,LinkedIn
-342,86,Valuetainment,Wiki
-343,86,Valuetainment,Website
-344,86,Valuetainment,Twitter
-345,86,Valuetainment,Facebook
-346,86,Valuetainment,Instagram
-347,87,Madan Gowri,Wiki
-348,87,Madan Gowri,Website
-349,87,Madan Gowri,Facebook
-350,87,Madan Gowri,Instagram
-351,88,Global News,LinkedIn
-352,88,Global News,Wiki
-353,88,Global News,Website
-354,88,Global News,Instagram
-355,89,Daily Jesus Devotional,LinkedIn
-356,89,Daily Jesus Devotional,Wiki
-357,89,Daily Jesus Devotional,Website
-358,89,Daily Jesus Devotional,Twitter
-359,89,Daily Jesus Devotional,Facebook
-360,89,Daily Jesus Devotional,Instagram
-361,90,BeerBiceps,Wiki
-362,90,BeerBiceps,Website
-363,91,The Hindu,LinkedIn
-364,91,The Hindu,Wiki
-365,91,The Hindu,Website
-366,92,Encounter Books,LinkedIn
-367,92,Encounter Books,Wiki
-368,92,Encounter Books,Website
-369,92,Encounter Books,Instagram
-370,93,The Wire,LinkedIn
-371,93,The Wire,Wiki
-372,93,The Wire,Website
-373,93,The Wire,Instagram
-374,94,הדרך הקלה,LinkedIn
-375,94,הדרך הקלה,Wiki
-376,94,הדרך הקלה,Website
-377,94,הדרך הקלה,Twitter
-378,94,הדרך הקלה,Instagram
-379,95,CaspianReport,LinkedIn
-380,95,CaspianReport,Wiki
-381,95,CaspianReport,Website
-382,95,CaspianReport,Instagram
-383,96,LiveNOW from FOX,LinkedIn
-384,96,LiveNOW from FOX,Wiki
-385,96,LiveNOW from FOX,Website
-386,96,LiveNOW from FOX,Instagram
-387,97,alexplain,LinkedIn
-388,97,alexplain,Wiki
-389,97,alexplain,Website
-390,97,alexplain,Twitter
-391,98,Real Stories,LinkedIn
-392,98,Real Stories,Wiki
-393,98,Real Stories,Website
-394,98,Real Stories,Instagram
-395,99,Reality Explained,LinkedIn
-396,99,Reality Explained,Wiki
-397,99,Reality Explained,Website
-398,99,Reality Explained,Twitter
-399,99,Reality Explained,Facebook
-400,99,Reality Explained,Instagram
-401,100,Anurag Talks,LinkedIn
-402,100,Anurag Talks,Wiki
-403,100,Anurag Talks,Website
-404,100,Anurag Talks,Twitter
-405,101,Today Unpacked,LinkedIn
-406,101,Today Unpacked,Wiki
-407,101,Today Unpacked,Website
-408,101,Today Unpacked,Twitter
-409,101,Today Unpacked,Facebook
-410,101,Today Unpacked,Instagram
-411,102,Minutes Mystery,LinkedIn
-412,102,Minutes Mystery,Wiki
-413,102,Minutes Mystery,Website
-414,103,NB Show Telugu,LinkedIn
-415,103,NB Show Telugu,Wiki
-416,103,NB Show Telugu,Website
-417,103,NB Show Telugu,Twitter
-418,104,Kings and Generals,LinkedIn
-419,104,Kings and Generals,Wiki
-420,104,Kings and Generals,Website
-421,105,ENDEVR,LinkedIn
-422,105,ENDEVR,Wiki
-423,105,ENDEVR,Website
-424,105,ENDEVR,Twitter
-425,106,BBC News اردو,LinkedIn
-426,106,BBC News اردو,Wiki
-427,106,BBC News اردو,Website
-428,106,BBC News اردو,Twitter
-429,106,BBC News اردو,Instagram
-430,107,Drishti IAS,LinkedIn
-431,107,Drishti IAS,Wiki
-432,107,Drishti IAS,Website
-433,107,Drishti IAS,Instagram
-434,108,Media Education Foundation,LinkedIn
-435,108,Media Education Foundation,Wiki
-436,108,Media Education Foundation,Website
-437,108,Media Education Foundation,Instagram
-438,109,RJ Raunac,LinkedIn
-439,109,RJ Raunac,Wiki
-440,109,RJ Raunac,Website
-441,110,Piers Morgan Uncensored,LinkedIn
-442,110,Piers Morgan Uncensored,Wiki
-443,110,Piers Morgan Uncensored,Website
-444,111,Rick Steves' Europe,LinkedIn
-445,111,Rick Steves' Europe,Wiki
-446,111,Rick Steves' Europe,Website
-447,111,Rick Steves' Europe,Instagram
-448,112,Sky News,LinkedIn
-449,112,Sky News,Wiki
-450,112,Sky News,Website
-451,113,Mojo Story,LinkedIn
-452,113,Mojo Story,Wiki
-453,113,Mojo Story,Website
-454,114,Voice of America,LinkedIn
-455,114,Voice of America,Wiki
-456,114,Voice of America,Website
-457,114,Voice of America,Instagram
+15,11,Imperial War Museums,LinkedIn
+16,13,7NEWS Australia,LinkedIn
+17,15,Free Documentary - History,LinkedIn
+18,15,Free Documentary - History,Wiki
+19,15,Free Documentary - History,Website
+20,15,Free Documentary - History,Twitter
+21,15,Free Documentary - History,Instagram
+22,16,OnePath Network,LinkedIn
+23,17,Channel 4 News,LinkedIn
+24,18,TimeGhost History,Wiki
+25,18,TimeGhost History,Twitter
+26,19,Keerthi History,LinkedIn
+27,19,Keerthi History,Wiki
+28,20,Then & Now,LinkedIn
+29,20,Then & Now,Facebook
+30,21,TDC,Instagram
+31,23,The Armchair Historian,Wiki
+32,24,SLICE Full Doc,LinkedIn
+33,24,SLICE Full Doc,Wiki
+34,24,SLICE Full Doc,Website
+35,24,SLICE Full Doc,Twitter
+36,24,SLICE Full Doc,Facebook
+37,24,SLICE Full Doc,Instagram
+38,25,Firstpost,LinkedIn
+39,26,Guardian News,LinkedIn
+40,26,Guardian News,Wiki
+41,26,Guardian News,Website
+42,27,The Economist,LinkedIn
+43,28,History on Maps,LinkedIn
+44,28,History on Maps,Wiki
+45,28,History on Maps,Website
+46,28,History on Maps,Twitter
+47,28,History on Maps,Facebook
+48,29,Amit Sengupta,Wiki
+49,33,DawnNews English,LinkedIn
+50,33,DawnNews English,Wiki
+51,35,Dhruv Rathee,LinkedIn
+52,36,Best Documentary,LinkedIn
+53,36,Best Documentary,Wiki
+54,36,Best Documentary,Twitter
+55,36,Best Documentary,Instagram
+56,37,travelingisrael.com,LinkedIn
+57,37,travelingisrael.com,Wiki
+58,38,Nas Daily,LinkedIn
+59,38,Nas Daily,Twitter
+60,40,Aevy TV,Wiki
+61,41,CBC Kids News,LinkedIn
+62,42,CNN-News18,LinkedIn
+63,42,CNN-News18,Instagram
+64,43,Priya Jain,Wiki
+65,43,Priya Jain,Facebook
+66,44,WHAT IS POLITICS?,LinkedIn
+67,44,WHAT IS POLITICS?,Wiki
+68,44,WHAT IS POLITICS?,Website
+69,44,WHAT IS POLITICS?,Facebook
+70,44,WHAT IS POLITICS?,Instagram
+71,45,BYJU'S IAS,LinkedIn
+72,46,Unraveling the Scriptures,LinkedIn
+73,46,Unraveling the Scriptures,Wiki
+74,46,Unraveling the Scriptures,Twitter
+75,46,Unraveling the Scriptures,Facebook
+76,47,ABC Action News,LinkedIn
+77,48,The Indian Express,LinkedIn
+78,49,Abhi and Niyu,LinkedIn
+79,49,Abhi and Niyu,Wiki
+80,50,Council on Foreign Relations,LinkedIn
+81,51,DW Documentary,LinkedIn
+82,51,DW Documentary,Wiki
+83,51,DW Documentary,Twitter
+84,54,StudyIQ IAS,Wiki
+85,54,StudyIQ IAS,Twitter
+86,54,StudyIQ IAS,Instagram
+87,55,VICE News,LinkedIn
+88,55,VICE News,Wiki
+89,55,VICE News,Website
+90,56,Geo History,LinkedIn
+91,56,Geo History,Wiki
+92,56,Geo History,Website
+93,56,Geo History,Twitter
+94,56,Geo History,Facebook
+95,56,Geo History,Instagram
+96,57,BBC News,LinkedIn
+97,57,BBC News,Wiki
+98,57,BBC News,Website
+99,57,BBC News,Instagram
+100,58,MSNBC,LinkedIn
+101,58,MSNBC,Wiki
+102,58,MSNBC,Website
+103,58,MSNBC,Instagram
+104,59,ABC10,LinkedIn
+105,59,ABC10,Wiki
+106,59,ABC10,Website
+107,60,The Wall Street Journal,LinkedIn
+108,60,The Wall Street Journal,Wiki
+109,60,The Wall Street Journal,Website
+110,60,The Wall Street Journal,Instagram
+111,61,RealLifeLore,LinkedIn
+112,61,RealLifeLore,Wiki
+113,61,RealLifeLore,Website
+114,61,RealLifeLore,Twitter
+115,61,RealLifeLore,Instagram
+116,62,Meaningful People,LinkedIn
+117,62,Meaningful People,Wiki
+118,62,Meaningful People,Website
+119,62,Meaningful People,Twitter
+120,62,Meaningful People,Facebook
+121,62,Meaningful People,Instagram
+122,63,Ben Shapiro,LinkedIn
+123,63,Ben Shapiro,Wiki
+124,63,Ben Shapiro,Website
+125,63,Ben Shapiro,Instagram
+126,64,Oneindia News,LinkedIn
+127,64,Oneindia News,Wiki
+128,64,Oneindia News,Website
+129,65,Mohammed Hijab,LinkedIn
+130,65,Mohammed Hijab,Wiki
+131,65,Mohammed Hijab,Website
+132,65,Mohammed Hijab,Instagram
+133,66,ITV News,LinkedIn
+134,66,ITV News,Wiki
+135,66,ITV News,Website
+136,67,Ayn Rand Institute,LinkedIn
+137,67,Ayn Rand Institute,Wiki
+138,67,Ayn Rand Institute,Website
+139,68,Coleman Hughes,LinkedIn
+140,68,Coleman Hughes,Wiki
+141,68,Coleman Hughes,Website
+142,68,Coleman Hughes,Instagram
+143,69,Unpacked,LinkedIn
+144,69,Unpacked,Wiki
+145,69,Unpacked,Website
+146,70,Johnny Harris,LinkedIn
+147,70,Johnny Harris,Wiki
+148,70,Johnny Harris,Website
+149,70,Johnny Harris,Twitter
+150,71,60 Minutes,LinkedIn
+151,71,60 Minutes,Wiki
+152,71,60 Minutes,Website
+153,71,60 Minutes,Instagram
+154,72,OnlyIAS Extended,LinkedIn
+155,72,OnlyIAS Extended,Wiki
+156,72,OnlyIAS Extended,Website
+157,73,Dovahhatty,LinkedIn
+158,73,Dovahhatty,Wiki
+159,73,Dovahhatty,Website
+160,73,Dovahhatty,Facebook
+161,73,Dovahhatty,Instagram
+162,74,TED,Wiki
+163,74,TED,Website
+164,75,WAS: Popular History,LinkedIn
+165,75,WAS: Popular History,Wiki
+166,75,WAS: Popular History,Website
+167,75,WAS: Popular History,Twitter
+168,75,WAS: Popular History,Facebook
+169,75,WAS: Popular History,Instagram
+170,76,Jubilee,LinkedIn
+171,76,Jubilee,Wiki
+172,77,Kranthi Vlogger,LinkedIn
+173,77,Kranthi Vlogger,Wiki
+174,77,Kranthi Vlogger,Website
+175,77,Kranthi Vlogger,Twitter
+176,77,Kranthi Vlogger,Instagram
+177,78,World Map,LinkedIn
+178,78,World Map,Wiki
+179,78,World Map,Website
+180,78,World Map,Twitter
+181,78,World Map,Facebook
+182,78,World Map,Instagram
+183,79,Nitish Rajput,Wiki
+184,80,Foil Arms and Hog,LinkedIn
+185,80,Foil Arms and Hog,Wiki
+186,81,Times Radio,LinkedIn
+187,81,Times Radio,Wiki
+188,81,Times Radio,Website
+189,81,Times Radio,Instagram
+190,82,KPRC 2 Click2Houston,LinkedIn
+191,82,KPRC 2 Click2Houston,Wiki
+192,82,KPRC 2 Click2Houston,Website
+193,82,KPRC 2 Click2Houston,Instagram
+194,83,Washington Post,LinkedIn
+195,83,Washington Post,Wiki
+196,83,Washington Post,Website
+197,83,Washington Post,Facebook
+198,83,Washington Post,Instagram
+199,84,NBC News,LinkedIn
+200,84,NBC News,Wiki
+201,84,NBC News,Website
+202,84,NBC News,Instagram
+203,85,Jewish Voice for Peace,LinkedIn
+204,85,Jewish Voice for Peace,Wiki
+205,85,Jewish Voice for Peace,Website
+206,85,Jewish Voice for Peace,Twitter
+207,85,Jewish Voice for Peace,Facebook
+208,85,Jewish Voice for Peace,Instagram
+209,86,Valuetainment,LinkedIn
+210,86,Valuetainment,Wiki
+211,86,Valuetainment,Website
+212,86,Valuetainment,Twitter
+213,86,Valuetainment,Facebook
+214,86,Valuetainment,Instagram
+215,87,Madan Gowri,Wiki
+216,87,Madan Gowri,Website
+217,87,Madan Gowri,Facebook
+218,87,Madan Gowri,Instagram
+219,88,Global News,LinkedIn
+220,88,Global News,Wiki
+221,88,Global News,Website
+222,88,Global News,Instagram
+223,89,Daily Jesus Devotional,LinkedIn
+224,89,Daily Jesus Devotional,Wiki
+225,89,Daily Jesus Devotional,Website
+226,89,Daily Jesus Devotional,Twitter
+227,89,Daily Jesus Devotional,Facebook
+228,89,Daily Jesus Devotional,Instagram
+229,90,BeerBiceps,Wiki
+230,90,BeerBiceps,Website
+231,91,The Hindu,LinkedIn
+232,91,The Hindu,Wiki
+233,91,The Hindu,Website
+234,92,Encounter Books,LinkedIn
+235,92,Encounter Books,Wiki
+236,92,Encounter Books,Website
+237,92,Encounter Books,Instagram
+238,93,The Wire,LinkedIn
+239,93,The Wire,Wiki
+240,93,The Wire,Website
+241,93,The Wire,Instagram
+242,94,הדרך הקלה,LinkedIn
+243,94,הדרך הקלה,Wiki
+244,94,הדרך הקלה,Website
+245,94,הדרך הקלה,Twitter
+246,94,הדרך הקלה,Instagram
+247,95,CaspianReport,LinkedIn
+248,95,CaspianReport,Wiki
+249,95,CaspianReport,Website
+250,95,CaspianReport,Instagram
+251,96,LiveNOW from FOX,LinkedIn
+252,96,LiveNOW from FOX,Wiki
+253,96,LiveNOW from FOX,Website
+254,96,LiveNOW from FOX,Instagram
+255,97,alexplain,LinkedIn
+256,97,alexplain,Wiki
+257,97,alexplain,Website
+258,97,alexplain,Twitter
+259,98,Real Stories,LinkedIn
+260,98,Real Stories,Wiki
+261,98,Real Stories,Website
+262,98,Real Stories,Instagram
+263,99,Reality Explained,LinkedIn
+264,99,Reality Explained,Wiki
+265,99,Reality Explained,Website
+266,99,Reality Explained,Twitter
+267,99,Reality Explained,Facebook
+268,99,Reality Explained,Instagram
+269,100,Anurag Talks,LinkedIn
+270,100,Anurag Talks,Wiki
+271,100,Anurag Talks,Website
+272,100,Anurag Talks,Twitter
+273,101,Today Unpacked,LinkedIn
+274,101,Today Unpacked,Wiki
+275,101,Today Unpacked,Website
+276,101,Today Unpacked,Twitter
+277,101,Today Unpacked,Facebook
+278,101,Today Unpacked,Instagram
+279,102,Minutes Mystery,LinkedIn
+280,102,Minutes Mystery,Wiki
+281,102,Minutes Mystery,Website
+282,103,NB Show Telugu,LinkedIn
+283,103,NB Show Telugu,Wiki
+284,103,NB Show Telugu,Website
+285,103,NB Show Telugu,Twitter
+286,104,Kings and Generals,LinkedIn
+287,104,Kings and Generals,Wiki
+288,104,Kings and Generals,Website
+289,105,ENDEVR,LinkedIn
+290,105,ENDEVR,Wiki
+291,105,ENDEVR,Website
+292,105,ENDEVR,Twitter
+293,106,BBC News اردو,LinkedIn
+294,106,BBC News اردو,Wiki
+295,106,BBC News اردو,Website
+296,106,BBC News اردو,Twitter
+297,106,BBC News اردو,Instagram
+298,107,Drishti IAS,LinkedIn
+299,107,Drishti IAS,Wiki
+300,107,Drishti IAS,Website
+301,107,Drishti IAS,Instagram
+302,108,Media Education Foundation,LinkedIn
+303,108,Media Education Foundation,Wiki
+304,108,Media Education Foundation,Website
+305,108,Media Education Foundation,Instagram
+306,109,RJ Raunac,LinkedIn
+307,109,RJ Raunac,Wiki
+308,109,RJ Raunac,Website
+309,110,Piers Morgan Uncensored,LinkedIn
+310,110,Piers Morgan Uncensored,Wiki
+311,110,Piers Morgan Uncensored,Website
+312,111,Rick Steves' Europe,LinkedIn
+313,111,Rick Steves' Europe,Wiki
+314,111,Rick Steves' Europe,Website
+315,111,Rick Steves' Europe,Instagram
+316,112,Sky News,LinkedIn
+317,112,Sky News,Wiki
+318,112,Sky News,Website
+319,113,Mojo Story,LinkedIn
+320,113,Mojo Story,Wiki
+321,113,Mojo Story,Website
+322,114,Voice of America,LinkedIn
+323,114,Voice of America,Wiki
+324,114,Voice of America,Website
+325,114,Voice of America,Instagram

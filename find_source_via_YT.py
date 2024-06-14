@@ -222,15 +222,21 @@ def clean_links():
             if checklist.iloc[i][column]:
                 link = df.iloc[i][column]
 
+                # Add https:// to links
+                if re.search(r'^https:\/\/', link) is None:
+                    link = 'https://' + link
+
                 # Remove . at the end of links to avoid Bad Request error
                 link = re.sub(r'(?<=\w)\.$', '', link)
 
                 # Change http to https
                 link = re.sub(r'^http:\/\/', 'https://', link)
 
-                # Add https:// to links
-                if re.search(r'^https:\/\/', link) is None:
-                    link = 'https://' + link
+                if column == "Website":
+                    if re.search(r'(https:\/\/www\.)?(facebook|twitter|instagram)\.com\/(\w|\w[-_/])+',
+                                 link) is not None:
+                        checklist.at[i, column] = False
+                        links.at[i, column] = np.nan
 
                 # Update link
                 links.at[i, column] = link
