@@ -90,27 +90,27 @@
 88,UCXJryYh6xcW5iEeJGzK191A,CBS Miami,False,False,True,True,True,True
 89,UCVxBA3Cbu3pm8w8gEIoMEog,ABC7,True,True,True,True,True,True
 90,UCretxef46N9r-v0FOlHWIVA,Medicine with Dr. Moran,False,False,False,False,False,False
-91,UClR8YIQX5Fb8J2wmsUKLhvQ,American Academy of Pediatrics,True,True,True,True,True,False
-92,UCgVZ0mrM3liHNhRYC5Mchgg,WPLG Local 10,False,False,False,True,True,False
-93,UCg40OxZ1GYh3u3jBntB6DLg,Forbes Breaking News,False,False,False,True,False,True
-94,UCKe4Fry0MyvT_SRrmn0_MiQ,WISH-TV,False,False,False,True,True,False
+91,UClR8YIQX5Fb8J2wmsUKLhvQ,American Academy of Pediatrics,True,True,True,True,True,True
+92,UCgVZ0mrM3liHNhRYC5Mchgg,WPLG Local 10,False,False,True,True,True,True
+93,UCg40OxZ1GYh3u3jBntB6DLg,Forbes Breaking News,False,False,True,True,False,True
+94,UCKe4Fry0MyvT_SRrmn0_MiQ,WISH-TV,False,True,True,True,True,False
 95,UCIRYBXDze5krPDzAEOxFGVA,Guardian News,False,False,False,True,True,False
-96,UCxCfoSInadl-4i3F70zDt1A,NBC New York,False,False,False,True,True,False
-97,UC52X5wxOL_s5yw0dQk7NtgA,Associated Press,False,False,True,True,True,True
-98,UCZYTClx2T1of7BRZ86-8fow,SciShow,False,False,False,True,True,True
-99,UCBi2mrWuNuyYy4gbM6fU18Q,ABC News,False,False,False,True,True,False
-100,UCqigMiyLjh0Lf980zWoeAmA,Public Health Agency,False,False,False,False,False,False
-101,UC9RM-iSvTu1uPJb8X5yp3EQ,Wendover Productions,False,False,False,True,False,False
-102,UCPgLNge0xqQHWM5B5EFH9Cg,The Telegraph,False,False,False,False,False,False
-103,UC_vFLohxs5PkAxlk7Y6jEtw,ABC 7 Chicago,False,False,False,True,True,False
-104,UCZaT_X_mc0BI-djXOlfhqWQ,VICE News,False,False,False,True,True,True
+96,UCxCfoSInadl-4i3F70zDt1A,NBC New York,True,True,True,True,True,True
+97,UC52X5wxOL_s5yw0dQk7NtgA,Associated Press,False,True,True,True,True,True
+98,UCZYTClx2T1of7BRZ86-8fow,SciShow,False,True,True,True,True,True
+99,UCBi2mrWuNuyYy4gbM6fU18Q,ABC News,True,True,True,True,True,True
+100,UCqigMiyLjh0Lf980zWoeAmA,Public Health Agency,False,True,True,True,True,True
+101,UC9RM-iSvTu1uPJb8X5yp3EQ,Wendover Productions,False,False,True,True,True,False
+102,UCPgLNge0xqQHWM5B5EFH9Cg,The Telegraph,True,True,True,True,True,True
+103,UC_vFLohxs5PkAxlk7Y6jEtw,ABC 7 Chicago,False,False,True,True,True,True
+104,UCZaT_X_mc0BI-djXOlfhqWQ,VICE News,True,True,True,True,True,True
 105,UCp9pxqv-oMY1a6axT6mHcew,Pastor Greg Laurie,False,False,True,True,True,True
-106,UCIVk1L1-JmpdiGuZcVjImtA,ABC15 Arizona,False,False,False,False,True,False
-107,UCVaXclURQZlakiTMzuwHvRw,News 19 WLTX,False,False,False,True,True,False
-108,UCCJsQKOKArvDksacfT2ryQw,World Affairs by Unacademy,False,False,False,False,False,False
-109,UCEKJzGwBMDpmK51v5JIezUw,WKRN News 2,False,False,False,True,True,True
-110,UCvJJ_dzjViJCoLf5uKUTwoA,CNBC,True,False,False,True,True,False
-111,UChirEOpgFCupRAk5etXqPaA,Bloomberg Quicktake,False,False,False,True,True,True
-112,UCAUMuw4KF1mPdOlxaAbTDmw,uvahealth,False,False,False,False,True,False
-113,UCE83i5yn_YQ1HnFO027BnnQ,American Medical Association (AMA),False,False,False,True,True,False
-114,UC83jt4dlz1Gjl58fzQrrKZg,CNA,False,False,False,True,True,True
+106,UCIVk1L1-JmpdiGuZcVjImtA,ABC15 Arizona,True,False,True,True,True,True
+107,UCVaXclURQZlakiTMzuwHvRw,News 19 WLTX,False,False,False,True,True,True
+108,UCCJsQKOKArvDksacfT2ryQw,World Affairs by Unacademy,False,False,True,True,True,True
+109,UCEKJzGwBMDpmK51v5JIezUw,WKRN News 2,True,False,True,True,True,True
+110,UCvJJ_dzjViJCoLf5uKUTwoA,CNBC,True,True,True,True,True,True
+111,UChirEOpgFCupRAk5etXqPaA,Bloomberg Quicktake,False,False,True,True,True,True
+112,UCAUMuw4KF1mPdOlxaAbTDmw,uvahealth,True,False,True,True,True,True
+113,UCE83i5yn_YQ1HnFO027BnnQ,American Medical Association (AMA),True,True,False,True,True,True
+114,UC83jt4dlz1Gjl58fzQrrKZg,CNA,False,True,True,True,True,True

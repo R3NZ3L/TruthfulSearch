@@ -15,7 +15,8 @@ import time
 # Put your personal API key here
 # DLSU account key
 # apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
-apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
+#apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino
+apiKey='AIzaSyDZlAPC29rxMjh-gu-ZfgTPb8wrRLglrs4'
 # apiKey = 'AIzaSyDKBteFADAddCvCCvEKrfJRFSxc-ovflsQ' # Baura
 # apiKey = 'AIzaSyDH6SzpJVTOzf_RC2j6Pq08KG6zPa3itwE' # Sevillana
 
