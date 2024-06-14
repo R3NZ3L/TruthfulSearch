@@ -69,28 +69,28 @@
 67,UCoookXUzPciGrEZEXmh4Jjg,Sesame Street,True,True,True,True,True,True
 68,UCw9zM4_S570N72pUfwIkuwQ,BJC HealthCare,True,True,True,True,True,True
 69,UCYPvAwZP8pZhSMW8qs7cVCw,India Today,False,True,True,True,True,True
-70,UCG5TBPANNSiKf1Dp-R5Dibg,Dr.G Bhanu Prakash Animated Medical Videos,False,False,False,False,False,True
+70,UCG5TBPANNSiKf1Dp-R5Dibg,Dr.G Bhanu Prakash Animated Medical Videos,False,False,True,False,False,True
 71,UC13mSI38YWz5zfvxXDPpePA,FOX 13 Tampa Bay,True,False,True,True,True,False
-72,UCT350j4u6alUKyF9eu2bGug,ABC10,True,False,False,True,True,True
-73,UC9k-yiEpRHMNVOnOi_aQK8w,Inside Edition,False,False,False,True,True,False
-74,UC5UlvCrYsS8axWEQ9Kd1sAg,VJNeurology,False,False,False,False,False,False
-75,UCmMAcf_ytC_H54h8wpUGEzA,NYSDOH NY,False,False,False,False,False,False
+72,UCT350j4u6alUKyF9eu2bGug,ABC10,True,True,True,True,True,True
+73,UC9k-yiEpRHMNVOnOi_aQK8w,Inside Edition,True,True,True,True,True,True
+74,UC5UlvCrYsS8axWEQ9Kd1sAg,VJNeurology,False,False,True,True,False,False
+75,UCmMAcf_ytC_H54h8wpUGEzA,NYSDOH NY,False,False,False,True,False,True
 76,UCD09NCZlzMj4yGvGkLbuBpw,Báo Sức khoẻ & Đời sống,False,False,True,False,True,False
-77,UC-RxXi2Xws6Uk22vp-sLbGA,WCNC,False,False,False,True,True,False
-78,UCrPhcbDwqWRc-3tteE2BS6g,Mama Doctor Jones,False,False,False,True,True,True
+77,UC-RxXi2Xws6Uk22vp-sLbGA,WCNC,False,True,True,True,True,False
+78,UCrPhcbDwqWRc-3tteE2BS6g,Mama Doctor Jones,False,False,True,True,True,True
 79,UCKQECjul8nw1KW_JzfBTP1A,KPRC 2 Click2Houston,False,False,False,True,True,True
-80,UCdOflwQsgRV_RbgRGRpr_TQ,The Hindu businessline,False,False,True,True,True,True
-81,UCSxeKmlI8XLrI1eMaqqM-kg,Vejon Health,False,False,False,False,True,False
-82,UCVKAcQQCO8vv87Gk62SutAg,CityNews,False,False,False,True,True,False
-83,UCrC8mOqJQpoB7NuIMKIS6rQ,StudyIQ IAS,True,False,False,False,True,False
-84,UCi8URBP1KDF0KuG_ntPFS2w,eHealth Saskatchewan,False,False,False,False,False,False
-85,UCxHoBXkY88Tb8z1Ssj6CWsQ,SOMOY TV,True,False,True,True,True,False
-86,UC2rLSYDm92QMytS9yIkT8UQ,FOX 4 Now,False,False,False,True,True,False
-87,UCOGa-48fFt4cW0UnW5WSdRg,FOX 2 Detroit,False,False,False,True,True,True
-88,UCXJryYh6xcW5iEeJGzK191A,CBS Miami,False,False,False,True,True,False
-89,UCVxBA3Cbu3pm8w8gEIoMEog,ABC7,False,False,False,True,True,False
+80,UCdOflwQsgRV_RbgRGRpr_TQ,The Hindu businessline,False,True,True,True,True,True
+81,UCSxeKmlI8XLrI1eMaqqM-kg,Vejon Health,False,False,True,False,True,False
+82,UCVKAcQQCO8vv87Gk62SutAg,CityNews,True,True,True,True,True,True
+83,UCrC8mOqJQpoB7NuIMKIS6rQ,StudyIQ IAS,True,False,True,False,True,True
+84,UCi8URBP1KDF0KuG_ntPFS2w,eHealth Saskatchewan,False,False,True,True,True,False
+85,UCxHoBXkY88Tb8z1Ssj6CWsQ,SOMOY TV,True,True,True,True,True,True
+86,UC2rLSYDm92QMytS9yIkT8UQ,FOX 4 Now,True,True,False,True,True,True
+87,UCOGa-48fFt4cW0UnW5WSdRg,FOX 2 Detroit,False,False,True,True,True,True
+88,UCXJryYh6xcW5iEeJGzK191A,CBS Miami,False,False,True,True,True,True
+89,UCVxBA3Cbu3pm8w8gEIoMEog,ABC7,True,True,True,True,True,True
 90,UCretxef46N9r-v0FOlHWIVA,Medicine with Dr. Moran,False,False,False,False,False,False
-91,UClR8YIQX5Fb8J2wmsUKLhvQ,American Academy of Pediatrics,False,False,False,True,True,False
+91,UClR8YIQX5Fb8J2wmsUKLhvQ,American Academy of Pediatrics,True,True,True,True,True,False
 92,UCgVZ0mrM3liHNhRYC5Mchgg,WPLG Local 10,False,False,False,True,True,False
 93,UCg40OxZ1GYh3u3jBntB6DLg,Forbes Breaking News,False,False,False,True,False,True
 94,UCKe4Fry0MyvT_SRrmn0_MiQ,WISH-TV,False,False,False,True,True,False
