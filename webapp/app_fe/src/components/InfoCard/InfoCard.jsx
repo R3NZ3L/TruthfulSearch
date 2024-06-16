@@ -70,11 +70,11 @@ function InfoCard(props) {
             
             <div className="channel-information">
               <div className="channel-links">
-                <h1>Socials:</h1>
+                <h1>Sources:</h1>
                 <div className='link-icon-container'>
                   {props.video.Website && 
                     <a className='link-icon-URL' href={fixURL(props.video.Website)}>
-                      <img className="link-icon" src="https://cdn-icons-png.flaticon.com/512/3858/3858448.png"></img>
+                      <img className="link-icon" src="https://cdn-icons-png.freepik.com/256/1006/1006771.png"></img>
                     </a>
                   }
                   {props.video.Wiki && 
