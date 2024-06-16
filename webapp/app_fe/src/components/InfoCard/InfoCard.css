@@ -150,7 +150,7 @@ td {
 
 .link-icon-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(5px, 70px));
+  grid-template-columns: repeat(auto-fit, minmax(5px, 60px));
   padding: 10px 0 10px 0;
 }
 
