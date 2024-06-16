@@ -6,7 +6,6 @@
   width: 400px;
   height: fit-content;
   margin: 0 auto;
-  margin-bottom: 5px;
 }
 
 .img1 img{
@@ -149,9 +148,34 @@ td {
   font-weight: bold;
 }
 
+.link-icon-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(5px, 60px));
+  padding: 10px 0 10px 0;
+}
+
+.link-icon-URL {
+  width: 32px;
+  height: 32px;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
 .channel-links .link-icon {
   width: 32px;
   height: 32px;
   border-radius: 5px;
-  margin-right: 16px;
+  /*margin-right: 16px;*/
+}
+
+tbody tr td:nth-child(1){
+  font-weight: bold;
+}
+
+.video-score-breakdown td {
+  padding: 3px 10px;
+}
+
+.video-score-breakdown tr {
+  padding: 10px 0px;
 }
