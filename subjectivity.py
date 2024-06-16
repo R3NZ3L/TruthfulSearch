@@ -116,8 +116,8 @@ def subjectivity(videos):
 
 
 if __name__ == "__main__":
-    filename = input("Filename (w/o .csv): ")
-    path = os.getcwd() + "/datasets/" + filename
+    folder = input("Folder name: ")
+    path = os.getcwd() + "/datasets/" + folder
     os.chdir(path)
 
     video_df = pd.read_csv("videos.csv", index_col=0)

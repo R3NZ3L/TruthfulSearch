@@ -14,6 +14,27 @@ from time import strftime
 from time import gmtime
 from selenium.common.exceptions import NoSuchElementException
 
+""""""
+""""""
+""""""
+""""""
+"""
+
+    ==== DO NOT RUN UNTIL FURTHER NOTICE ====
+    As of June 12, 2024 (time website was checked), HOTHtools backlink checker
+    REQUIRES a LinkedIn login. With this login, they will be able to enforce their ToS
+    on their publicly available tool. This means that AUTOMATION ON THEIR TOOL IS A NO-GO, unless
+    we want our LinkedIn accounts flagged for misuse and breach of ToS. Only workaround, as of now,
+    is to manually get and input the number of backlinks for each link in our dataset (which sucks).
+    
+"""
+""""""
+""""""
+""""""
+""""""
+
+"""
+
 
 def execute(df, mode):
     backlinks = {}
@@ -211,3 +232,6 @@ if __name__ == '__main__':
     os.chdir("..")
     os.chdir("..")
     print("Back @ " + os.getcwd())
+    
+    
+# """

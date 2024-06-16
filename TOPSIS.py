@@ -14,7 +14,8 @@ def prepare_scores(output):
             "LinkedIn": {}, "li_desc": {}, "Wiki": {}, "wi_desc": {},
             "Website": {}, "we_desc": {},
             "Twitter": {}, "tw_desc": {},
-            "Facebook": {}, "fb_desc": {}
+            "Facebook": {}, "fb_desc": {},
+            "Instagram": {}, "insta_desc": {}
         }
 
         for i in range(sc_df.shape[0]):
@@ -26,18 +27,19 @@ def prepare_scores(output):
             website = sc_df.iloc[i]["Website"]
             twitter = sc_df.iloc[i]["Twitter"]
             facebook = sc_df.iloc[i]["Facebook"]
+            instagram = sc_df.iloc[i]["Instagram"]
 
             # Profiles
-            if linkedIn and (facebook or twitter):
+            if linkedIn and twitter and (facebook or instagram):
                 comp_dict["profiles"][i] = 20 / 20
-                comp_dict["p_desc"][i] = "Has existing LinkedIn AND Facebook OR Twitter/X profiles"
-            elif linkedIn or (facebook and twitter):
-                comp_dict["profiles"][i] = 10 / 20
-                comp_dict["p_desc"][i] = "ONLY has existing LinkedIn OR Facebook AND Twitter/X profiles"
-            elif (not linkedIn) and (facebook or twitter):
+                comp_dict["p_desc"][i] = "Has existing LinkedIn, Twitter/X, AND Facebook OR Instagram profiles"
+            elif (linkedIn or twitter) or (facebook and instagram):
+                comp_dict["profiles"][i] = 15 / 20
+                comp_dict["p_desc"][i] = "ONLY has existing Twitter/X AND Facebook OR Instagram profiles"
+            elif (not linkedIn) and (not twitter) and (facebook or instagram):
                 comp_dict["profiles"][i] = 5 / 20
-                comp_dict["p_desc"][i] = "ONLY has an existing Facebook OR Twitter/X profile"
-            elif (not linkedIn) and (not facebook) and (not twitter):
+                comp_dict["p_desc"][i] = "ONLY has existing Facebook OR Instagram profiles"
+            elif (not linkedIn) and (not twitter) and not (facebook or instagram):
                 comp_dict["profiles"][i] = 0 / 20
                 comp_dict["p_desc"][i] = "Has no existing profiles"
 
@@ -45,12 +47,12 @@ def prepare_scores(output):
             if wiki and website:
                 comp_dict["external_sites"][i] = 20 / 20
                 comp_dict["e_desc"][i] = "Has existing official Wikipedia page AND website"
-            elif wiki and not website:
-                comp_dict["external_sites"][i] = 10 / 20
-                comp_dict["e_desc"][i] = "Has existing official Wikipedia page BUT no website"
-            elif not wiki and website:
-                comp_dict["external_sites"][i] = 5 / 20
+            elif website and not wiki:
+                comp_dict["external_sites"][i] = 15 / 20
                 comp_dict["e_desc"][i] = "Has existing official website BUT no Wikipedia page"
+            elif not website and wiki:
+                comp_dict["external_sites"][i] = 5 / 20
+                comp_dict["e_desc"][i] = "Has existing official Wikipedia page BUT no website"
             elif not wiki and not website:
                 comp_dict["external_sites"][i] = 0 / 20
                 comp_dict["e_desc"][i] = "Has no existing external sites"
@@ -61,76 +63,92 @@ def prepare_scores(output):
             sb_website = int(sb_df.iloc[i]["Website"])
             sb_twitter = int(sb_df.iloc[i]["Twitter"])
             sb_facebook = int(sb_df.iloc[i]["Facebook"])
+            sb_instagram = int(sb_df.iloc[i]["Instagram"])
 
             # LinkedIn
             if sb_linkedIn >= 100:
                 comp_dict["LinkedIn"][i] = 20 / 20
                 comp_dict["li_desc"][i] = "Referenced by at least 100 webpages"
-            elif 100 > sb_linkedIn >= 50:
-                comp_dict["LinkedIn"][i] = 10 / 20
-                comp_dict["li_desc"][i] = "Referenced by at least 50 but less than 100 webpages"
-            elif 50 > sb_linkedIn >= 25:
+            elif 100 > sb_linkedIn >= 40:
+                comp_dict["LinkedIn"][i] = 15 / 20
+                comp_dict["li_desc"][i] = "Referenced by at least 40 but less than 100 webpages"
+            elif 40 > sb_linkedIn >= 10:
                 comp_dict["LinkedIn"][i] = 5 / 20
-                comp_dict["li_desc"][i] = "Referenced by at least 25 but less than 50 webpages"
-            elif sb_linkedIn < 25:
+                comp_dict["li_desc"][i] = "Referenced by at least 10 but less than 40 webpages"
+            elif sb_linkedIn < 10:
                 comp_dict["LinkedIn"][i] = 0 / 20
-                comp_dict["li_desc"][i] = "Referenced by less than 25 webpages"
+                comp_dict["li_desc"][i] = "Referenced by less than 10 webpages"
 
             # Wiki
-            if sb_wiki >= 3000:
+            if sb_wiki >= 100:
                 comp_dict["Wiki"][i] = 20 / 20
-                comp_dict["wi_desc"][i] = "Referenced by at least 3,000 webpages"
-            elif 3000 > sb_wiki >= 1500:
-                comp_dict["Wiki"][i] = 10 / 20
-                comp_dict["wi_desc"][i] = "Referenced by at least 1,500 but less than 3,000 webpages"
-            elif 1500 > sb_wiki >= 500:
+                comp_dict["wi_desc"][i] = "Referenced by at least 100 webpages"
+            elif 100 > sb_wiki >= 40:
+                comp_dict["Wiki"][i] = 15 / 20
+                comp_dict["wi_desc"][i] = "Referenced by at least 40 but less than 100 webpages"
+            elif 40 > sb_wiki >= 10:
                 comp_dict["Wiki"][i] = 5 / 20
-                comp_dict["wi_desc"][i] = "Referenced by at least 500 but less than 1,500 webpages"
-            elif sb_wiki < 500:
+                comp_dict["wi_desc"][i] = "Referenced by at least 10 but less than 40 webpages"
+            elif sb_wiki < 10:
                 comp_dict["Wiki"][i] = 0 / 20
-                comp_dict["wi_desc"][i] = "Referenced by less than 500 webpages"
+                comp_dict["wi_desc"][i] = "Referenced by less than 10 webpages"
             
             # Website
-            if sb_website >= 3000:
+            if sb_website >= 100:
                 comp_dict["Website"][i] = 20 / 20
-                comp_dict["we_desc"][i] = "Referenced by at least 3,000 webpages"
-            elif 3000 > sb_website >= 1500:
-                comp_dict["Website"][i] = 10 / 20
-                comp_dict["we_desc"][i] = "Referenced by at least 1,500 but less than 3,000 webpages"
-            elif 1500 > sb_website >= 500:
+                comp_dict["we_desc"][i] = "Referenced by at least 100 webpages"
+            elif 100 > sb_website >= 40:
+                comp_dict["Website"][i] = 15 / 20
+                comp_dict["we_desc"][i] = "Referenced by at least 40 but less than 100 webpages"
+            elif 40 > sb_website >= 10:
                 comp_dict["Website"][i] = 5 / 20
-                comp_dict["we_desc"][i] = "Referenced by at least 500 but less than 1,500 webpages"
-            elif sb_website < 500:
+                comp_dict["we_desc"][i] = "Referenced by at least 10 but less than 40 webpages"
+            elif sb_website < 10:
                 comp_dict["Website"][i] = 0 / 20
-                comp_dict["we_desc"][i] = "Referenced by less than 500 webpages"
+                comp_dict["we_desc"][i] = "Referenced by less than 10 webpages"
 
             # Twitter
             if sb_twitter >= 100:
                 comp_dict["Twitter"][i] = 20 / 20
                 comp_dict["tw_desc"][i] = "Referenced by at least 100 webpages"
-            elif 100 > sb_twitter >= 50:
-                comp_dict["Twitter"][i] = 10 / 20
-                comp_dict["tw_desc"][i] = "Referenced by at least 50 but less than 100 webpages"
-            elif 50 > sb_twitter >= 25:
+            elif 100 > sb_twitter >= 40:
+                comp_dict["Twitter"][i] = 15 / 20
+                comp_dict["tw_desc"][i] = "Referenced by at least 40 but less than 100 webpages"
+            elif 40 > sb_twitter >= 10:
                 comp_dict["Twitter"][i] = 5 / 20
-                comp_dict["tw_desc"][i] = "Referenced by at least 25 but less than 50 webpages"
-            elif sb_twitter < 25:
+                comp_dict["tw_desc"][i] = "Referenced by at least 10 but less than 40 webpages"
+            elif sb_twitter < 10:
                 comp_dict["Twitter"][i] = 0 / 20
-                comp_dict["tw_desc"][i] = "Referenced by less than 25 webpages"
+                comp_dict["tw_desc"][i] = "Referenced by less than 10 webpages"
 
             # Facebook
             if sb_facebook >= 100:
                 comp_dict["Facebook"][i] = 20 / 20
                 comp_dict["fb_desc"][i] = "Referenced by at least 100 webpages"
-            elif 100 > sb_facebook >= 50:
-                comp_dict["Facebook"][i] = 10 / 20
-                comp_dict["fb_desc"][i] = "Referenced by at least 50 but less than 100 webpages"
-            elif 50 > sb_facebook >= 25:
+            elif 100 > sb_facebook >= 40:
+                comp_dict["Facebook"][i] = 15 / 20
+                comp_dict["fb_desc"][i] = "Referenced by at least 40 but less than 100 webpages"
+            elif 40 > sb_facebook >= 10:
                 comp_dict["Facebook"][i] = 5 / 20
-                comp_dict["fb_desc"][i] = "Referenced by at least 25 but less than 50 webpages"
-            elif sb_facebook < 25:
+                comp_dict["fb_desc"][i] = "Referenced by at least 10 but less than 40 webpages"
+            elif sb_facebook < 10:
                 comp_dict["Facebook"][i] = 0 / 20
-                comp_dict["fb_desc"][i] = "Referenced by less than 25 webpages"
+                comp_dict["fb_desc"][i] = "Referenced by less than 10 webpages"
+
+            # Instagram
+            if sb_instagram >= 100:
+                comp_dict["Instagram"][i] = 20 / 20
+                comp_dict["insta_desc"][i] = "Referenced by at least 100 webpages"
+            elif 100 > sb_instagram >= 40:
+                comp_dict["Instagram"][i] = 15 / 20
+                comp_dict["insta_desc"][i] = "Referenced by at least 40 but less than 100 webpages"
+            elif 40 > sb_instagram >= 10:
+                comp_dict["Instagram"][i] = 5 / 20
+                comp_dict["insta_desc"][i] = "Referenced by at least 10 but less than 40 webpages"
+            elif sb_instagram < 10:
+                comp_dict["Instagram"][i] = 0 / 20
+                comp_dict["insta_desc"][i] = "Referenced by less than 10 webpages"
+
 
     elif output == "rank":
         videos = pd.read_csv("videos.csv", index_col=0)
@@ -155,7 +173,7 @@ def prepare_scores(output):
             if backlinks >= 100:
                 comp_dict["backlinks"][i] = 20 / 20
             elif 100 > backlinks >= 50:
-                comp_dict["backlinks"][i] = 10 / 20
+                comp_dict["backlinks"][i] = 15 / 20
             elif 50 > backlinks >= 25:
                 comp_dict["backlinks"][i] = 5 / 20
             elif backlinks < 25:
@@ -168,7 +186,7 @@ def prepare_scores(output):
             elif 0.60 > sub_score >= 0.50:
                 comp_dict["subjectivity"][i] = 5 / 20
             elif 0.50 > sub_score >= 0.30:
-                comp_dict["subjectivity"][i] = 10 / 20
+                comp_dict["subjectivity"][i] = 15 / 20
             elif sub_score < 0.30:
                 comp_dict["subjectivity"][i] = 20 / 20
 
@@ -185,20 +203,21 @@ def prepare_scores(output):
 def topsis(scores, output):
     if output == "vs":
         weights = {
-            "profiles": 0.15,
-            "external_sites": 0.15,
-            "LinkedIn": 0.25,
-            "Wiki": 0.25,
-            "Website": 0.10,
+            "profiles": 0.20,
+            "external_sites": 0.30,
+            "Wiki": 0.10,
+            "Website": 0.15,
+            "LinkedIn": 0.10,
             "Twitter": 0.05,
-            "Facebook": 0.05
+            "Facebook": 0.05,
+            "Instagram": 0.05
         }
 
     elif output == "rank":
         weights = {
-            "vs": 0.70,
-            "backlinks": 0.25,
-            "subjectivity": 0.05
+            "vs": 0.80,
+            "backlinks": 0.10,
+            "subjectivity": 0.10
         }
 
     wndm = {}
@@ -206,17 +225,21 @@ def topsis(scores, output):
     for column in weights.keys():
         temp_list = []
         x = 0
+        # print(column)
         for i in range(0, scores.shape[0]):
             num = scores.iloc[i][column] ** 2
             x += num
+            # print(f"num: {num}, index: [{i}]")
+        # print(f"x: {x}")
         denominator = sqrt(float(x))
-
-        if denominator == 0:
-            continue
 
         # Normalize scores
         for i in range(0, scores.shape[0]):
-            norm_score = scores.iloc[i][column] / denominator
+            if denominator == 0:
+                norm_score = 0.0
+            else:
+                norm_score = scores.iloc[i][column] / denominator
+
             temp_list.append(norm_score)
 
         # Apply weight
@@ -248,7 +271,8 @@ def topsis(scores, output):
 
     performance_ranks = []
     for i in range(0, wndm_df.shape[0]):
-        performance_ranks.append(dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i]))
+        result = dist_from_worst[i] / (dist_from_best[i] + dist_from_worst[i])
+        performance_ranks.append(result)
 
     performance_ranks = pd.Series(np.array(performance_ranks))
 
@@ -288,8 +312,8 @@ def topsis(scores, output):
 
 
 if __name__ == "__main__":
-    filename = input("Filename (w/o .csv): ")
-    path = os.getcwd() + "/datasets/" + filename
+    folder = input("Folder name: ")
+    path = os.getcwd() + "/datasets/" + folder
     os.chdir(path)
 
     topsis(prepare_scores(output="vs"), output="vs")
