@@ -70,7 +70,7 @@ function InfoCard(props) {
             
             <div className="channel-information">
               <div className="channel-links">
-                <h1>Profile Links:</h1>
+                <h1>Socials:</h1>
                 <div className='link-icon-container'>
                   {props.video.Website && 
                     <a className='link-icon-URL' href={fixURL(props.video.Website)}>
