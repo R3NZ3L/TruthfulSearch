@@ -1,6 +1,6 @@
 {
   "name": "Thesis Extension",
-  "description": "removes the recommendation section of the youtube watch page",
+  "description": "Adds the SIFT informational card on the youtube DOM",
   "version": "1.0",
   "manifest_version": 3,
   "content_scripts": [
