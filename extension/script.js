@@ -7,7 +7,7 @@ function fixURL(url) {
 }
 
 function backlinksSlice(string) { 
-    sliced = string.slice(14)
+    var sliced = string.slice(14)
     return sliced[0].toUpperCase() + sliced.slice(1)
 }
 
@@ -132,7 +132,7 @@ function template(data) {
             <thead>
                 <tr>
                 <th colSpan="2">Channel Verifiability Breakdown
-                    <span id='breakdown-tooltip'>&#9432</span>
+                    <span id='breakdown-tooltip'>&#9432;</span>
                     <span id='tooltip-modal'>
                         Backlinks describe the pages that reference another page 
                         and are used by Google in their search engine to determine 
