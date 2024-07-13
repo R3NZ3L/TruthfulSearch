@@ -4,7 +4,12 @@ function fixURL(url) {
     } else {
       return url
     }
-  }
+}
+
+function backlinksSlice(string) { 
+    sliced = string.slice(14)
+    return sliced[0].toUpperCase() + sliced.slice(1)
+}
 
 function valueCount(value) {
     const newValue = value.toString()
@@ -58,7 +63,7 @@ function template(data) {
             </div>
             <div>
                 <h2>${data.backlinks}</h2>
-                <h2>Video Cited By</h2>
+                <h2>Video Backlinks</h2>
             </div>
             </div>
         </div>
@@ -126,7 +131,14 @@ function template(data) {
             <table>
             <thead>
                 <tr>
-                <th colSpan="2">Verifiability Breakdown</th>
+                <th colSpan="2">Channel Verifiability Breakdown
+                    <span id='breakdown-tooltip'>&#9432</span>
+                    <span id='tooltip-modal'>
+                        Backlinks describe the pages that reference another page 
+                        and are used by Google in their search engine to determine 
+                        how “popular” a website is.
+                    </span>
+                </th>
                 </tr>
             </thead>
             <tbody>
@@ -140,27 +152,27 @@ function template(data) {
                 </tr>
                 <tr>
                 <td>Website Backlinks</td>
-                <td>${data.we_desc}</td>
+                <td>${backlinksSlice(data.we_desc)}</td>
                 </tr>
                 <tr>
                 <tr>
                 <td>Wikipedia Backlinks</td>
-                <td>${data.wi_desc}</td>
+                <td>${backlinksSlice(data.wi_desc)}</td>
                 </tr>
                 <td>LinkedIn Backlinks</td>
-                <td>${data.li_desc}</td>
+                <td>${backlinksSlice(data.li_desc)}</td>
                 </tr>
                 <tr>
                 <td>Twitter/X Backlinks</td>
-                <td>${data.tw_desc}</td>
+                <td>${backlinksSlice(data.tw_desc)}</td>
                 </tr>
                 <tr>
                 <td>Facebook Backlinks</td>
-                <td>${data.fb_desc}</td>
+                <td>${backlinksSlice(data.fb_desc)}</td>
                 </tr>
                 <tr>
                 <td>Instagram Backlinks</td>
-                <td>${data.insta_desc}</td>
+                <td>${backlinksSlice(data.insta_desc)}</td>
                 </tr>
             </tbody>
             </table>
@@ -168,6 +180,7 @@ function template(data) {
         </div>
     </div>`
 }
+
 
 let card = null
 function loadCard() {
@@ -187,6 +200,13 @@ function loadCard() {
         }
         element = document.getElementById('verifiability-score');
         element.style.backgroundColor = colors[element.innerText]; // set color depending on the verifiability category.
+        tooltip = document.getElementById('breakdown-tooltip')
+        tooltip.addEventListener('mouseover', (event) => {
+            document.getElementById('tooltip-modal').style.opacity = 1;
+        });
+        tooltip.addEventListener('mouseout', (event) => {
+            document.getElementById('tooltip-modal').style.opacity = 0;
+        });
     }
 }
 

@@ -52,6 +52,27 @@
   border-radius: 5px;
 }
 
+thead th {
+  padding: 5px 0;
+}
+
+thead span {
+  padding: 0 10px;
+}
+
+th, td, thead span {
+  font-size: 1.2rem;
+}
+
+#tooltip-modal {
+  opacity: 0;
+  padding: 5px;
+  position: absolute;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+}
+
 .main-content h2{
   /*text-transform: uppercase; */
   font-weight: 900;
