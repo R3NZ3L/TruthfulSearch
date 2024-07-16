@@ -4,7 +4,7 @@ from YT_scraper import yt_scrape
 from old_source_checker import find_sources
 from TOPSIS import topsis
 from TOPSIS import prepare_scores
-from backlinks import get_backlinks
+# from backlinks import get_backlinks
 from subjectivity import subjectivity
 
 if __name__ == '__main__':
