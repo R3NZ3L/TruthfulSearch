@@ -195,8 +195,8 @@ function loadCard() {
             'Cannot be verified': 'red', 
             'Not so Verifiable': '#FF7400', 
             'Somewhat Verifiable': '#FFC100', 
-            'Verifiable': '#A6D96A', 
-            'Very Verifiable': 'green'
+            'Mostly Verifiable': '#A6D96A', 
+            'Verifiable': 'green'
         }
         element = document.getElementById('verifiability-score');
         element.style.backgroundColor = colors[element.innerText]; // set color depending on the verifiability category.
