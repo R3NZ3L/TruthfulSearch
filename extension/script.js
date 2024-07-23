@@ -192,11 +192,11 @@ function loadCard() {
         node.innerHTML = card;
         parent.insertBefore(node, parent.firstChild);
         colors = {
-            'Cannot be verified': '#8B0000', 
-            'Not so Verifiable': '#FF8C00', 
-            'Somewhat Verifiable': '#8B8000', 
-            'Verifiable': '#008B8B', 
-            'Very Verifiable': '#006400'
+            'Cannot be verified': 'red', 
+            'Not so Verifiable': '#FF7400', 
+            'Somewhat Verifiable': '#FFC100', 
+            'Verifiable': '#A6D96A', 
+            'Very Verifiable': 'green'
         }
         element = document.getElementById('verifiability-score');
         element.style.backgroundColor = colors[element.innerText]; // set color depending on the verifiability category.
