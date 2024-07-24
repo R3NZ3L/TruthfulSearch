@@ -158,7 +158,7 @@ def prepare_scores(output):
 
         comp_dict = {
             "video_id": {}, "vs": {}, "backlinks": {},
-            "subjectivity": {}
+            # "subjectivity": {}
         }
 
         for i in range(videos.shape[0]):
@@ -179,6 +179,7 @@ def prepare_scores(output):
             elif backlinks < 25:
                 comp_dict["backlinks"][i] = 0 / 20
 
+            # '''
             sub_score = ss_df.iloc[i]["subjectivity"]
 
             if sub_score == -1.0 or sub_score >= 0.60:
@@ -189,7 +190,7 @@ def prepare_scores(output):
                 comp_dict["subjectivity"][i] = 15 / 20
             elif sub_score < 0.30:
                 comp_dict["subjectivity"][i] = 20 / 20
-
+            # '''
 
     comp_df = pd.DataFrame.from_dict(comp_dict)
 
@@ -214,11 +215,20 @@ def topsis(scores, output):
         }
 
     elif output == "rank":
+        # '''
         weights = {
             "vs": 0.80,
             "backlinks": 0.10,
             "subjectivity": 0.10
         }
+        # '''
+
+        '''
+        weights = {
+            "vs": 0.85,
+            "backlinks": 0.15,
+        }
+        # '''
 
     wndm = {}
 
