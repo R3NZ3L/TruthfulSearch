@@ -9,6 +9,11 @@ CORS(app)
 
 mostVerifiedSort = ['Cannot be verified', 'Not so Verifiable', 'Somewhat Verifiable', 'Mostly Verifiable', 'Verifiable']
 
+MYSQLPORT = "3306"
+MYSQLUSER = "user"
+MYSQLPASSWORD = "12345678"
+MYSQLIP = "18.142.50.165"
+
 @app.route('/', methods=['GET'])
 def hello():
     return 'Truthful Search API Homepage'
@@ -21,7 +26,7 @@ def get_data():
             dbConnection = None
             topic = request.args.get('topic')
             sort = request.args.get('sort')
-            engine = db.create_engine("mysql+pymysql://user:12345678@18.142.50.165:3306/" + topic)
+            engine = db.create_engine(f"mysql+pymysql://{MYSQLUSER}:{MYSQLPASSWORD}@{MYSQLIP}:{MYSQLPORT}/{topic}")
             dbConnection = engine.connect()
             videos_df = pd.DataFrame(dbConnection.execute(db.text("SELECT * FROM videos")))
             videos_df[videos_df.select_dtypes(include=[np.number]).columns] = videos_df.select_dtypes(include=[np.number]).fillna(0) 
