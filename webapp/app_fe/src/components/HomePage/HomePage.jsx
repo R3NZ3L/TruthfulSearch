@@ -10,7 +10,7 @@ function HomePage() {
     const possibleTopics = ["covid_philippines", "covid_vaccine", "israel_palestine_conflict_history"] 
     const [videoData, setVideoData] = useState(null)
     const [videoShown, setVideoShown] = useState(0)
-    const [sortResultBy, setSortResultBy] = useState("verifiability")
+    const [sortResultBy, setSortResultBy] = useState("channel_verifiability")
 
     useEffect(() => {
         getData()
@@ -30,14 +30,6 @@ function HomePage() {
             setTopic(e.target.value) // change topic which will trigger another data fetching and rerender.
         } else {
             setTopic("covid_philippines") // default
-        }
-    }
-
-    const changeSort = (e) => {
-        if (possibleSorts.includes(e.target.value)) {
-            setSortResultBy(e.target.value) // change sort which will trigger another data fetching and rerender.
-        } else {
-            setSortResultBy('verifiability') // default
         }
     }
 

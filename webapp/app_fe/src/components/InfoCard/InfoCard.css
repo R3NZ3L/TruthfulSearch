@@ -27,6 +27,37 @@
   border: 7px solid #fff;
 }
 
+#score-container {
+  color: white;
+  font-size: 1.5rem;
+  margin: 5px 0;
+}
+
+#verifiability-score {
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+thead th {
+  padding: 5px 0;
+}
+
+thead span {
+  padding: 0 10px;
+}
+
+th, td, thead span {
+  font-size: 1.2rem;
+}
+
+#tooltip-modal {
+  padding: 5px;
+  position: absolute;
+  background-color: gray;
+  color: white;
+  border-radius: 5px;
+}
+
 .card:hover .img2 img {
   border-color: darkcyan;
   transition: .7s;

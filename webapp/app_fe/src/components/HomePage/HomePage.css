@@ -1,23 +1,29 @@
 #brand {
-    position: absolute;
     font-size: 2em;
     font-weight: 900;
     margin-top: -2px;
+    display: inline;
 }
 
-#search_bar {
-    margin: auto auto 5em auto;
+#header {
+    display: grid;
+    grid-template-columns: 1fr 500px 1fr;
+}
+
+#header #search_bar {
     text-align: center;
 }
 
 #topic_choices {
     font-size: 1.5rem;
     padding: 0.5rem;
-    width: 40rem;
     border-radius: 20px 0 0 20px;
+    width: 400px;
+    display: inline;
 }
 
 #search_bar button {
+    display: inline;
     margin: auto;
     font-size: 1.35rem;
     padding: 0.43rem 1em 0.4rem 1em;

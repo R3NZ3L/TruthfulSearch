@@ -1,6 +1,9 @@
 import './InfoCard.css'
+import {useState} from 'react';
 
 function InfoCard(props) {
+
+    const [visibleModal, setVisibleModal] = useState(false);
 
     function fixURL(url) { 
       if (url.slice(0,8) != 'https://') {
@@ -9,6 +12,11 @@ function InfoCard(props) {
         return url
       }
     }
+
+    function backlinksSlice(string) { 
+      var sliced = string.slice(14)
+      return sliced[0].toUpperCase() + sliced.slice(1)
+    }  
 
     function valueCount(value) {
       const newValue = value.toString()
@@ -34,24 +42,24 @@ function InfoCard(props) {
           return returnable + "B"
       }
   }
-
+  
   const position = {
     "top":  props.videoPosition,
     "position": "relative"
   }
 
-  
   return (
       <div className="card" style={position}>
           <div className="img2"><img src={props.video.profile} /></div>
           <div className="main-content">
             <div className="details">
               <h2 className="channel_name">{props.video.channel_name}</h2>
+              
               <h1>{props.video.video_title}</h1>
               <div className="channel-numbers">
                 <div>
                   <h2>{valueCount(props.video.sub_count)}</h2>
-                  <h2>Subscriber</h2>
+                  <h2>Subscribers</h2>
                 </div>
                 <div>
                   <h2>{valueCount(props.video.like_count)}</h2>
@@ -63,7 +71,7 @@ function InfoCard(props) {
                 </div>
                 <div>
                   <h2>{valueCount(props.video.backlinks)}</h2>
-                  <h2>Video Cited By</h2>
+                  <h2>Video Backlinks</h2>
                 </div>
               </div>
             </div>
@@ -105,15 +113,27 @@ function InfoCard(props) {
                 </div>
               </div>
             </div>
+            
             <div className="video-score-breakdown">
               <table>
                 <thead>
                   <tr>
-                    <th colSpan="2">Verifiability Breakdown</th>
+                    <th colSpan="2">Channel Verifiability Breakdown
+                      <span id='breakdown-tooltip' onMouseOver={() => setVisibleModal(true)} onMouseLeave={() => setVisibleModal(false)}>
+                        &#9432;
+                      { visibleModal &&
+                      <span id='tooltip-modal'>
+                          Backlinks describe the pages that reference another page 
+                          and are used by Google in their search engine to determine 
+                          how “popular” a website is.
+                      </span>
+                      }
+                      </span>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                <tr>
                     <td>Profiles (LinkedIn, Facebook, and Twitter/X)</td>
                     <td>{props.video.p_desc}</td>
                   </tr>
@@ -123,27 +143,27 @@ function InfoCard(props) {
                   </tr>
                   <tr>
                     <td>Website Backlinks</td>
-                    <td>{props.video.we_desc}</td>
+                    <td>{backlinksSlice(props.video.we_desc)}</td>
                   </tr>
                   <tr>
                     <td>Wikipedia Backlinks</td>
-                    <td>{props.video.wi_desc}</td>
+                    <td>{backlinksSlice(props.video.wi_desc)}</td>
                   </tr>
                   <tr>
                     <td>LinkedIn Backlinks</td>
-                    <td>{props.video.li_desc}</td>
+                    <td>{backlinksSlice(props.video.li_desc)}</td>
                   </tr>
                   <tr>
                     <td>Twitter/X Backlinks</td>
-                    <td>{props.video.tw_desc}</td>
+                    <td>{backlinksSlice(props.video.tw_desc)}</td>
                   </tr>
                   <tr>
                     <td>Facebook Backlinks</td>
-                    <td>{props.video.fb_desc}</td>
+                    <td>{backlinksSlice(props.video.fb_desc)}</td>
                   </tr>
                   <tr>
                     <td>Instagram Backlinks</td>
-                    <td>{props.video.insta_desc}</td>
+                    <td>{backlinksSlice(props.video.insta_desc)}</td>
                   </tr>
                 </tbody>
               </table>

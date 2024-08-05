@@ -7,11 +7,11 @@ function Video(props) {
     const [visibleToolTip, setVisibleToolTip] = useState(false);
 
     const scoreColor = {
-        "backgroundColor":  props.videoInfo.category == 'Cannot be verified' ? "#8B0000"        : 
-                            props.videoInfo.category == 'Not so Verifiable' ? "	#FF8C00"     : 
-                            props.videoInfo.category == 'Somewhat Verifiable' ? "#8B8000"    :
-                            props.videoInfo.category == 'Verifiable' ? "#008B8B"  :
-                            props.videoInfo.category == 'Very Verifiable' ? "#006400" : "black"
+        "backgroundColor":  props.videoInfo.category == 'Cannot be verified' ? "red"        : 
+                            props.videoInfo.category == 'Not so Verifiable' ? "	#FF7400"     : 
+                            props.videoInfo.category == 'Somewhat Verifiable' ? "#FFC100"    :
+                            props.videoInfo.category == 'Mostly Verifiable' ? "#A6D96A"  :
+                            props.videoInfo.category == 'Verifiable' ? "green" : "black"
     } 
 
     const backgroundColor = {
