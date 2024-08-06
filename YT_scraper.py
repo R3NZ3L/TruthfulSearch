@@ -13,8 +13,7 @@ from tqdm import tqdm
 import os
 
 # Put your personal API key here
-# DLSU account key
-apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58'
+apiKey = ""
 
 # YouTube API object
 youtube = build('youtube', 'v3', developerKey=apiKey)

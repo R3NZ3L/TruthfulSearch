@@ -13,22 +13,10 @@ import os
 import time
 
 # Put your personal API key here
-# DLSU account key
-# apiKey = 'AIzaSyCIplXpNgYZ2IS44ZYyEi-hXRu1gzl9I58' # Aldecoa
-# apiKey = 'AIzaSyCl5w8PQxEpIN8cdePhSXfD9-UDWOpDiV8' # 2nd acct Aldecoa
-# apiKey = 'AIzaSyDrA3VG9qxJOSxgcQKpcuQgjQVA1XjtpbQ' # 3rd acct Aldecoa
-apiKey = 'AIzaSyArOhr0YzT5COfhoQJxU4iynn4hS_Gqpro' # 4th acct Aldecoa
-# apiKey = 'AIzaSyCJBMIMpGpBdmTkx7SRhObSNAyV_aRSjho' # Aquino (DLSU)
-# apiKey = 'AIzaSyDZlAPC29rxMjh-gu-ZfgTPb8wrRLglrs4' # 2nd acct Aquino
-# apiKey = 'AIzaSyAZxwwAfgVoTSys4HCiirvs-h0ynph-rmU' # 3rd acct Aquino
-# apiKey = 'AIzaSyDKBteFADAddCvCCvEKrfJRFSxc-ovflsQ' # Baura
-# apiKey = 'AIzaSyAPvryNBQ3TkXwqBJdW9_0AkhhCYZRtA2c' # Sevillana
+apiKey = ""
 
-# Search engine ID
-cseKey = "23c1c70a203ac4852" # Aldecoa
-# cseKey = "a7c987e23f0fe448e" # Aquino
-# cseKey = "05e988b88095c4deb" # Baura
-# cseKey = "f465f751a15a34c35" # Sevillana
+# Put your Programmable Search Engine key here
+cseKey = ""
 
 # Google Custom Search API
 google_resource = build("customsearch", "v1", developerKey=apiKey).cse()
