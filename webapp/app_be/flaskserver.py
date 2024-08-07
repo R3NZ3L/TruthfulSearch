@@ -10,9 +10,9 @@ CORS(app)
 mostVerifiedSort = ['Cannot be verified', 'Not so Verifiable', 'Somewhat Verifiable', 'Mostly Verifiable', 'Verifiable']
 
 MYSQLPORT = "3306"
-MYSQLUSER = "user"
+MYSQLUSER = "root"
 MYSQLPASSWORD = "12345678"
-MYSQLIP = "18.142.50.165"
+MYSQLIP = "localhost"
 
 @app.route('/', methods=['GET'])
 def hello():
